@@ -1,56 +1,84 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
   View, 
   Text, 
   StyleSheet, 
   TouchableOpacity, 
   ScrollView, 
-  Dimensions 
+  Dimensions,
+  Image 
 } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { globalStyles } from '../styles/globalStyles';
 import { Colors, Spacing, Typography } from '../constants/theme';
 import { CATEGORIES } from '../constants/config';
+import { EBOOKS, filterEbooks } from '../constants/ebooks';
 
 const { width } = Dimensions.get('window');
 
 export default function SearchResultsScreen({ route, navigation }) {
   const { t } = useTranslation();
   const { filters } = route.params || {};
+  const [filteredEbooks, setFilteredEbooks] = useState([]);
   
-  // Mock search results grouped by category
-  const searchResults = {
-    'Mother Language': [
-      { id: 1, title: 'E-Book Title', type: 'ebook' },
-      { id: 2, title: 'E-Book Title', type: 'ebook' },
-      { id: 3, title: 'E-Book Title', type: 'ebook' },
-    ],
-    'Foreign Languages': [
-      { id: 4, title: 'E-Book Title', type: 'ebook' },
-      { id: 5, title: 'E-Book Title', type: 'ebook' },
-      { id: 6, title: 'E-Book Title', type: 'ebook' },
-    ],
-    'Ethics & Religion': [
-      { id: 7, title: 'E-Book Title', type: 'ebook' },
-      { id: 8, title: 'E-Book Title', type: 'ebook' },
-    ],
+  useEffect(() => {
+    // Filtreleri uygula
+    const results = filterEbooks(EBOOKS, filters);
+    setFilteredEbooks(results);
+  }, [filters]);
+  
+  // E-book'ları kategoriye göre grupla
+  const groupEbooksByCategory = () => {
+    const grouped = {};
+    filteredEbooks.forEach(ebook => {
+      const category = CATEGORIES.find(cat => cat.id === ebook.categoryId);
+      const categoryName = category ? (category.titleTR || category.title) : 'Diğer';
+      
+      if (!grouped[categoryName]) {
+        grouped[categoryName] = [];
+      }
+      grouped[categoryName].push(ebook);
+    });
+    return grouped;
   };
+  
+  const searchResults = groupEbooksByCategory();
 
-  const ResultCard = ({ item }) => (
+  const EbookCard = ({ ebook }) => (
     <TouchableOpacity 
       style={styles.resultCard}
-      onPress={() => alert(`${item.title} açılıyor...`)}
+      onPress={() => navigation.navigate('EbookViewer', { ebook })}
     >
       <View style={styles.cardContent}>
-        <View style={styles.cardIcon}>
-          <Text style={styles.cardIconText}>•</Text>
+        {ebook.image ? (
+          <Image
+            source={ebook.image}
+            style={styles.ebookImage}
+          />
+        ) : (
+          <View style={styles.placeholderImage}>
+            <Text style={styles.placeholderText}>
+              {ebook.fileUrl ? '📄' : '📚'}
+            </Text>
+          </View>
+        )}
+        <View style={styles.ebookInfo}>
+          <Text style={styles.cardTitle}>{ebook.title}</Text>
+          <Text style={styles.ebookDescription}>{ebook.description}</Text>
+          <View style={styles.ebookMeta}>
+            <Text style={styles.metaText}>
+              {ebook.ageRange.min}-{ebook.ageRange.max} yaş
+            </Text>
+            <Text style={styles.metaText}>
+              {t(`time_options.${ebook.duration}`)}
+            </Text>
+          </View>
         </View>
       </View>
-      <Text style={styles.cardTitle}>{item.title}</Text>
     </TouchableOpacity>
   );
 
-  const CategorySection = ({ categoryName, items }) => (
+  const CategorySection = ({ categoryName, ebooks }) => (
     <View style={styles.categorySection}>
       <Text style={styles.categoryName}>{categoryName}</Text>
       <ScrollView 
@@ -58,8 +86,8 @@ export default function SearchResultsScreen({ route, navigation }) {
         showsHorizontalScrollIndicator={false}
         contentContainerStyle={styles.horizontalScroll}
       >
-        {items.map((item) => (
-          <ResultCard key={item.id} item={item} />
+        {ebooks.map((ebook) => (
+          <EbookCard key={ebook.id} ebook={ebook} />
         ))}
       </ScrollView>
     </View>
@@ -80,13 +108,21 @@ export default function SearchResultsScreen({ route, navigation }) {
 
       {/* Results */}
       <ScrollView style={styles.content}>
-        {Object.entries(searchResults).map(([categoryName, items]) => (
-          <CategorySection
-            key={categoryName}
-            categoryName={categoryName}
-            items={items}
-          />
-        ))}
+        {Object.entries(searchResults).length > 0 ? (
+          Object.entries(searchResults).map(([categoryName, ebooks]) => (
+            <CategorySection
+              key={categoryName}
+              categoryName={categoryName}
+              ebooks={ebooks}
+            />
+          ))
+        ) : (
+          <View style={styles.noResults}>
+            <Text style={styles.noResultsText}>
+              {t('search_results.no_results')}
+            </Text>
+          </View>
+        )}
         
         {/* Filter Summary */}
         {filters && (
@@ -152,8 +188,8 @@ const styles = StyleSheet.create({
     paddingRight: Spacing.md,
   },
   resultCard: {
-    width: 120,
-    height: 140,
+    width: 200,
+    height: 160,
     backgroundColor: Colors.surface,
     borderRadius: 12,
     padding: Spacing.sm,
@@ -166,30 +202,64 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.1,
     shadowRadius: 4,
     elevation: 3,
-    alignItems: 'center',
   },
   cardContent: {
+    flexDirection: 'row',
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
   },
-  cardIcon: {
-    width: 50,
-    height: 50,
-    borderRadius: 25,
+  ebookImage: {
+    width: 60,
+    height: 80,
+    borderRadius: 8,
     backgroundColor: Colors.background,
-    justifyContent: 'center',
-    alignItems: 'center',
   },
-  cardIconText: {
-    fontSize: 24,
+  ebookInfo: {
+    flex: 1,
+    marginLeft: Spacing.sm,
+    justifyContent: 'space-between',
   },
   cardTitle: {
     fontSize: Typography.sizes.small,
     fontWeight: Typography.weights.medium,
     color: Colors.text,
+    marginBottom: Spacing.xs,
+  },
+  ebookDescription: {
+    fontSize: Typography.sizes.tiny,
+    color: Colors.textSecondary,
+    marginBottom: Spacing.xs,
+  },
+  ebookMeta: {
+    marginTop: 'auto',
+  },
+  metaText: {
+    fontSize: Typography.sizes.tiny,
+    color: Colors.primary,
+    marginBottom: 2,
+  },
+  noResults: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingVertical: Spacing.xl,
+  },
+  noResultsText: {
+    fontSize: Typography.sizes.medium,
+    color: Colors.textSecondary,
     textAlign: 'center',
-    marginTop: Spacing.sm,
+  },
+  placeholderImage: {
+    width: 60,
+    height: 80,
+    borderRadius: 8,
+    backgroundColor: Colors.background,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderWidth: 1,
+    borderColor: Colors.border,
+  },
+  placeholderText: {
+    fontSize: 24,
   },
   filterSummary: {
     backgroundColor: Colors.surface,

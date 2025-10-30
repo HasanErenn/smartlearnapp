@@ -8,7 +8,8 @@
     "explore_button": "Explore",
     "reset_filters": "Reset Filters",
     "version": "Version",
-    "cancel": "Cancel"
+    "cancel": "Cancel",
+    "years_old": "years old"
   },
   "home": {
     "greeting": "Hello,",
@@ -78,5 +79,12 @@
     "contact": "Contact",
     "contact_text": "You can contact us with your questions and suggestions. We would be happy to help you.",
     "rights_reserved": "All rights reserved."
+  },
+  "ebook_viewer": {
+    "tap_to_fullscreen": "Tap for fullscreen",
+    "tags": "Tags",
+    "age_range": "Age Range",
+    "duration": "Duration",
+    "years_old": "years old"
   }
 }

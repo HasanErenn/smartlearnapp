@@ -5,11 +5,13 @@ import {
   StyleSheet, 
   TouchableOpacity, 
   ScrollView, 
-  Dimensions 
+  Dimensions,
+  Image 
 } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { globalStyles } from '../styles/globalStyles';
 import { Colors, Spacing, Typography } from '../constants/theme';
+import { getEbooksByCategory } from '../constants/ebooks';
 
 const { width } = Dimensions.get('window');
 
@@ -17,28 +19,17 @@ export default function CategoryDetailScreen({ route, navigation }) {
   const { t } = useTranslation();
   const { category } = route.params;
   
-  // Mock data for educational materials
-  const materials = [
+  // Kategoriye göre e-book'ları getir (static)
+  const categoryEbooks = getEbooksByCategory(category.id);
+  
+  // Mock data for other educational materials
+  const otherMaterials = [
     {
       id: 1,
       title: `${category.titleTR} 1`,
       type: 'lesson',
       duration: '25 mins',
       difficulty: 'Başlangıç'
-    },
-    {
-      id: 2,
-      title: 'E-Book Title',
-      type: 'ebook',
-      duration: '45 mins',
-      difficulty: 'Orta'
-    },
-    {
-      id: 3,
-      title: 'E-Book Title',
-      type: 'ebook',
-      duration: '30 mins',
-      difficulty: 'İleri'
     },
     {
       id: 4,
@@ -87,13 +78,22 @@ export default function CategoryDetailScreen({ route, navigation }) {
   const MaterialCard = ({ material, index }) => {
     const isSpecialCard = index === 0; // First card has special design
     
+    const handlePress = () => {
+      // E-book ise EbookViewer'a yönlendir
+      if (material.categoryId && material.image) {
+        navigation.navigate('EbookViewer', { ebook: material });
+      } else {
+        alert(`${material.title} açılıyor...`);
+      }
+    };
+    
     return (
       <TouchableOpacity 
         style={[
           styles.materialCard,
           isSpecialCard && styles.specialCard
         ]}
-        onPress={() => alert(`${material.title} açılıyor...`)}
+        onPress={handlePress}
       >
         {isSpecialCard && (
           <View style={[styles.specialCardBg, { backgroundColor: category.color }]}>
@@ -121,27 +121,63 @@ export default function CategoryDetailScreen({ route, navigation }) {
         
         {!isSpecialCard && (
           <View style={styles.regularCardContent}>
-            <View style={styles.materialIcon}>
-              <Text style={styles.materialIconText}>•</Text>
-            </View>
+            {/* E-book için özel görsel/dosya göster */}
+            {material.image ? (
+              // PNG görsel varsa direkt göster
+              <Image
+                source={material.image}
+                style={styles.ebookImage}
+              />
+            ) : material.fileUrl ? (
+              // PDF dosyası varsa PDF ikonu göster
+              <View style={styles.pdfIcon}>
+                <Text style={styles.pdfIconText}>📄</Text>
+                <Text style={styles.pdfLabel}>PDF</Text>
+              </View>
+            ) : (
+              // Hiçbiri yoksa varsayılan ikon
+              <View style={styles.materialIcon}>
+                <Text style={styles.materialIconText}>📚</Text>
+              </View>
+            )}
+            
+            {/* E-book meta bilgileri */}
+            {material.ageRange && (
+              <Text style={styles.ebookMeta}>
+                {material.ageRange.min}-{material.ageRange.max} yaş
+              </Text>
+            )}
           </View>
         )}
         
         <Text style={[styles.materialTitle, isSpecialCard && styles.specialMaterialTitle]}>
           {material.title}
         </Text>
+        
+        {/* E-book açıklaması */}
+        {material.description && (
+          <Text style={styles.materialDescription}>
+            {material.description}
+          </Text>
+        )}
       </TouchableOpacity>
     );
   };
 
   const renderMaterials = () => {
     const rows = [];
-    for (let i = 0; i < materials.length; i += 3) {
+    // E-book'ları ve diğer materyalleri birleştir ve benzersiz key'ler ekle
+    const allMaterials = [
+      ...categoryEbooks.map(item => ({...item, uniqueId: `ebook-${item.id}`})),
+      ...otherMaterials.map(item => ({...item, uniqueId: `material-${item.id}`}))
+    ];
+    
+    for (let i = 0; i < allMaterials.length; i += 3) {
       rows.push(
-        <View key={i} style={styles.materialRow}>
-          {materials.slice(i, i + 3).map((material, index) => (
+        <View key={`row-${i}`} style={styles.materialRow}>
+          {allMaterials.slice(i, i + 3).map((material, index) => (
             <MaterialCard 
-              key={material.id} 
+              key={material.uniqueId} 
               material={material} 
               index={i + index}
             />
@@ -282,5 +318,43 @@ const styles = StyleSheet.create({
   specialMaterialTitle: {
     color: Colors.text,
     fontSize: Typography.sizes.small,
+  },
+  ebookImage: {
+    width: 60,
+    height: 80,
+    borderRadius: 8,
+    backgroundColor: Colors.background,
+  },
+  ebookMeta: {
+    fontSize: Typography.sizes.tiny,
+    color: Colors.primary,
+    marginTop: Spacing.xs,
+    textAlign: 'center',
+  },
+  materialDescription: {
+    fontSize: Typography.sizes.tiny,
+    color: Colors.textSecondary,
+    textAlign: 'center',
+    marginTop: Spacing.xs,
+    paddingHorizontal: Spacing.xs,
+  },
+  pdfIcon: {
+    width: 60,
+    height: 80,
+    borderRadius: 8,
+    backgroundColor: Colors.background,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderWidth: 1,
+    borderColor: Colors.border,
+  },
+  pdfIconText: {
+    fontSize: 24,
+    marginBottom: 4,
+  },
+  pdfLabel: {
+    fontSize: 10,
+    color: Colors.textSecondary,
+    fontWeight: Typography.weights.bold,
   },
 });

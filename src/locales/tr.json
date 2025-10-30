@@ -8,7 +8,8 @@
     "explore_button": "Keşfet",
     "reset_filters": "Filtreleri Sıfırla",
     "version": "Sürüm",
-    "cancel": "İptal"
+    "cancel": "İptal",
+    "years_old": "yaş"
   },
   "home": {
     "greeting": "Merhaba,",
@@ -54,7 +55,8 @@
     "applied_filters": "Uygulanan Filtreler:",
     "age_filter": "Yaş: {{min}} - {{max}}",
     "time_filter": "Süre: {{times}}",
-    "topics_filter": "Konular: {{count}} konu seçildi"
+    "topics_filter": "Konular: {{count}} konu seçildi",
+    "no_results": "Seçtiğiniz filtrelere uygun içerik bulunamadı. Lütfen filtreleri değiştirip tekrar deneyin."
   },
   "time_options": {
     "15_25_mins": "15 - 25 dakika",
@@ -78,5 +80,21 @@
     "contact": "İletişim",
     "contact_text": "Sorularınız ve önerileriniz için bizimle iletişime geçebilirsiniz. Size yardımcı olmaktan mutluluk duyarız.",
     "rights_reserved": "Tüm hakları saklıdır."
+  },
+  "ebooks": {
+    "title": "E-Kitaplar",
+    "age_range": "Yaş Aralığı",
+    "duration": "Süre",
+    "difficulty": "Zorluk",
+    "beginner": "Başlangıç",
+    "intermediate": "Orta",
+    "advanced": "İleri"
+  },
+  "ebook_viewer": {
+    "tap_to_fullscreen": "Tam ekran için dokun",
+    "tags": "Etiketler",
+    "age_range": "Yaş Aralığı",
+    "duration": "Süre",
+    "years_old": "yaş"
   }
 }

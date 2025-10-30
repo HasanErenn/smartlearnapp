@@ -12,6 +12,7 @@ import { useTranslation } from 'react-i18next';
 import { globalStyles } from '../styles/globalStyles';
 import { Colors, Spacing, Typography } from '../constants/theme';
 import { CATEGORIES, TIME_OPTIONS, AGE_RANGE } from '../constants/config';
+import { EBOOKS, filterEbooks } from '../constants/ebooks';
 
 const { width } = Dimensions.get('window');
 
@@ -111,9 +112,9 @@ export default function ExploreScreen({ navigation }) {
           <View style={styles.section}>
             <Text style={styles.sectionTitle}>{t('explore.time')}</Text>
             <View style={styles.timeOptionsContainer}>
-              {TIME_OPTIONS.map((option, index) => (
+              {TIME_OPTIONS.map((option) => (
                 <TimeOption
-                  key={index}
+                  key={`time-${option.key}`}
                   option={option}
                   isSelected={selectedTimes.includes(option.key)}
                   onPress={() => toggleTimeSelection(option.key)}
@@ -128,7 +129,7 @@ export default function ExploreScreen({ navigation }) {
             <View style={styles.topicsContainer}>
               {CATEGORIES.map((category) => (
                 <TopicOption
-                  key={category.id}
+                  key={`topic-${category.id}`}
                   category={category}
                   isSelected={selectedTopics.includes(category.id)}
                   onPress={() => toggleTopicSelection(category.id)}

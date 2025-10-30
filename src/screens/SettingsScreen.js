@@ -36,6 +36,8 @@ export default function SettingsScreen({ navigation }) {
     setLanguageModalVisible(true);
   };
 
+
+
   const SettingItem = ({ title, description, value, onToggle, type = 'switch', flag, customContent }) => (
     <View style={styles.settingItem}>
       <View style={styles.settingContent}>
@@ -373,4 +375,5 @@ const styles = StyleSheet.create({
     color: Colors.textSecondary,
     fontWeight: Typography.weights.medium,
   },
+
 });

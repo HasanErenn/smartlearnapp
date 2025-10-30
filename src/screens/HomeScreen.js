@@ -25,10 +25,10 @@ export default function HomeScreen({ navigation }) {
     const rows = [];
     for (let i = 0; i < CATEGORIES.length; i += 2) {
       rows.push(
-        <View key={i} style={styles.categoryRow}>
-          <CategoryCard category={CATEGORIES[i]} index={i} />
+        <View key={`category-row-${i}`} style={styles.categoryRow}>
+          <CategoryCard key={`category-${CATEGORIES[i].id}`} category={CATEGORIES[i]} index={i} />
           {CATEGORIES[i + 1] && (
-            <CategoryCard category={CATEGORIES[i + 1]} index={i + 1} />
+            <CategoryCard key={`category-${CATEGORIES[i + 1].id}`} category={CATEGORIES[i + 1]} index={i + 1} />
           )}
         </View>
       );
