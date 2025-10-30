@@ -6,6 +6,7 @@ export const Colors = {
   warning: '#FF9500',
   error: '#FF3B30',
   background: '#FFE1CC', // Background alternative color
+  backgroundLight: '#FFF5F0', // Light background for containers
   surface: '#FFFFFF',
   text: '#2D3436',
   textSecondary: '#636E72',

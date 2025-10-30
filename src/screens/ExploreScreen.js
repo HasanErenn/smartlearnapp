@@ -90,19 +90,45 @@ export default function ExploreScreen({ navigation }) {
           <View style={styles.section}>
             <Text style={styles.sectionTitle}>Age Range</Text>
             <View style={styles.ageRangeContainer}>
+              
+              {/* Min Age Slider */}
+              <Text style={styles.sliderLabel}>Minimum Age: {ageRange[0]} years</Text>
               <Slider
                 style={styles.slider}
                 minimumValue={AGE_RANGE.min}
-                maximumValue={AGE_RANGE.max}
-                value={ageRange[1]}
-                onValueChange={(value) => setAgeRange([ageRange[0], Math.round(value)])}
+                maximumValue={ageRange[1] - 1} // Max can't be less than min
+                value={ageRange[0]}
+                onValueChange={(value) => {
+                  const newMin = Math.round(value);
+                  setAgeRange([newMin, Math.max(newMin + 1, ageRange[1])]);
+                }}
                 minimumTrackTintColor={Colors.primary}
                 maximumTrackTintColor={Colors.border}
                 thumbStyle={styles.sliderThumb}
+                step={1}
               />
-              <View style={styles.ageLabels}>
-                <Text style={styles.ageLabel}>{ageRange[0]}</Text>
-                <Text style={styles.ageLabel}>{ageRange[1]}</Text>
+              
+              {/* Max Age Slider */}
+              <Text style={styles.sliderLabel}>Maximum Age: {ageRange[1]} years</Text>
+              <Slider
+                style={styles.slider}
+                minimumValue={ageRange[0] + 1} // Min can't be more than max
+                maximumValue={AGE_RANGE.max}
+                value={ageRange[1]}
+                onValueChange={(value) => {
+                  const newMax = Math.round(value);
+                  setAgeRange([Math.min(ageRange[0], newMax - 1), newMax]);
+                }}
+                minimumTrackTintColor={Colors.secondary}
+                maximumTrackTintColor={Colors.border}
+                thumbStyle={[styles.sliderThumb, { backgroundColor: Colors.secondary }]}
+                step={1}
+              />
+              
+              <View style={styles.ageRangeDisplay}>
+                <Text style={styles.ageRangeText}>
+                  Selected Range: {ageRange[0]} - {ageRange[1]} years
+                </Text>
               </View>
             </View>
           </View>
@@ -203,25 +229,40 @@ const styles = StyleSheet.create({
   },
   ageRangeContainer: {
     marginHorizontal: Spacing.sm,
+    paddingVertical: Spacing.md,
+    backgroundColor: Colors.backgroundLight,
+    borderRadius: 12,
+    padding: Spacing.md,
   },
   slider: {
     width: '100%',
     height: 40,
+    marginBottom: Spacing.sm,
+  },
+  sliderLabel: {
+    fontSize: Typography.sizes.small,
+    fontWeight: Typography.weights.medium,
+    color: Colors.text,
+    marginBottom: Spacing.xs,
+    marginTop: Spacing.sm,
   },
   sliderThumb: {
     backgroundColor: Colors.primary,
-    width: 24,
-    height: 24,
+    width: 20,
+    height: 20,
+    borderRadius: 10,
   },
-  ageLabels: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginTop: Spacing.sm,
+  ageRangeDisplay: {
+    alignItems: 'center',
+    marginTop: Spacing.md,
+    paddingVertical: Spacing.sm,
+    backgroundColor: Colors.primary + '15',
+    borderRadius: 8,
   },
-  ageLabel: {
+  ageRangeText: {
     fontSize: Typography.sizes.medium,
-    fontWeight: Typography.weights.medium,
-    color: Colors.text,
+    fontWeight: Typography.weights.semibold,
+    color: Colors.primary,
   },
   timeOptionsContainer: {
     flexDirection: 'row',
