@@ -37,33 +37,35 @@ export default function HomeScreen({ navigation }) {
   };
 
   return (
-    <ScrollView style={globalStyles.container}>
-      <View style={styles.content}>
-        {/* Header */}
-        <View style={styles.header}>
-          <Text style={styles.greeting}>Hello!</Text>
-          <Text style={styles.welcomeText}>Welcome to Educational App</Text>
-          <Text style={styles.subtitle}>Discover amazing educational content</Text>
-        </View>
+    <ScrollView 
+      style={styles.container}
+      contentContainerStyle={{ flexGrow: 1 }}
+    >
+      {/* Header - Beyaz Arkaplan */}
+      <View style={styles.header}>
+        <Text style={styles.greeting}>Hello!</Text>
+        <Text style={styles.welcomeText}>Welcome to Educational App</Text>
+        <Text style={styles.subtitle}>Discover amazing educational content</Text>
+      </View>
 
-        {/* Categories Grid */}
-        <View style={styles.categoriesContainer}>
-          {renderCategories()}
-        </View>
-
+      {/* Categories Grid - Radiuslu Arkaplan */}
+      <View style={styles.categoriesContainer}>
+        {renderCategories()}
       </View>
     </ScrollView>
   );
 }
 
-const styles = StyleSheet.create({
-  content: {
+ const styles = StyleSheet.create({
+  container: {
     flex: 1,
-    padding: Spacing.md,
+    backgroundColor: '#FFFFFF', // Header kısmı beyaz
   },
   header: {
-    marginBottom: Spacing.xl,
-    marginTop: Spacing.md,
+    backgroundColor: '#FFFFFF', // Header beyaz
+    padding: Spacing.md,
+    marginBottom: 0, // Boşluk yok
+    paddingBottom: Spacing.xl, // Alt padding
   },
   greeting: {
     fontSize: Typography.sizes.xxlarge,
@@ -87,6 +89,11 @@ const styles = StyleSheet.create({
   },
   categoriesContainer: {
     flex: 1,
+    backgroundColor: Colors.background, // Pembe/krem arkaplan
+    borderTopLeftRadius: 30, // Sol üst radius
+    borderTopRightRadius: 30, // Sağ üst radius
+    paddingTop: Spacing.xl,
+    paddingHorizontal: Spacing.md,
   },
   categoryRow: {
     flexDirection: 'row',

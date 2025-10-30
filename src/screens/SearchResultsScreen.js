@@ -31,7 +31,7 @@ export default function SearchResultsScreen({ route, navigation }) {
     const grouped = {};
     filteredEbooks.forEach(ebook => {
       const category = CATEGORIES.find(cat => cat.id === ebook.categoryId);
-      const categoryName = category ? (category.titleTR || category.title) : 'Diğer';
+      const categoryName = category ? category.title : 'Other';
       
       if (!grouped[categoryName]) {
         grouped[categoryName] = [];
@@ -125,20 +125,20 @@ export default function SearchResultsScreen({ route, navigation }) {
         {/* Filter Summary */}
         {filters && (
           <View style={styles.filterSummary}>
-            <Text style={styles.filterTitle}>Uygulanan Filtreler:</Text>
+            <Text style={styles.filterTitle}>Applied Filters:</Text>
             {filters.ageRange && (
               <Text style={styles.filterText}>
-                Yaş: {filters.ageRange[0]} - {filters.ageRange[1]}
+                Age: {filters.ageRange[0]} - {filters.ageRange[1]} years
               </Text>
             )}
             {filters.selectedTimes && filters.selectedTimes.length > 0 && (
               <Text style={styles.filterText}>
-                Süre: {filters.selectedTimes.join(', ')}
+                Time: {filters.selectedTimes.join(', ')}
               </Text>
             )}
             {filters.selectedTopics && filters.selectedTopics.length > 0 && (
               <Text style={styles.filterText}>
-                Konular: {filters.selectedTopics.length} konu seçildi
+                Topics: {filters.selectedTopics.length} selected
               </Text>
             )}
           </View>

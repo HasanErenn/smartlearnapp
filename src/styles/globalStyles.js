@@ -12,6 +12,15 @@ export const globalStyles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: Colors.background,
   },
+  ovalTop: {
+    // Ovallik miktarını buradan değiştirebilirsiniz
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
+    
+    // Alt köşelerin düz kaldığından emin olalım
+    borderBottomLeftRadius: 0,
+    borderBottomRightRadius: 0,
+  },
   padding: {
     padding: Spacing.md,
   },
