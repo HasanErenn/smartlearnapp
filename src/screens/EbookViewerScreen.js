@@ -11,13 +11,12 @@ import {
   Modal
 } from 'react-native';
 import ImageZoom from 'react-native-image-pan-zoom';
-import { useTranslation } from 'react-i18next';
+
 import { Colors, Spacing, Typography } from '../constants/theme';
 
 const { width, height } = Dimensions.get('window');
 
 export default function EbookViewerScreen({ route, navigation }) {
-  const { t } = useTranslation();
   const { ebook } = route.params;
   const [isFullScreen, setIsFullScreen] = useState(false);
 
@@ -57,7 +56,7 @@ export default function EbookViewerScreen({ route, navigation }) {
           />
           <View style={styles.fullScreenHint}>
             <Text style={styles.fullScreenHintText}>
-              📱 {t('ebook_viewer.tap_to_fullscreen')}
+              📱 Tap for fullscreen
             </Text>
           </View>
         </TouchableOpacity>
@@ -68,17 +67,17 @@ export default function EbookViewerScreen({ route, navigation }) {
 
           {/* Age Range */}
           <View style={styles.detailRow}>
-            <Text style={styles.detailLabel}>{t('ebook_viewer.age_range')}:</Text>
+            <Text style={styles.detailLabel}>Age Range:</Text>
             <Text style={styles.detailValue}>
-              {ebook.ageRange.min}-{ebook.ageRange.max} {t('common.years_old')}
+              {ebook.ageRange.min}-{ebook.ageRange.max} years old
             </Text>
           </View>
 
           {/* Duration */}
           <View style={styles.detailRow}>
-            <Text style={styles.detailLabel}>{t('ebook_viewer.duration')}:</Text>
+            <Text style={styles.detailLabel}>Duration:</Text>
             <Text style={styles.detailValue}>
-              {t(`time_options.${ebook.duration}`)}
+              25-45 minutes
             </Text>
           </View>
         </View>

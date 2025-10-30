@@ -41,10 +41,11 @@ export default function SplashScreen({ onFinish }) {
       }),
     ]).start();
 
-    // Navigate to main app after 4 seconds
+    // Navigate to main app after 2 seconds
     const timer = setTimeout(() => {
+      console.log('SplashScreen: Calling onFinish()');
       onFinish();
-    }, 4000);
+    }, 2000);
 
     return () => clearTimeout(timer);
   }, []);

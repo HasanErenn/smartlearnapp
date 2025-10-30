@@ -20,20 +20,11 @@ const getCategoryKey = (categoryId) => {
 export const EBOOKS = [
   {
     id: 1,
-    
-    // 🇹🇷 Türkçe bilgiler
-    title: 'Matematik E-Kitabı',
-    
-    // 🇬🇧 İngilizce bilgiler
-    titleEN: 'Test E-Book',
-    
-    // 📋 Filtreleme bilgileri
-    categoryId: 4,                    // Fen Bilimleri
-    ageRange: { min: 6, max: 10 },    // 6-10 yaş
-    duration: '25_45_mins',           // 25-45 dakika
-    
-    // 📁 MEVCUT DOSYA KULLANIMI
-    image: require('../../assets/ebooks/images/1.jpeg'),  // ← MEVCUT DOSYA
+    title: 'Mathematics E-Book',
+    categoryId: 4,                    // Natural Sciences
+    ageRange: { min: 6, max: 10 },    // 6-10 years
+    duration: '25_45_mins',           // 25-45 minutes
+    image: require('../../assets/ebooks/images/1.jpeg'),
     fileUrl: null
   },
   

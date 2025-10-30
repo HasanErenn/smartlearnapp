@@ -8,7 +8,7 @@ import {
   Dimensions 
 } from 'react-native';
 import Slider from '@react-native-community/slider';
-import { useTranslation } from 'react-i18next';
+
 import { globalStyles } from '../styles/globalStyles';
 import { Colors, Spacing, Typography } from '../constants/theme';
 import { CATEGORIES, TIME_OPTIONS, AGE_RANGE } from '../constants/config';
@@ -17,7 +17,6 @@ import { EBOOKS, filterEbooks } from '../constants/ebooks';
 const { width } = Dimensions.get('window');
 
 export default function ExploreScreen({ navigation }) {
-  const { t } = useTranslation();
   const [ageRange, setAgeRange] = useState([AGE_RANGE.min, AGE_RANGE.max]);
   const [selectedTimes, setSelectedTimes] = useState([]);
   const [selectedTopics, setSelectedTopics] = useState([]);
@@ -28,7 +27,7 @@ export default function ExploreScreen({ navigation }) {
       onPress={onPress}
     >
       <Text style={[styles.timeOptionText, isSelected && styles.timeOptionTextSelected]}>
-        {t(`time_options.${option.key}`) || option.value}
+        {option.value}
       </Text>
     </TouchableOpacity>
   );
@@ -39,7 +38,7 @@ export default function ExploreScreen({ navigation }) {
       onPress={onPress}
     >
       <Text style={[styles.topicOptionText, isSelected && styles.topicOptionTextSelected]}>
-        {t(`categories.${category.key}`) || category.titleTR}
+        {category.title}
       </Text>
     </TouchableOpacity>
   );
@@ -81,7 +80,7 @@ export default function ExploreScreen({ navigation }) {
         
         {/* Header */}
         <View style={styles.header}>
-          <Text style={styles.title}>{t('explore.title')}</Text>
+          <Text style={styles.title}>Find What You're Looking For</Text>
         </View>
 
         {/* Filters Container */}
@@ -89,7 +88,7 @@ export default function ExploreScreen({ navigation }) {
           
           {/* Age Range */}
           <View style={styles.section}>
-            <Text style={styles.sectionTitle}>{t('explore.age_range')}</Text>
+            <Text style={styles.sectionTitle}>Age Range</Text>
             <View style={styles.ageRangeContainer}>
               <Slider
                 style={styles.slider}
@@ -110,7 +109,7 @@ export default function ExploreScreen({ navigation }) {
 
           {/* Time Options */}
           <View style={styles.section}>
-            <Text style={styles.sectionTitle}>{t('explore.time')}</Text>
+            <Text style={styles.sectionTitle}>Time</Text>
             <View style={styles.timeOptionsContainer}>
               {TIME_OPTIONS.map((option) => (
                 <TimeOption
@@ -125,7 +124,7 @@ export default function ExploreScreen({ navigation }) {
 
           {/* Topics */}
           <View style={styles.section}>
-            <Text style={styles.sectionTitle}>{t('explore.topics')}</Text>
+            <Text style={styles.sectionTitle}>Topics</Text>
             <View style={styles.topicsContainer}>
               {CATEGORIES.map((category) => (
                 <TopicOption
@@ -146,14 +145,14 @@ export default function ExploreScreen({ navigation }) {
             style={styles.resetButton}
             onPress={resetFilters}
           >
-            <Text style={styles.resetButtonText}>{t('common.reset_filters')}</Text>
+            <Text style={styles.resetButtonText}>Reset Filters</Text>
           </TouchableOpacity>
           
           <TouchableOpacity 
             style={styles.exploreButton}
             onPress={handleExplore}
           >
-            <Text style={styles.exploreButtonText}>{t('common.explore_button')}</Text>
+            <Text style={styles.exploreButtonText}>Explore</Text>
           </TouchableOpacity>
         </View>
 

@@ -2,7 +2,6 @@ import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
-import { useTranslation } from 'react-i18next';
 import { Image } from 'react-native';
 
 // Import screens 
@@ -23,7 +22,6 @@ const Stack = createStackNavigator();
 
 // Tab Navigator Component
 function TabNavigator() {
-  const { t } = useTranslation();
   
   return (
     <Tab.Navigator
@@ -47,7 +45,7 @@ function TabNavigator() {
         name={SCREEN_NAMES.HOME} 
         component={HomeScreen}
         options={{
-          tabBarLabel: t('common.home'),
+          tabBarLabel: 'Home',
           title: 'Smart Learn',
           tabBarIcon: ({ focused }) => (
             <Image
@@ -62,8 +60,8 @@ function TabNavigator() {
         name={SCREEN_NAMES.EXPLORE} 
         component={ExploreScreen}
         options={{
-          tabBarLabel: t('common.explore'),
-          title: t('common.explore'),
+          tabBarLabel: 'Explore',
+          title: 'Explore',
           tabBarIcon: ({ focused }) => (
             <Image
               source={focused ? require('../../assets/icons/search_selected.png') : require('../../assets/icons/search.png')}
@@ -92,8 +90,8 @@ function TabNavigator() {
         name={SCREEN_NAMES.SETTINGS} 
         component={SettingsScreen}
         options={{
-          tabBarLabel: t('common.settings'),
-          title: t('settings.title'),
+          tabBarLabel: 'Settings',
+          title: 'Settings',
           tabBarIcon: ({ focused }) => (
             <Image
               source={focused ? require('../../assets/icons/settings_selected.png') : require('../../assets/icons/settings.png')}

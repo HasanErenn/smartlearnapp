@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Dimensions } from 'react-native';
-import { useTranslation } from 'react-i18next';
+
 import { globalStyles } from '../styles/globalStyles';
 import { Colors, Spacing, Typography } from '../constants/theme';
 import { CATEGORIES } from '../constants/config';
@@ -8,7 +8,7 @@ import { CATEGORIES } from '../constants/config';
 const { width } = Dimensions.get('window');
 
 export default function HomeScreen({ navigation }) {
-  const { t } = useTranslation();
+
   
   const CategoryCard = ({ category, index }) => (
     <TouchableOpacity 
@@ -16,7 +16,7 @@ export default function HomeScreen({ navigation }) {
       onPress={() => navigation.navigate('CategoryDetail', { category })}
     >
       <Text style={styles.categoryTitle}>
-        {t(`categories.${category.key}`) || category.titleTR}
+        {category.title}
       </Text>
     </TouchableOpacity>
   );
@@ -41,9 +41,9 @@ export default function HomeScreen({ navigation }) {
       <View style={styles.content}>
         {/* Header */}
         <View style={styles.header}>
-          <Text style={styles.greeting}>{t('home.greeting')}</Text>
-          <Text style={styles.welcomeText}>{t('home.welcome')}</Text>
-          <Text style={styles.subtitle}>{t('home.subtitle')}</Text>
+          <Text style={styles.greeting}>Hello!</Text>
+          <Text style={styles.welcomeText}>Welcome to Educational App</Text>
+          <Text style={styles.subtitle}>Discover amazing educational content</Text>
         </View>
 
         {/* Categories Grid */}

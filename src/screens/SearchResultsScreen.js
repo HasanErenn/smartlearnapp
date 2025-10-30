@@ -8,7 +8,7 @@ import {
   Dimensions,
   Image 
 } from 'react-native';
-import { useTranslation } from 'react-i18next';
+
 import { globalStyles } from '../styles/globalStyles';
 import { Colors, Spacing, Typography } from '../constants/theme';
 import { CATEGORIES } from '../constants/config';
@@ -17,7 +17,6 @@ import { EBOOKS, filterEbooks } from '../constants/ebooks';
 const { width } = Dimensions.get('window');
 
 export default function SearchResultsScreen({ route, navigation }) {
-  const { t } = useTranslation();
   const { filters } = route.params || {};
   const [filteredEbooks, setFilteredEbooks] = useState([]);
   
@@ -66,10 +65,10 @@ export default function SearchResultsScreen({ route, navigation }) {
           <Text style={styles.cardTitle}>{ebook.title}</Text>
           <View style={styles.ebookMeta}>
             <Text style={styles.metaText}>
-              {ebook.ageRange.min}-{ebook.ageRange.max} yaş
+              {ebook.ageRange.min}-{ebook.ageRange.max} years old
             </Text>
             <Text style={styles.metaText}>
-              {t(`time_options.${ebook.duration}`)}
+              25-45 minutes
             </Text>
           </View>
         </View>
@@ -100,9 +99,9 @@ export default function SearchResultsScreen({ route, navigation }) {
           style={styles.backButton}
           onPress={() => navigation.goBack()}
         >
-          <Text style={styles.backButtonText}>← {t('category_detail.back_to_explore')}</Text>
+          <Text style={styles.backButtonText}>← Back to Explore</Text>
         </TouchableOpacity>
-        <Text style={styles.title}>{t('search_results.title')}</Text>
+        <Text style={styles.title}>Search Results</Text>
       </View>
 
       {/* Results */}
@@ -118,7 +117,7 @@ export default function SearchResultsScreen({ route, navigation }) {
         ) : (
           <View style={styles.noResults}>
             <Text style={styles.noResultsText}>
-              {t('search_results.no_results')}
+              No results found for your search criteria
             </Text>
           </View>
         )}

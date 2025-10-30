@@ -8,7 +8,7 @@ import {
   Dimensions,
   Image 
 } from 'react-native';
-import { useTranslation } from 'react-i18next';
+
 import { globalStyles } from '../styles/globalStyles';
 import { Colors, Spacing, Typography } from '../constants/theme';
 import { getEbooksByCategory } from '../constants/ebooks';
@@ -16,7 +16,6 @@ import { getEbooksByCategory } from '../constants/ebooks';
 const { width } = Dimensions.get('window');
 
 export default function CategoryDetailScreen({ route, navigation }) {
-  const { t } = useTranslation();
   const { category } = route.params;
   
   // Kategoriye göre e-book'ları getir (static)
@@ -26,45 +25,45 @@ export default function CategoryDetailScreen({ route, navigation }) {
   const otherMaterials = [
     {
       id: 1,
-      title: `${category.titleTR} 1`,
+      title: `${category.title} 1`,
       type: 'lesson',
       duration: '25 mins',
-      difficulty: 'Başlangıç'
+      difficulty: 'Beginner'
     },
     {
-      id: 4,
-      title: `${category.titleTR}`,
-      type: 'activity',
+      id: 2,
+      title: `${category.title}`,
+      type: 'exercise',
       duration: '15 mins',
-      difficulty: 'Başlangıç'
+      difficulty: 'Intermediate'
     },
     {
       id: 5,
       title: 'E-Book Title',
       type: 'ebook',
       duration: '60 mins',
-      difficulty: 'Orta'
+      difficulty: 'Intermediate'
     },
     {
       id: 6,
       title: 'E-Book Title',
       type: 'ebook',
       duration: '40 mins',
-      difficulty: 'İleri'
+      difficulty: 'Advanced'
     },
     {
       id: 7,
-      title: `${category.titleTR}`,
+      title: `${category.title}`,
       type: 'lesson',
       duration: '35 mins',
-      difficulty: 'Orta'
+      difficulty: 'Intermediate'
     },
     {
       id: 8,
       title: 'E-Book Title',
       type: 'ebook',
       duration: '20 mins',
-      difficulty: 'Başlangıç'
+      difficulty: 'Beginner'
     },
     {
       id: 9,
@@ -83,7 +82,7 @@ export default function CategoryDetailScreen({ route, navigation }) {
       if (material.categoryId && material.image) {
         navigation.navigate('EbookViewer', { ebook: material });
       } else {
-        alert(`${material.title} açılıyor...`);
+        alert(`${material.title} is opening...`);
       }
     };
     
@@ -183,10 +182,10 @@ export default function CategoryDetailScreen({ route, navigation }) {
           style={styles.backButton}
           onPress={() => navigation.goBack()}
         >
-          <Text style={styles.backButtonText}>← {t('common.back')}</Text>
+          <Text style={styles.backButtonText}>← Back</Text>
         </TouchableOpacity>
         <Text style={styles.categoryTitle}>
-          {t(`categories.${category.key}`) || category.title}
+          {category.title}
         </Text>
       </View>
 
