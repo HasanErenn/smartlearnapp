@@ -15,27 +15,33 @@ const { width, height } = Dimensions.get('window');
 export default function SplashScreen({ onFinish }) {
   const fadeAnim = useRef(new Animated.Value(0)).current;
   const scaleAnim = useRef(new Animated.Value(0.5)).current;
-  const heartBeatAnim = useRef(new Animated.Value(1)).current;
+  const bottomFadeAnim = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
-    // Start initial animations
-    Animated.parallel([
-      Animated.timing(fadeAnim, {
+    // Start animations sequence
+    Animated.sequence([
+      // First: Center logo appears
+      Animated.parallel([
+        Animated.timing(fadeAnim, {
+          toValue: 1,
+          duration: 1000,
+          useNativeDriver: true,
+        }),
+        Animated.timing(scaleAnim, {
+          toValue: 1,
+          duration: 1200,
+          useNativeDriver: true,
+        }),
+      ]),
+      // Then: Bottom logos fade in
+      Animated.timing(bottomFadeAnim, {
         toValue: 1,
-        duration: 1000,
+        duration: 800,
         useNativeDriver: true,
       }),
-      Animated.timing(scaleAnim, {
-        toValue: 1,
-        duration: 1200,
-        useNativeDriver: true,
-      }),
-    ]).start(() => {
-      // Start heartbeat animation after initial animation
-      startHeartBeat();
-    });
+    ]).start();
 
-    // Navigate to main app after 4 seconds (increased for heartbeat effect)
+    // Navigate to main app after 4 seconds
     const timer = setTimeout(() => {
       onFinish();
     }, 4000);
@@ -43,45 +49,57 @@ export default function SplashScreen({ onFinish }) {
     return () => clearTimeout(timer);
   }, []);
 
-  const startHeartBeat = () => {
-    Animated.loop(
-      Animated.sequence([
-        Animated.timing(heartBeatAnim, {
-          toValue: 1.1,
-          duration: 600,
-          useNativeDriver: true,
-        }),
-        Animated.timing(heartBeatAnim, {
-          toValue: 1,
-          duration: 600,
-          useNativeDriver: true,
-        }),
-      ]),
-      { iterations: 3 } // Beat 3 times
-    ).start();
-  };
-
   return (
     <View style={styles.container}>
       <StatusBar barStyle="dark-content" backgroundColor="#FFFFFF" />
       
+      {/* Center Logo */}
       <Animated.View 
         style={[
-          styles.logoContainer,
+          styles.centerLogoContainer,
           {
             opacity: fadeAnim,
-            transform: [
-              { scale: scaleAnim },
-              { scale: heartBeatAnim }
-            ]
+            transform: [{ scale: scaleAnim }]
           }
         ]}
       >
-        {/* Smart Learn Logo Image */}
-        <View style={styles.imageContainer}>
+        <Image 
+          source={require('../../assets/acilisgorsel.png')}
+          style={styles.centerLogo}
+          resizeMode="contain"
+        />
+      </Animated.View>
+
+      {/* Bottom Sponsors/Partners */}
+      <Animated.View 
+        style={[
+          styles.bottomContainer,
+          { opacity: bottomFadeAnim }
+        ]}
+      >
+        {/* Left - Turkey-EU Flag */}
+        <View style={styles.leftLogoContainer}>
           <Image 
-            source={require('../../assets/acilisgorsel.png')}
-            style={styles.logoImage}
+            source={require('../../assets/gorsel2.png')}
+            style={styles.flagImage}
+            resizeMode="contain"
+          />
+        </View>
+
+        {/* Center - EU Funded Logo */}
+        <View style={styles.centerBottomContainer}>
+          <Image 
+            source={require('../../assets/gorsel3.png')}
+            style={styles.euLogo}
+            resizeMode="contain"
+          />
+        </View>
+
+        {/* Right - Turkish National Agency */}
+        <View style={styles.rightLogoContainer}>
+          <Image 
+            source={require('../../assets/gorsel4.png')}
+            style={styles.agencyLogo}
             resizeMode="contain"
           />
         </View>
@@ -97,17 +115,47 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  logoContainer: {
-    alignItems: 'center',
+  centerLogoContainer: {
+    flex: 1,
     justifyContent: 'center',
-    height: 400,
-  },
-  imageContainer: {
     alignItems: 'center',
-    justifyContent: 'center',
+    paddingTop: 100,
   },
-  logoImage: {
-    width: 350,
-    height: 400,
+  centerLogo: {
+    width: width * 0.7,
+    height: height * 0.4,
+  },
+  bottomContainer: {
+    position: 'absolute',
+    bottom: 60,
+    left: 20,
+    right: 20,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  leftLogoContainer: {
+    flex: 0.3,
+    alignItems: 'flex-start',
+  },
+  centerBottomContainer: {
+    flex: 0.4,
+    alignItems: 'center',
+  },
+  rightLogoContainer: {
+    flex: 0.3,
+    alignItems: 'flex-end',
+  },
+  flagImage: {
+    width: 100,
+    height: 60,
+  },
+  euLogo: {
+    width: 140,
+    height: 80,
+  },
+  agencyLogo: {
+    width: 120,
+    height: 70,
   },
 });

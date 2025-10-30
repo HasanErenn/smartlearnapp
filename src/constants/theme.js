@@ -49,4 +49,10 @@ export const Typography = {
     subtitle: 'Roboto, system-ui, -apple-system, sans-serif', 
     title: 'Roboto, system-ui, -apple-system, sans-serif',
   },
+  // Backward compatibility
+  fontFamily: {
+    regular: 'Roboto, system-ui, -apple-system, sans-serif',
+    medium: 'Roboto, system-ui, -apple-system, sans-serif',
+    bold: 'Roboto, system-ui, -apple-system, sans-serif',
+  },
 };
