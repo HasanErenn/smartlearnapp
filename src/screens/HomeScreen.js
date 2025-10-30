@@ -37,14 +37,8 @@ export default function HomeScreen({ navigation }) {
   };
 
   return (
-    <View style={styles.container}>
-      {/* Pink Background */}
-      <View style={styles.pinkBackground} />
-      
-      {/* Curved White Section */}
-      <View style={styles.whiteSection} />
-      
-      <ScrollView style={styles.scrollView} contentContainerStyle={styles.scrollContent}>
+    <ScrollView style={globalStyles.container}>
+      <View style={styles.content}>
         {/* Header */}
         <View style={styles.header}>
           <Text style={styles.greeting}>{t('home.greeting')}</Text>
@@ -56,46 +50,20 @@ export default function HomeScreen({ navigation }) {
         <View style={styles.categoriesContainer}>
           {renderCategories()}
         </View>
-      </ScrollView>
-    </View>
+
+      </View>
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
+  content: {
     flex: 1,
-    backgroundColor: Colors.background,
-  },
-  pinkBackground: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    right: 0,
-    height: 250,
-    backgroundColor: '#FFB6C1', // Light pink color
-  },
-  whiteSection: {
-    position: 'absolute',
-    top: 200,
-    left: 0,
-    right: 0,
-    height: 100,
-    backgroundColor: Colors.background,
-    borderTopLeftRadius: 50,
-    borderTopRightRadius: 50,
-  },
-  scrollView: {
-    flex: 1,
-    zIndex: 1,
-  },
-  scrollContent: {
-    paddingTop: 50,
+    padding: Spacing.md,
   },
   header: {
     marginBottom: Spacing.xl,
     marginTop: Spacing.md,
-    paddingHorizontal: Spacing.md,
-    zIndex: 2,
   },
   greeting: {
     fontSize: Typography.sizes.xxlarge,
@@ -119,8 +87,6 @@ const styles = StyleSheet.create({
   },
   categoriesContainer: {
     flex: 1,
-    paddingHorizontal: Spacing.md,
-    paddingTop: Spacing.lg,
   },
   categoryRow: {
     flexDirection: 'row',
