@@ -1,0 +1,158 @@
+import React from 'react';
+import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Dimensions } from 'react-native';
+import { useTranslation } from 'react-i18next';
+import { globalStyles } from '../styles/globalStyles';
+import { Colors, Spacing, Typography } from '../constants/theme';
+import { CATEGORIES } from '../constants/config';
+
+const { width } = Dimensions.get('window');
+
+export default function HomeScreen({ navigation }) {
+  const { t } = useTranslation();
+  
+  const CategoryCard = ({ category, index }) => (
+    <TouchableOpacity 
+      style={[styles.categoryCard, { backgroundColor: category.color }]}
+      onPress={() => navigation.navigate('CategoryDetail', { category })}
+    >
+      <Text style={styles.categoryTitle}>
+        {t(`categories.${category.key}`) || category.titleTR}
+      </Text>
+    </TouchableOpacity>
+  );
+
+  const renderCategories = () => {
+    const rows = [];
+    for (let i = 0; i < CATEGORIES.length; i += 2) {
+      rows.push(
+        <View key={i} style={styles.categoryRow}>
+          <CategoryCard category={CATEGORIES[i]} index={i} />
+          {CATEGORIES[i + 1] && (
+            <CategoryCard category={CATEGORIES[i + 1]} index={i + 1} />
+          )}
+        </View>
+      );
+    }
+    return rows;
+  };
+
+  return (
+    <View style={styles.container}>
+      {/* Pink Background */}
+      <View style={styles.pinkBackground} />
+      
+      {/* Curved White Section */}
+      <View style={styles.whiteSection} />
+      
+      <ScrollView style={styles.scrollView} contentContainerStyle={styles.scrollContent}>
+        {/* Header */}
+        <View style={styles.header}>
+          <Text style={styles.greeting}>{t('home.greeting')}</Text>
+          <Text style={styles.welcomeText}>{t('home.welcome')}</Text>
+          <Text style={styles.subtitle}>{t('home.subtitle')}</Text>
+        </View>
+
+        {/* Categories Grid */}
+        <View style={styles.categoriesContainer}>
+          {renderCategories()}
+        </View>
+      </ScrollView>
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: Colors.background,
+  },
+  pinkBackground: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    height: 250,
+    backgroundColor: '#FFB6C1', // Light pink color
+  },
+  whiteSection: {
+    position: 'absolute',
+    top: 200,
+    left: 0,
+    right: 0,
+    height: 100,
+    backgroundColor: Colors.background,
+    borderTopLeftRadius: 50,
+    borderTopRightRadius: 50,
+  },
+  scrollView: {
+    flex: 1,
+    zIndex: 1,
+  },
+  scrollContent: {
+    paddingTop: 50,
+  },
+  header: {
+    marginBottom: Spacing.xl,
+    marginTop: Spacing.md,
+    paddingHorizontal: Spacing.md,
+    zIndex: 2,
+  },
+  greeting: {
+    fontSize: Typography.sizes.xxlarge,
+    fontWeight: Typography.weights.bold,
+    fontFamily: Typography.families.title,
+    color: Colors.text,
+    marginBottom: Spacing.xs,
+  },
+  welcomeText: {
+    fontSize: Typography.sizes.xxlarge,
+    fontWeight: Typography.weights.bold,
+    fontFamily: Typography.families.title,
+    color: Colors.text,
+    marginBottom: Spacing.md,
+  },
+  subtitle: {
+    fontSize: Typography.sizes.medium,
+    fontFamily: Typography.families.body,
+    color: Colors.textSecondary,
+    lineHeight: 22,
+  },
+  categoriesContainer: {
+    flex: 1,
+    paddingHorizontal: Spacing.md,
+    paddingTop: Spacing.lg,
+  },
+  categoryRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginBottom: Spacing.md,
+  },
+  categoryCard: {
+    width: (width - Spacing.md * 3) / 2,
+    height: 140,
+    borderRadius: 20,
+    padding: Spacing.md,
+    justifyContent: 'center',
+    alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 4,
+    },
+    shadowOpacity: 0.15,
+    shadowRadius: 8,
+    elevation: 8,
+  },
+  categoryIcon: {
+    fontSize: 32,
+    marginBottom: Spacing.sm,
+  },
+  categoryTitle: {
+    fontSize: Typography.sizes.medium,
+    fontWeight: Typography.weights.semibold,
+    fontFamily: Typography.families.subtitle,
+    color: Colors.surface,
+    textAlign: 'center',
+    lineHeight: 20,
+  },
+});

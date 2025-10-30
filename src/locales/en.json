@@ -1,0 +1,82 @@
+{
+  "common": {
+    "home": "Home",
+    "explore": "Explore",
+    "about": "About",
+    "settings": "Settings",
+    "back": "Back",
+    "explore_button": "Explore",
+    "reset_filters": "Reset Filters",
+    "version": "Version",
+    "cancel": "Cancel"
+  },
+  "home": {
+    "greeting": "Hello,",
+    "welcome": "Welcome to Smart Learn!",
+    "subtitle": "Explore our Curriculum Topics below"
+  },
+  "explore": {
+    "title": "Let's find what you're looking for",
+    "age_range": "Age Range",
+    "time": "Time",
+    "topics": "Topics"
+  },
+  "categories": {
+    "arts_music": "Arts & Music",
+    "mother_language": "Mother Language",
+    "foreign_languages": "Foreign Languages",
+    "natural_sciences": "Natural & Social Sciences",
+    "physical_education": "Physical Education",
+    "mathematics": "Mathematics",
+    "ethics_religion": "Ethics & Religion"
+  },
+  "settings": {
+    "title": "Settings",
+    "app_settings": "Application Settings",
+    "auto_update": "Auto Update",
+    "auto_update_desc": "Automatically update the app",
+    "language": "Language",
+    "language_desc": "Change application language",
+    "select_language": "Select Language",
+    "info": "Information",
+    "about": "About",
+    "about_desc": "App version and information",
+    "support": "Support",
+    "support_desc": "Help and contact",
+    "app_info_title": "Smart Learn",
+    "app_info_desc": "A modern platform designed for discovering and learning educational materials."
+  },
+  "category_detail": {
+    "back_to_explore": "Back to Explore"
+  },
+  "search_results": {
+    "title": "Search Results",
+    "applied_filters": "Applied Filters:",
+    "age_filter": "Age: {{min}} - {{max}}",
+    "time_filter": "Time: {{times}}",
+    "topics_filter": "Topics: {{count}} topics selected"
+  },
+  "time_options": {
+    "15_25_mins": "15 - 25 mins",
+    "25_45_mins": "25 - 45 mins",
+    "1_2_hours": "1 - 2 hours",
+    "5_hours": "5 hours",
+    "one_month": "One Month",
+    "all": "All"
+  },
+  "about": {
+    "title": "About Us",
+    "our_mission": "Our Mission",
+    "mission_text": "Smart Learn supports digital transformation in education by ensuring that students of all ages can easily access quality educational materials. We offer personalized learning experiences by combining modern technology with traditional learning.",
+    "features": "Features",
+    "feature_1": "Comprehensive educational materials",
+    "feature_2": "Multi-language support",
+    "feature_3": "Age-appropriate content",
+    "feature_4": "Mobile-friendly design",
+    "our_team": "Our Team",
+    "team_text": "Our team of experienced educators, software developers and designers works continuously to provide the best learning experience.",
+    "contact": "Contact",
+    "contact_text": "You can contact us with your questions and suggestions. We would be happy to help you.",
+    "rights_reserved": "All rights reserved."
+  }
+}

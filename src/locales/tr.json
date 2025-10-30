@@ -1,0 +1,82 @@
+{
+  "common": {
+    "home": "Ana Sayfa",
+    "explore": "Keşfet",
+    "about": "Hakkımızda",
+    "settings": "Ayarlar",
+    "back": "Geri",
+    "explore_button": "Keşfet",
+    "reset_filters": "Filtreleri Sıfırla",
+    "version": "Sürüm",
+    "cancel": "İptal"
+  },
+  "home": {
+    "greeting": "Merhaba,",
+    "welcome": "Smart Learn'e Hoş Geldiniz!",
+    "subtitle": "Aşağıdaki Müfredat Konularını Keşfedin"
+  },
+  "explore": {
+    "title": "Aradığınızı bulalım",
+    "age_range": "Yaş Aralığı",
+    "time": "Süre",
+    "topics": "Konular"
+  },
+  "categories": {
+    "arts_music": "Sanat ve Müzik",
+    "mother_language": "Ana Dil",
+    "foreign_languages": "Yabancı Dil",
+    "natural_sciences": "Doğa ve Sosyal Bilimler",
+    "physical_education": "Beden Eğitimi",
+    "mathematics": "Matematik",
+    "ethics_religion": "Etik ve Din"
+  },
+  "settings": {
+    "title": "Ayarlar",
+    "app_settings": "Uygulama Ayarları",
+    "auto_update": "Otomatik Güncelleme",
+    "auto_update_desc": "Uygulamayı otomatik güncelle",
+    "language": "Dil",
+    "language_desc": "Uygulama dilini değiştir",
+    "select_language": "Dil Seçin",
+    "info": "Bilgi",
+    "about": "Hakkında",
+    "about_desc": "Uygulama sürümü ve bilgiler",
+    "support": "Destek",
+    "support_desc": "Yardım ve iletişim",
+    "app_info_title": "Smart Learn",
+    "app_info_desc": "Eğitim materyallerini keşfetmek ve öğrenmek için tasarlanmış modern bir platform."
+  },
+  "category_detail": {
+    "back_to_explore": "Keşfet'e Dön"
+  },
+  "search_results": {
+    "title": "Arama Sonuçları",
+    "applied_filters": "Uygulanan Filtreler:",
+    "age_filter": "Yaş: {{min}} - {{max}}",
+    "time_filter": "Süre: {{times}}",
+    "topics_filter": "Konular: {{count}} konu seçildi"
+  },
+  "time_options": {
+    "15_25_mins": "15 - 25 dakika",
+    "25_45_mins": "25 - 45 dakika",
+    "1_2_hours": "1 - 2 saat",
+    "5_hours": "5 saat",
+    "one_month": "Bir Ay",
+    "all": "Tümü"
+  },
+  "about": {
+    "title": "Hakkımızda",
+    "our_mission": "Misyonumuz",
+    "mission_text": "Smart Learn, eğitimde dijital dönüşümü destekleyerek, her yaştan öğrencinin kaliteli eğitim materyallerine kolayca erişebilmesini sağlamaktır. Modern teknoloji ile geleneksel öğrenmeyi birleştirerek, kişiselleştirilmiş öğrenme deneyimleri sunuyoruz.",
+    "features": "Özelliklerimiz",
+    "feature_1": "Kapsamlı eğitim materyalleri",
+    "feature_2": "Çok dilli destek",
+    "feature_3": "Yaş gruplarına özel içerik",
+    "feature_4": "Mobil uyumlu tasarım",
+    "our_team": "Ekibimiz",
+    "team_text": "Deneyimli eğitmenler, yazılım geliştiricileri ve tasarımcılardan oluşan ekibimiz, en iyi öğrenme deneyimini sunmak için sürekli çalışmaktadır.",
+    "contact": "İletişim",
+    "contact_text": "Sorularınız ve önerileriniz için bizimle iletişime geçebilirsiniz. Size yardımcı olmaktan mutluluk duyarız.",
+    "rights_reserved": "Tüm hakları saklıdır."
+  }
+}
