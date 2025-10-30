@@ -123,13 +123,6 @@ export default function EbookViewerScreen({ route, navigation }) {
             />
           </ImageZoom>
           
-          {/* Zoom İpucu */}
-          <View style={styles.zoomHintContainer}>
-            <Text style={styles.zoomHintText}>
-              🔍 {t('ebook_viewer.pinch_to_zoom')} | 👆 {t('ebook_viewer.swipe_to_close')}
-            </Text>
-          </View>
-          
           <TouchableOpacity style={styles.closeButton} onPress={closeFullScreen}>
             <Text style={styles.closeButtonText}>✕</Text>
           </TouchableOpacity>
@@ -279,20 +272,6 @@ const styles = StyleSheet.create({
   fullScreenImage: {
     width: width - 40,
     height: height - 200,
-  },
-  zoomHintContainer: {
-    position: 'absolute',
-    bottom: 100,
-    alignSelf: 'center',
-    backgroundColor: 'rgba(0,0,0,0.7)',
-    paddingHorizontal: Spacing.md,
-    paddingVertical: Spacing.sm,
-    borderRadius: 20,
-  },
-  zoomHintText: {
-    color: 'white',
-    fontSize: Typography.sizes.small,
-    textAlign: 'center',
   },
   closeButton: {
     position: 'absolute',

@@ -95,26 +95,19 @@ export default function CategoryDetailScreen({ route, navigation }) {
         ]}
         onPress={handlePress}
       >
-        {isSpecialCard && (
-          <View style={[styles.specialCardBg, { backgroundColor: category.color }]}>
-            <Text style={styles.specialCardIcon}>{category.icon}</Text>
-            <View style={styles.specialCardContent}>
-              <Text style={styles.specialCardTitle}>TEAM PLAY DAY</Text>
-              <View style={styles.specialCardDetails}>
-                <Text style={styles.specialCardDetail}>Time</Text>
-                <Text style={styles.specialCardDetail}>3 hours per semester | 5-7 classes per week</Text>
-                <Text style={styles.specialCardDetail}>Methodology</Text>
-                <Text style={styles.specialCardDetail}>Team playing and enjoying sport games</Text>
-                <Text style={styles.specialCardDetail}>Learning objectives</Text>
-                <Text style={styles.specialCardDetail}>• Encourage teamwork communication and networking skills</Text>
-                <Text style={styles.specialCardDetail}>• Sports techniques for physical health</Text>
-                <Text style={styles.specialCardDetail}>• Discipline and time management</Text>
-                <Text style={styles.specialCardDetail}>Required Materials</Text>
-                <Text style={styles.specialCardDetail}>• Sports</Text>
-                <Text style={styles.specialCardDetail}>• Balls, footballs, soccer, basketballs</Text>
-                <Text style={styles.specialCardDetail}>• Playing field</Text>
-                <Text style={styles.specialCardDetail}>• Water and some snack for the participants</Text>
-              </View>
+        {isSpecialCard && categoryEbooks.length > 0 && (
+          <View style={styles.ebookSpecialContainer}>
+            {/* E-kitap görseli */}
+            <Image
+              source={categoryEbooks[0].image}
+              style={styles.ebookSpecialImage}
+              resizeMode="cover"
+            />
+            {/* E-kitap başlığı */}
+            <View style={styles.ebookSpecialTitleContainer}>
+              <Text style={styles.ebookSpecialTitle} numberOfLines={2}>
+                {categoryEbooks[0].title}
+              </Text>
             </View>
           </View>
         )}
@@ -123,10 +116,11 @@ export default function CategoryDetailScreen({ route, navigation }) {
           <View style={styles.regularCardContent}>
             {/* E-book için özel görsel/dosya göster */}
             {material.image ? (
-              // PNG görsel varsa direkt göster
+              // PNG görsel varsa direkt göster  
               <Image
                 source={material.image}
                 style={styles.ebookImage}
+                resizeMode="cover"
               />
             ) : material.fileUrl ? (
               // PDF dosyası varsa PDF ikonu göster
@@ -291,10 +285,37 @@ const styles = StyleSheet.create({
     lineHeight: 10,
     marginBottom: 2,
   },
+  ebookSpecialContainer: {
+    flex: 1,
+    borderRadius: 12,
+    overflow: 'hidden',
+    backgroundColor: Colors.surface,
+  },
+  ebookSpecialImage: {
+    width: '100%',
+    height: 140,
+    backgroundColor: Colors.background,
+  },
+  ebookSpecialTitleContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    paddingHorizontal: Spacing.sm,
+    paddingVertical: Spacing.xs,
+    backgroundColor: Colors.surface,
+  },
+  ebookSpecialTitle: {
+    fontSize: Typography.sizes.small,
+    fontWeight: Typography.weights.semibold,
+    color: Colors.text,
+    textAlign: 'center',
+    lineHeight: 16,
+  },
   regularCardContent: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    overflow: 'hidden',
+    minHeight: 80,
   },
   materialIcon: {
     width: 40,
@@ -320,8 +341,8 @@ const styles = StyleSheet.create({
     fontSize: Typography.sizes.small,
   },
   ebookImage: {
-    width: 60,
-    height: 80,
+    width: 110,
+    height: 130,
     borderRadius: 8,
     backgroundColor: Colors.background,
   },

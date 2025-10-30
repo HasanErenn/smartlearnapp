@@ -22,7 +22,7 @@ export const EBOOKS = [
     id: 1,
     
     // 🇹🇷 Türkçe bilgiler
-    title: 'Test E-Kitabı',
+    title: 'Test E-Kitabı Görsel',
     description: 'Örnek test e-kitabı açıklaması',
     tags: ['test', 'örnek', 'deneme'],
     
