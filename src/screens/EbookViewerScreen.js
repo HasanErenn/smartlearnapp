@@ -10,6 +10,7 @@ import {
   SafeAreaView,
   Modal
 } from 'react-native';
+import ImageZoom from 'react-native-image-pan-zoom';
 import { useTranslation } from 'react-i18next';
 import { Colors, Spacing, Typography } from '../constants/theme';
 
@@ -104,19 +105,33 @@ export default function EbookViewerScreen({ route, navigation }) {
         onRequestClose={closeFullScreen}
       >
         <View style={styles.fullScreenContainer}>
-          <TouchableOpacity 
-            style={styles.fullScreenOverlay} 
-            onPress={closeFullScreen}
-            activeOpacity={1}
+          <ImageZoom 
+            cropWidth={width}
+            cropHeight={height}
+            imageWidth={width - 40}
+            imageHeight={height - 200}
+            minScale={0.5}
+            maxScale={3}
+            enableSwipeDown={true}
+            onSwipeDown={closeFullScreen}
+            style={styles.imageZoomContainer}
           >
             <Image 
               source={ebook.image} 
               style={styles.fullScreenImage}
               resizeMode="contain"
             />
-            <TouchableOpacity style={styles.closeButton} onPress={closeFullScreen}>
-              <Text style={styles.closeButtonText}>✕</Text>
-            </TouchableOpacity>
+          </ImageZoom>
+          
+          {/* Zoom İpucu */}
+          <View style={styles.zoomHintContainer}>
+            <Text style={styles.zoomHintText}>
+              🔍 {t('ebook_viewer.pinch_to_zoom')} | 👆 {t('ebook_viewer.swipe_to_close')}
+            </Text>
+          </View>
+          
+          <TouchableOpacity style={styles.closeButton} onPress={closeFullScreen}>
+            <Text style={styles.closeButtonText}>✕</Text>
           </TouchableOpacity>
         </View>
       </Modal>
@@ -256,14 +271,28 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: 'rgba(0,0,0,0.9)',
   },
-  fullScreenOverlay: {
+  imageZoomContainer: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
   },
   fullScreenImage: {
     width: width - 40,
-    height: height - 100,
+    height: height - 200,
+  },
+  zoomHintContainer: {
+    position: 'absolute',
+    bottom: 100,
+    alignSelf: 'center',
+    backgroundColor: 'rgba(0,0,0,0.7)',
+    paddingHorizontal: Spacing.md,
+    paddingVertical: Spacing.sm,
+    borderRadius: 20,
+  },
+  zoomHintText: {
+    color: 'white',
+    fontSize: Typography.sizes.small,
+    textAlign: 'center',
   },
   closeButton: {
     position: 'absolute',

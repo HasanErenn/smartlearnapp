@@ -85,6 +85,8 @@
     "tags": "Tags",
     "age_range": "Age Range",
     "duration": "Duration",
-    "years_old": "years old"
+    "years_old": "years old",
+    "pinch_to_zoom": "Pinch to zoom",
+    "swipe_to_close": "Swipe down to close"
   }
 }

@@ -95,6 +95,8 @@
     "tags": "Etiketler",
     "age_range": "Yaş Aralığı",
     "duration": "Süre",
-    "years_old": "yaş"
+    "years_old": "yaş",
+    "pinch_to_zoom": "Yakınlaştırmak için iki parmakla sıkıştır",
+    "swipe_to_close": "Kapatmak için aşağı kaydır"
   }
 }
