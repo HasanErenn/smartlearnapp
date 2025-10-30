@@ -41,16 +41,37 @@ export default function HomeScreen({ navigation }) {
       style={styles.container}
       contentContainerStyle={{ flexGrow: 1 }}
     >
-      {/* Header - Beyaz Arkaplan */}
-      <View style={styles.header}>
-        <Text style={styles.greeting}>Hello!</Text>
-        <Text style={styles.welcomeText}>Welcome to Educational App</Text>
-        <Text style={styles.subtitle}>Discover amazing educational content</Text>
+      {/* Header + İlk 2 Kategori - Beyaz Arkaplan */}
+      <View style={styles.headerWithFirstCategories}>
+        <View style={styles.header}>
+          <Text style={styles.greeting}>Hello!</Text>
+          <Text style={styles.welcomeText}>Welcome to Educational App</Text>
+          <Text style={styles.subtitle}>Discover amazing educational content</Text>
+        </View>
+
+        {/* İlk 2 Kategori - Yarısı beyaz, yarısı pembe üzerinde */}
+        <View style={styles.firstCategoriesRow}>
+          <CategoryCard category={CATEGORIES[0]} index={0} />
+          <CategoryCard category={CATEGORIES[1]} index={1} />
+        </View>
       </View>
 
-      {/* Categories Grid - Radiuslu Arkaplan */}
+      {/* Kalan Kategoriler - Radiuslu Arkaplan (Overlap ile yukarı taşıyor) */}
       <View style={styles.categoriesContainer}>
-        {renderCategories()}
+        {CATEGORIES.slice(2).reduce((rows, category, index) => {
+          const actualIndex = index + 2;
+          if (actualIndex % 2 === 0) {
+            rows.push(
+              <View key={`category-row-${actualIndex}`} style={styles.categoryRow}>
+                <CategoryCard category={category} index={actualIndex} />
+                {CATEGORIES[actualIndex + 1] && (
+                  <CategoryCard category={CATEGORIES[actualIndex + 1]} index={actualIndex + 1} />
+                )}
+              </View>
+            );
+          }
+          return rows;
+        }, [])}
       </View>
     </ScrollView>
   );
@@ -61,11 +82,22 @@ export default function HomeScreen({ navigation }) {
     flex: 1,
     backgroundColor: '#FFFFFF', // Header kısmı beyaz
   },
+  headerWithFirstCategories: {
+    backgroundColor: '#FFFFFF', // Beyaz arkaplan
+    paddingHorizontal: Spacing.md,
+  },
   header: {
-    backgroundColor: '#FFFFFF', // Header beyaz
-    padding: Spacing.md,
-    marginBottom: 0, // Boşluk yok
-    paddingBottom: Spacing.xl, // Alt padding
+    backgroundColor: 'transparent', // Şeffaf
+    padding: Spacing.sm,
+    marginBottom: Spacing.md,
+    paddingBottom: Spacing.md,
+  },
+  firstCategoriesRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginBottom: 0, // Pembe kısmın tam ortasında olması için
+    zIndex: 10, // İlk kategoriler en üstte
+    position: 'relative', // Z-index çalışması için
   },
   greeting: {
     fontSize: Typography.sizes.xxlarge,
@@ -90,10 +122,13 @@ export default function HomeScreen({ navigation }) {
   categoriesContainer: {
     flex: 1,
     backgroundColor: Colors.background, // Pembe/krem arkaplan
-    borderTopLeftRadius: 30, // Sol üst radius
-    borderTopRightRadius: 30, // Sağ üst radius
-    paddingTop: Spacing.xl,
+    borderTopLeftRadius: 100, // Sol üst radius
+    borderTopRightRadius: 100, // Sağ üst radius
+    marginTop: -70, // Negatif margin ile yukarı taşı (kategori yüksekliğinin yarısı)
+    paddingTop: 90, // Üst padding artır (70 + 20 boşluk)
     paddingHorizontal: Spacing.md,
+    zIndex: 1, // Arkaplan altta
+    position: 'relative', // Z-index çalışması için
   },
   categoryRow: {
     flexDirection: 'row',
