@@ -65,19 +65,6 @@ export default function EbookViewerScreen({ route, navigation }) {
         {/* E-book Info */}
         <View style={styles.infoContainer}>
           <Text style={styles.title}>{ebook.title}</Text>
-          <Text style={styles.description}>{ebook.description}</Text>
-          
-          {/* Tags */}
-          <View style={styles.tagsContainer}>
-            <Text style={styles.tagsLabel}>{t('ebook_viewer.tags')}:</Text>
-            <View style={styles.tagsWrapper}>
-              {ebook.tags.map((tag, index) => (
-                <View key={index} style={styles.tag}>
-                  <Text style={styles.tagText}>{tag}</Text>
-                </View>
-              ))}
-            </View>
-          </View>
 
           {/* Age Range */}
           <View style={styles.detailRow}>

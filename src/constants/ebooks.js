@@ -22,14 +22,10 @@ export const EBOOKS = [
     id: 1,
     
     // 🇹🇷 Türkçe bilgiler
-    title: 'Test E-Kitabı Görsel',
-    description: 'Örnek test e-kitabı açıklaması',
-    tags: ['test', 'örnek', 'deneme'],
+    title: 'Matematik E-Kitabı',
     
     // 🇬🇧 İngilizce bilgiler
     titleEN: 'Test E-Book',
-    descriptionEN: 'Sample test e-book description',
-    tagsEN: ['test', 'sample', 'trial'],
     
     // 📋 Filtreleme bilgileri
     categoryId: 4,                    // Fen Bilimleri

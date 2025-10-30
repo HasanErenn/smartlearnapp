@@ -64,7 +64,6 @@ export default function SearchResultsScreen({ route, navigation }) {
         )}
         <View style={styles.ebookInfo}>
           <Text style={styles.cardTitle}>{ebook.title}</Text>
-          <Text style={styles.ebookDescription}>{ebook.description}</Text>
           <View style={styles.ebookMeta}>
             <Text style={styles.metaText}>
               {ebook.ageRange.min}-{ebook.ageRange.max} yaş

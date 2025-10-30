@@ -147,13 +147,6 @@ export default function CategoryDetailScreen({ route, navigation }) {
         <Text style={[styles.materialTitle, isSpecialCard && styles.specialMaterialTitle]}>
           {material.title}
         </Text>
-        
-        {/* E-book açıklaması */}
-        {material.description && (
-          <Text style={styles.materialDescription}>
-            {material.description}
-          </Text>
-        )}
       </TouchableOpacity>
     );
   };
