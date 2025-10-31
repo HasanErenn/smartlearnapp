@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, ScrollView, Image } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, Image, TouchableOpacity, Linking } from 'react-native';
 import { globalStyles } from '../styles/globalStyles';
 import { Colors, Spacing, Typography } from '../constants/theme';
 
@@ -125,6 +125,38 @@ export default function AboutScreen({ navigation }) {
           <Text style={styles.contactItem}>Phone Number</Text>
           <Text style={styles.contactItem}>Email@gmail.com</Text>
           <Text style={styles.contactItem}>Address</Text>
+        </View>
+
+        {/* Social Media Section */}
+        <View style={styles.section}>
+          <Text style={styles.sectionTitle}>Follow Us</Text>
+          <View style={styles.socialMediaContainer}>
+            
+            <TouchableOpacity 
+              style={styles.socialMediaButton}
+              onPress={() => Linking.openURL('https://www.instagram.com/smartlearn2005')}
+            >
+              <Text style={styles.socialMediaIcon}>📷</Text>
+              <Text style={styles.socialMediaText}>Instagram</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity 
+              style={styles.socialMediaButton}
+              onPress={() => Linking.openURL('https://www.facebook.com/61560378629575')}
+            >
+              <Text style={styles.socialMediaIcon}>📘</Text>
+              <Text style={styles.socialMediaText}>Facebook</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity 
+              style={styles.socialMediaButton}
+              onPress={() => Linking.openURL('https://www.tiktok.com/@smart.learn2005')}
+            >
+              <Text style={styles.socialMediaIcon}>🎵</Text>
+              <Text style={styles.socialMediaText}>TikTok</Text>
+            </TouchableOpacity>
+
+          </View>
         </View>
 
         </View>
@@ -266,5 +298,37 @@ const styles = StyleSheet.create({
   coordinatorLogo: {
     width: 120,
     height: 75,
+  },
+  socialMediaContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    alignItems: 'center',
+    marginTop: Spacing.md,
+  },
+  socialMediaButton: {
+    alignItems: 'center',
+    padding: Spacing.md,
+    borderRadius: 12,
+    backgroundColor: Colors.backgroundLight,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 3,
+    minWidth: 80,
+  },
+  socialMediaIcon: {
+    fontSize: 32,
+    marginBottom: Spacing.xs,
+  },
+  socialMediaText: {
+    fontSize: Typography.sizes.small,
+    fontFamily: Typography.families.body,
+    fontWeight: Typography.weights.medium,
+    color: Colors.text,
+    textAlign: 'center',
   },
 });
