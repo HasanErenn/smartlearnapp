@@ -10,20 +10,20 @@ const getCategoryKey = (categoryId) => {
     2: 'mother_language',
     3: 'foreign_languages',
     4: 'natural_sciences',
-    5: 'social_studies',
+    5: 'physical_education',
     6: 'mathematics',
-    7: 'technology'
+    7: 'ethics_religion'
   };
   return categoryKeys[categoryId] || 'unknown';
 };
 
 export const EBOOKS = [
-  {
+   {
     id: 1,
-    title: 'Mathematics E-Book',
-    categoryId: 4,                    // Natural Sciences
-    ageRange: { min: 6, max: 10 },    // 6-10 years
-    duration: '25_45_mins',           // 25-45 minutes
+    title: 'Team Mathematic Day',
+    categoryId: 6,                    // Matematik kategorisi
+    ageRange: { min: 6, max: 10 },
+    duration: '25_45_mins',           
     image: require('../../assets/ebooks/images/1.jpeg'),
     fileUrl: null
   },
