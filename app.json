@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "MobileApp",
-    "slug": "mobileapp",
+    "name": "Smart Learn",
+    "slug": "smartlearn",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -10,14 +10,14 @@
     "splash": {
       "image": "./assets/splash-icon.png",
       "resizeMode": "contain",
-      "backgroundColor": "#007AFF"
+      "backgroundColor": "#FFE1CC"
     },
     "assetBundlePatterns": [
       "**/*"
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.yourcompany.mobileapp",
+      "bundleIdentifier": "com.smartlearn.mobileapp",
       "buildNumber": "1.0.0",
       "infoPlist": {
         "NSCameraUsageDescription": "Bu uygulama fotoğraf çekmek için kameraya erişim gerektirir.",
@@ -27,10 +27,10 @@
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
+        "backgroundColor": "#FFE1CC"
       },
       "edgeToEdgeEnabled": true,
-      "package": "com.yourcompany.mobileapp",
+      "package": "com.smartlearn.mobileapp",
       "versionCode": 1,
       "permissions": [
         "CAMERA",
