@@ -18,18 +18,50 @@ const getCategoryKey = (categoryId) => {
 };
 
 export const EBOOKS = [
-   {
-    id: 1,
-    title: 'Team Mathematic Day',
-    categoryId: 6,                    // Matematik kategorisi
-    ageRange: { min: 6, max: 10 },
-    duration: '25_45_mins',           
-    image: require('../../assets/ebooks/images/1.jpeg'),
+  {
+    id: 2,
+    title: 'Art Project 1',
+    categoryId: 1,                    // Sanat & Müzik kategorisi
+    ageRange: { min: 8, max: 12 },
+    duration: '30_45_mins',           
+    folderPath: 'arts_music/p1',      // Klasör yolu
+    coverImage: require('../../assets/ebooks/arts_music/p1/1.png'), // Kapak resmi
+    pageCount: 3, // Manuel sayfa sayısı
+    pages: [
+      require('../../assets/ebooks/arts_music/p1/1.png'),
+      require('../../assets/ebooks/arts_music/p1/2.png'),
+      require('../../assets/ebooks/arts_music/p1/3.png')
+    ],
+    fileUrl: null
+  },
+  {
+    id: 3,
+    title: 'Art Project 2',
+    categoryId: 1,                    // Sanat & Müzik kategorisi
+    ageRange: { min: 8, max: 12 },
+    duration: '30_45_mins',           
+    folderPath: 'arts_music/p2',      // Klasör yolu
+    coverImage: require('../../assets/ebooks/arts_music/p2/1.png'), // Kapak resmi
+    pageCount: 3, // Manuel sayfa sayısı
+    pages: [
+      require('../../assets/ebooks/arts_music/p2/1.png'),
+      require('../../assets/ebooks/arts_music/p2/2.png'),
+      require('../../assets/ebooks/arts_music/p2/3.png')
+    ],
     fileUrl: null
   },
   
-  // Elle daha fazla e-book ekleyebilirsiniz...
+  // Daha fazla e-book ekleyebilirsiniz...
 ];
+
+// Enhanced ebook objesi oluştur (multi-page destekli)
+export const enhanceEbooks = (ebooks) => {
+  return ebooks.map(ebook => ({
+    ...ebook,
+    pageCount: getEbookPageCount(ebook),
+    pages: getEbookPages(ebook)
+  }));
+};
 
 // E-book filtreleme için yardımcı fonksiyonlar
 export const filterEbooks = (ebooks, filters) => {
@@ -61,29 +93,56 @@ export const filterEbooks = (ebooks, filters) => {
   return filtered;
 };
 
-// E-book'lara otomatik categoryKey ekle
-const enhanceEbooks = (ebooks) => {
-  return ebooks.map(ebook => ({
-    ...ebook,
-    categoryKey: getCategoryKey(ebook.categoryId)
-  }));
+// Otomatik sayfa sayma ve yükleme fonksiyonu
+// Bir ebook'un sayfalarını yükle (Viewer için) - Multi-page sistem
+export const getEbookPages = (ebook) => {
+  // Eğer ebook'ta pages array'i varsa onu kullan
+  if (ebook.pages && ebook.pages.length > 0) {
+    return ebook.pages.map((page, index) => ({
+      pageNumber: index + 1,
+      image: page,
+      uri: `${ebook.folderPath}/${index + 1}.png`
+    }));
+  }
+  
+  // Fallback: tek sayfa
+  return [{ 
+    pageNumber: 1, 
+    image: ebook.coverImage, 
+    uri: ebook.folderPath 
+  }];
 };
 
-// Kategoriye göre e-book'ları getir (static)
+// Ebook'un toplam sayfa sayısını hesapla
+export const getEbookPageCount = (ebook) => {
+  // Eğer manuel pageCount varsa onu kullan
+  if (ebook.pageCount) {
+    return ebook.pageCount;
+  }
+  
+  // Eğer pages array'i varsa onun uzunluğunu al
+  if (ebook.pages && ebook.pages.length > 0) {
+    return ebook.pages.length;
+  }
+  
+  // Fallback: tek sayfa
+  return 1;
+};
+
+// Yardımcı fonksiyonlar
 export const getEbooksByCategory = (categoryId) => {
-  const enhancedEbooks = enhanceEbooks(EBOOKS);
-  return enhancedEbooks.filter(ebook => ebook.categoryId === categoryId);
+  return EBOOKS.filter(ebook => ebook.categoryId === categoryId);
 };
 
-// Tüm e-book'ları categoryKey ile getir
-export const getAllEbooks = () => {
-  return enhanceEbooks(EBOOKS);
+export const getEbookById = (id) => {
+  return EBOOKS.find(ebook => ebook.id === id);
 };
 
-// Yaş aralığına göre e-book'ları getir
-export const getEbooksByAgeRange = (minAge, maxAge) => {
-  const enhancedEbooks = enhanceEbooks(EBOOKS);
-  return enhancedEbooks.filter(ebook => 
-    ebook.ageRange.min <= maxAge && ebook.ageRange.max >= minAge
-  );
+// Viewer için enhanced ebook objesi - Multi-page destekli
+export const getEnhancedEbook = (ebook) => {
+  return {
+    ...ebook,
+    pageCount: getEbookPageCount(ebook),
+    pages: getEbookPages(ebook)
+  };
 };

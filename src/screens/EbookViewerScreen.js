@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { 
   View, 
   Text, 
@@ -8,17 +8,28 @@ import {
   ScrollView,
   Dimensions,
   SafeAreaView,
-  Modal
+  Modal,
+  FlatList
 } from 'react-native';
 import ImageZoom from 'react-native-image-pan-zoom';
 
 import { Colors, Spacing, Typography } from '../constants/theme';
+import { getEbookPages } from '../constants/ebooks';
 
 const { width, height } = Dimensions.get('window');
 
 export default function EbookViewerScreen({ route, navigation }) {
   const { ebook } = route.params;
   const [isFullScreen, setIsFullScreen] = useState(false);
+  const [currentPage, setCurrentPage] = useState(0);
+  const [pages, setPages] = useState([]);
+  const flatListRef = useRef(null);
+
+  useEffect(() => {
+    // Ebook sayfalarını yükle
+    const ebookPages = getEbookPages(ebook);
+    setPages(ebookPages);
+  }, [ebook]);
 
   const openFullScreen = () => {
     setIsFullScreen(true);
@@ -30,6 +41,22 @@ export default function EbookViewerScreen({ route, navigation }) {
 
   const goBack = () => {
     navigation.goBack();
+  };
+
+  const goToNextPage = () => {
+    if (currentPage < pages.length - 1) {
+      const nextPage = currentPage + 1;
+      setCurrentPage(nextPage);
+      flatListRef.current?.scrollToIndex({ index: nextPage, animated: true });
+    }
+  };
+
+  const goToPrevPage = () => {
+    if (currentPage > 0) {
+      const prevPage = currentPage - 1;
+      setCurrentPage(prevPage);
+      flatListRef.current?.scrollToIndex({ index: prevPage, animated: true });
+    }
   };
 
   return (
@@ -45,43 +72,89 @@ export default function EbookViewerScreen({ route, navigation }) {
         <View style={styles.headerSpacer} />
       </View>
 
+      {/* Page Counter */}
+      <View style={styles.pageCounter}>
+        <Text style={styles.pageCounterText}>
+          {pages.length > 0 ? `${currentPage + 1} / ${pages.length}` : '0 / 0'}
+        </Text>
+      </View>
+
       {/* Content */}
-      <ScrollView style={styles.content}>
-        {/* E-book Image */}
-        <TouchableOpacity onPress={openFullScreen} style={styles.imageContainer}>
-          <Image 
-            source={ebook.image} 
-            style={styles.ebookImage}
-            resizeMode="contain"
+      <View style={styles.content}>
+        {/* Gallery View */}
+        {pages.length > 0 && (
+          <FlatList
+            ref={flatListRef}
+            data={pages}
+            horizontal
+            pagingEnabled
+            showsHorizontalScrollIndicator={false}
+            keyExtractor={(item) => item.pageNumber.toString()}
+            onMomentumScrollEnd={(event) => {
+              const pageIndex = Math.round(event.nativeEvent.contentOffset.x / width);
+              setCurrentPage(pageIndex);
+            }}
+            getItemLayout={(data, index) => ({
+              length: width,
+              offset: width * index,
+              index,
+            })}
+            renderItem={({ item }) => (
+              <TouchableOpacity onPress={openFullScreen} style={styles.pageContainer}>
+                <Image 
+                  source={item.image} 
+                  style={styles.pageImage}
+                  resizeMode="contain"
+                />
+              </TouchableOpacity>
+            )}
           />
-          <View style={styles.fullScreenHint}>
-            <Text style={styles.fullScreenHintText}>
-              📱 Tap for fullscreen
-            </Text>
-          </View>
-        </TouchableOpacity>
+        )}
 
-        {/* E-book Info */}
-        <View style={styles.infoContainer}>
-          <Text style={styles.title}>{ebook.title}</Text>
-
-          {/* Age Range */}
-          <View style={styles.detailRow}>
-            <Text style={styles.detailLabel}>Age Range:</Text>
-            <Text style={styles.detailValue}>
-              {ebook.ageRange.min}-{ebook.ageRange.max} years old
+        {/* Navigation Buttons */}
+        <View style={styles.navigationContainer}>
+          <TouchableOpacity 
+            style={[styles.navButton, styles.prevButton, currentPage === 0 && styles.navButtonDisabled]}
+            onPress={goToPrevPage}
+            disabled={currentPage === 0}
+          >
+            <Text style={[styles.navButtonText, currentPage === 0 && styles.navButtonTextDisabled]}>
+              ← Previous
             </Text>
-          </View>
+          </TouchableOpacity>
 
-          {/* Duration */}
-          <View style={styles.detailRow}>
-            <Text style={styles.detailLabel}>Duration:</Text>
-            <Text style={styles.detailValue}>
-              25-45 minutes
+          <TouchableOpacity 
+            style={[styles.navButton, styles.nextButton, currentPage === pages.length - 1 && styles.navButtonDisabled]}
+            onPress={goToNextPage}
+            disabled={currentPage === pages.length - 1}
+          >
+            <Text style={[styles.navButtonText, currentPage === pages.length - 1 && styles.navButtonTextDisabled]}>
+              Next →
             </Text>
-          </View>
+          </TouchableOpacity>
         </View>
-      </ScrollView>
+      </View>
+
+      {/* E-book Info */}
+      <View style={styles.infoContainer}>
+        <Text style={styles.title}>{ebook.title}</Text>
+
+        {/* Age Range */}
+        <View style={styles.detailRow}>
+          <Text style={styles.detailLabel}>Age Range:</Text>
+          <Text style={styles.detailValue}>
+            {ebook.ageRange.min}-{ebook.ageRange.max} years old
+          </Text>
+        </View>
+
+        {/* Duration */}
+        <View style={styles.detailRow}>
+          <Text style={styles.detailLabel}>Duration:</Text>
+          <Text style={styles.detailValue}>
+            25-45 minutes
+          </Text>
+        </View>
+      </View>
 
       {/* Full Screen Modal */}
       <Modal
@@ -91,23 +164,25 @@ export default function EbookViewerScreen({ route, navigation }) {
         onRequestClose={closeFullScreen}
       >
         <View style={styles.fullScreenContainer}>
-          <ImageZoom 
-            cropWidth={width}
-            cropHeight={height}
-            imageWidth={width - 40}
-            imageHeight={height - 200}
-            minScale={0.5}
-            maxScale={3}
-            enableSwipeDown={true}
-            onSwipeDown={closeFullScreen}
-            style={styles.imageZoomContainer}
-          >
-            <Image 
-              source={ebook.image} 
-              style={styles.fullScreenImage}
-              resizeMode="contain"
-            />
-          </ImageZoom>
+          {pages.length > 0 && pages[currentPage] && (
+            <ImageZoom 
+              cropWidth={width}
+              cropHeight={height}
+              imageWidth={width - 40}
+              imageHeight={height - 200}
+              minScale={0.5}
+              maxScale={3}
+              enableSwipeDown={true}
+              onSwipeDown={closeFullScreen}
+              style={styles.imageZoomContainer}
+            >
+              <Image 
+                source={pages[currentPage].image} 
+                style={styles.fullScreenImage}
+                resizeMode="contain"
+              />
+            </ImageZoom>
+          )}
           
           <TouchableOpacity style={styles.closeButton} onPress={closeFullScreen}>
             <Text style={styles.closeButtonText}>✕</Text>
@@ -274,5 +349,61 @@ const styles = StyleSheet.create({
     fontSize: 24,
     color: 'white',
     fontWeight: 'bold',
+  },
+  pageCounter: {
+    alignItems: 'center',
+    paddingVertical: Spacing.sm,
+    backgroundColor: Colors.surface,
+    borderBottomWidth: 1,
+    borderBottomColor: Colors.border,
+  },
+  pageCounterText: {
+    fontSize: Typography.sizes.medium,
+    fontWeight: Typography.weights.semibold,
+    color: Colors.primary,
+  },
+  pageContainer: {
+    width: width,
+    height: 400,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: Colors.surface,
+    marginVertical: Spacing.md,
+  },
+  pageImage: {
+    width: width - 32,
+    height: 380,
+    borderRadius: 12,
+  },
+  navigationContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingHorizontal: Spacing.md,
+    paddingVertical: Spacing.md,
+  },
+  navButton: {
+    paddingVertical: Spacing.md,
+    paddingHorizontal: Spacing.lg,
+    borderRadius: 25,
+    backgroundColor: Colors.primary,
+    minWidth: 100,
+    alignItems: 'center',
+  },
+  prevButton: {
+    marginRight: Spacing.sm,
+  },
+  nextButton: {
+    marginLeft: Spacing.sm,
+  },
+  navButtonDisabled: {
+    backgroundColor: Colors.border,
+  },
+  navButtonText: {
+    fontSize: Typography.sizes.medium,
+    fontWeight: Typography.weights.semibold,
+    color: Colors.surface,
+  },
+  navButtonTextDisabled: {
+    color: Colors.textSecondary,
   },
 });

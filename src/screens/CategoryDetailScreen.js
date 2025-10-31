@@ -21,6 +21,10 @@ export default function CategoryDetailScreen({ route, navigation }) {
   // Kategoriye göre e-book'ları getir (static)
   const categoryEbooks = getEbooksByCategory(category.id);
   
+  // Debug için ebook sayısını kontrol et
+  console.log(`Category: ${category.title} (ID: ${category.id})`);
+  console.log(`Found ebooks: ${categoryEbooks.length}`);
+  
   // Mock data for other educational materials
   const otherMaterials = [
     {
@@ -79,7 +83,7 @@ export default function CategoryDetailScreen({ route, navigation }) {
     
     const handlePress = () => {
       // E-book ise EbookViewer'a yönlendir
-      if (material.categoryId && material.image) {
+      if (material.categoryId && (material.coverImage || material.image)) {
         navigation.navigate('EbookViewer', { ebook: material });
       } else {
         alert(`${material.title} is opening...`);
@@ -98,7 +102,7 @@ export default function CategoryDetailScreen({ route, navigation }) {
           <View style={styles.ebookSpecialContainer}>
             {/* E-kitap görseli */}
             <Image
-              source={categoryEbooks[0].image}
+              source={categoryEbooks[0].coverImage || categoryEbooks[0].image}
               style={styles.ebookSpecialImage}
               resizeMode="cover"
             />
@@ -114,10 +118,10 @@ export default function CategoryDetailScreen({ route, navigation }) {
         {!isSpecialCard && (
           <View style={styles.regularCardContent}>
             {/* E-book için özel görsel/dosya göster */}
-            {material.image ? (
+            {material.coverImage || material.image ? (
               // PNG görsel varsa direkt göster  
               <Image
-                source={material.image}
+                source={material.coverImage || material.image}
                 style={styles.ebookImage}
                 resizeMode="cover"
               />
