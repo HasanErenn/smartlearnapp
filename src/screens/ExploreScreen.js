@@ -32,9 +32,32 @@ export default function ExploreScreen({ navigation }) {
     </TouchableOpacity>
   );
 
+  const getTopicColor = (categoryId) => {
+    const colorMap = {
+      1: Colors.artsMusic,       // Arts & Music
+      2: Colors.motherLanguage,  // Mother Language
+      3: Colors.foreignLanguages, // Foreign Languages
+      4: Colors.naturalSciences, // Natural Sciences
+      5: Colors.physicalEducation, // Physical Education
+      6: Colors.mathematics,     // Mathematics
+      7: Colors.ethicsReligion,  // Ethics & Religion
+    };
+    return colorMap[categoryId] || Colors.primary;
+  };
+
   const TopicOption = ({ category, isSelected, onPress }) => (
     <TouchableOpacity 
-      style={[styles.topicOption, isSelected && styles.topicOptionSelected]}
+      style={[
+        styles.topicOption, 
+        isSelected && [
+          styles.topicOptionSelected,
+          { 
+            backgroundColor: getTopicColor(category.id),
+            borderColor: getTopicColor(category.id),
+            shadowColor: getTopicColor(category.id),
+          }
+        ]
+      ]}
       onPress={onPress}
     >
       <Text style={[styles.topicOptionText, isSelected && styles.topicOptionTextSelected]}>
@@ -102,7 +125,7 @@ export default function ExploreScreen({ navigation }) {
                   const newMin = Math.round(value);
                   setAgeRange([newMin, Math.max(newMin + 1, ageRange[1])]);
                 }}
-                minimumTrackTintColor={Colors.primary}
+                minimumTrackTintColor={'#FF8629'}
                 maximumTrackTintColor={Colors.border}
                 thumbStyle={styles.sliderThumb}
                 step={1}
@@ -119,9 +142,9 @@ export default function ExploreScreen({ navigation }) {
                   const newMax = Math.round(value);
                   setAgeRange([Math.min(ageRange[0], newMax - 1), newMax]);
                 }}
-                minimumTrackTintColor={Colors.secondary}
+                minimumTrackTintColor={'#FF8629'}
                 maximumTrackTintColor={Colors.border}
-                thumbStyle={[styles.sliderThumb, { backgroundColor: Colors.secondary }]}
+                thumbStyle={[styles.sliderThumb, { backgroundColor: '#FF8629' }]}
                 step={1}
               />
               
@@ -247,7 +270,7 @@ const styles = StyleSheet.create({
     marginTop: Spacing.sm,
   },
   sliderThumb: {
-    backgroundColor: Colors.primary,
+    backgroundColor: '#FF8629',
     width: 20,
     height: 20,
     borderRadius: 10,
@@ -256,13 +279,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginTop: Spacing.md,
     paddingVertical: Spacing.sm,
-    backgroundColor: Colors.primary + '15',
+    backgroundColor: '#FF862915',
     borderRadius: 8,
   },
   ageRangeText: {
     fontSize: Typography.sizes.medium,
     fontWeight: Typography.weights.semibold,
-    color: Colors.primary,
+    color: '#FF8629',
   },
   timeOptionsContainer: {
     flexDirection: 'row',
@@ -270,7 +293,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   timeOption: {
-    backgroundColor: Colors.background,
+    backgroundColor: 'transparent',
     paddingVertical: Spacing.md,
     paddingHorizontal: Spacing.lg,
     borderRadius: 25,
@@ -281,8 +304,16 @@ const styles = StyleSheet.create({
     borderColor: Colors.border,
   },
   timeOptionSelected: {
-    backgroundColor: Colors.primary,
-    borderColor: Colors.primary,
+    backgroundColor: '#FF8629',
+    borderColor: '#FF8629',
+    shadowColor: '#FF8629',
+    shadowOffset: {
+      width: 0,
+      height: 4,
+    },
+    shadowOpacity: 0.3,
+    shadowRadius: 8,
+    elevation: 6,
   },
   timeOptionText: {
     fontSize: Typography.sizes.medium,
@@ -291,14 +322,15 @@ const styles = StyleSheet.create({
     fontWeight: Typography.weights.medium,
   },
   timeOptionTextSelected: {
-    color: Colors.surface,
+    color: '#FFFFFF',
+    fontWeight: Typography.weights.semibold,
   },
   topicsContainer: {
     flexDirection: 'row',
     flexWrap: 'wrap',
   },
   topicOption: {
-    backgroundColor: Colors.background,
+    backgroundColor: 'transparent',
     paddingVertical: Spacing.sm,
     paddingHorizontal: Spacing.md,
     borderRadius: 20,
@@ -308,8 +340,13 @@ const styles = StyleSheet.create({
     borderColor: Colors.border,
   },
   topicOptionSelected: {
-    backgroundColor: Colors.primary,
-    borderColor: Colors.primary,
+    shadowOffset: {
+      width: 0,
+      height: 3,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 6,
+    elevation: 4,
   },
   topicOptionText: {
     fontSize: Typography.sizes.medium,
@@ -317,7 +354,8 @@ const styles = StyleSheet.create({
     color: Colors.text,
   },
   topicOptionTextSelected: {
-    color: Colors.surface,
+    color: '#FFFFFF',
+    fontWeight: Typography.weights.semibold,
   },
   buttonsContainer: {
     gap: Spacing.md,
