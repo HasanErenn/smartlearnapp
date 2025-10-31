@@ -136,7 +136,11 @@ export default function AboutScreen({ navigation }) {
               style={styles.socialMediaButton}
               onPress={() => Linking.openURL('https://www.instagram.com/smartlearn2005')}
             >
-              <Text style={styles.socialMediaIcon}>📷</Text>
+              <Image 
+                source={require('../../assets/logos/socialmediaicons/instagram.png')} 
+                style={styles.socialMediaIcon}
+                resizeMode="contain"
+              />
               <Text style={styles.socialMediaText}>Instagram</Text>
             </TouchableOpacity>
 
@@ -144,7 +148,11 @@ export default function AboutScreen({ navigation }) {
               style={styles.socialMediaButton}
               onPress={() => Linking.openURL('https://www.facebook.com/61560378629575')}
             >
-              <Text style={styles.socialMediaIcon}>📘</Text>
+              <Image 
+                source={require('../../assets/logos/socialmediaicons/facebook.png')} 
+                style={styles.socialMediaIcon}
+                resizeMode="contain"
+              />
               <Text style={styles.socialMediaText}>Facebook</Text>
             </TouchableOpacity>
 
@@ -152,7 +160,11 @@ export default function AboutScreen({ navigation }) {
               style={styles.socialMediaButton}
               onPress={() => Linking.openURL('https://www.tiktok.com/@smart.learn2005')}
             >
-              <Text style={styles.socialMediaIcon}>🎵</Text>
+              <Image 
+                source={require('../../assets/logos/socialmediaicons/tiktok.png')} 
+                style={styles.socialMediaIcon}
+                resizeMode="contain"
+              />
               <Text style={styles.socialMediaText}>TikTok</Text>
             </TouchableOpacity>
 
@@ -299,6 +311,16 @@ const styles = StyleSheet.create({
     width: 120,
     height: 75,
   },
+  partnerLogo: {
+    width: 90,
+    height: 60,
+    margin: Spacing.xs,
+  },
+  supportLogo: {
+    width: 100,
+    height: 65,
+    margin: Spacing.xs,
+  },
   socialMediaContainer: {
     flexDirection: 'row',
     justifyContent: 'space-around',
@@ -321,7 +343,8 @@ const styles = StyleSheet.create({
     minWidth: 80,
   },
   socialMediaIcon: {
-    fontSize: 32,
+    width: 40,
+    height: 40,
     marginBottom: Spacing.xs,
   },
   socialMediaText: {
