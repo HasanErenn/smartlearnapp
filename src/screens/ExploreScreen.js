@@ -67,11 +67,19 @@ export default function ExploreScreen({ navigation }) {
   );
 
   const toggleTimeSelection = (time) => {
-    setSelectedTimes(prev => 
-      prev.includes(time) 
+    setSelectedTimes(prev => {
+      // Eğer "all" seçilirse, diğer tüm seçimleri temizle
+      if (time === 'all') {
+        return prev.includes('all') ? [] : ['all'];
+      }
+      
+      // Eğer başka bir seçenek seçilirse, "all"ı kaldır
+      const newSelection = prev.includes(time) 
         ? prev.filter(t => t !== time)
-        : [...prev, time]
-    );
+        : [...prev.filter(t => t !== 'all'), time];
+      
+      return newSelection;
+    });
   };
 
   const toggleTopicSelection = (categoryId) => {
@@ -88,6 +96,12 @@ export default function ExploreScreen({ navigation }) {
       selectedTimes,
       selectedTopics
     };
+    
+    console.log('Search Filters:', filters);
+    console.log('Age Range:', ageRange);
+    console.log('Selected Times:', selectedTimes);
+    console.log('Selected Topics:', selectedTopics);
+    
     navigation.navigate('SearchResults', { filters });
   };
 

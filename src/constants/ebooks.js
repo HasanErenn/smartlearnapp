@@ -19,14 +19,13 @@ const getCategoryKey = (categoryId) => {
 
 export const EBOOKS = [
   {
-    id: 2,
-    title: 'Art Project 1',
+    id: 1,
+    title: 'Creative expression: drawing, art and designing',
     categoryId: 1,                    // Sanat & Müzik kategorisi
-    ageRange: { min: 8, max: 12 },
-    duration: '30_45_mins',           
+    ageRange: { min: 9, max: 10 },
+    duration: '1_2_hours',           // TIME_OPTIONS'a uygun
     folderPath: 'arts_music/p1',      // Klasör yolu
     coverImage: require('../../assets/ebooks/arts_music/p1/1.png'), // Kapak resmi
-    pageCount: 3, // Manuel sayfa sayısı
     pages: [
       require('../../assets/ebooks/arts_music/p1/1.png'),
       require('../../assets/ebooks/arts_music/p1/2.png'),
@@ -35,14 +34,13 @@ export const EBOOKS = [
     fileUrl: null
   },
   {
-    id: 3,
-    title: 'Art Project 2',
+    id: 2,
+    title: 'Create and play handmade instruments',
     categoryId: 1,                    // Sanat & Müzik kategorisi
-    ageRange: { min: 8, max: 12 },
-    duration: '30_45_mins',           
+    ageRange: { min: 6, max: 14 },
+    duration: '25_45_mins',           // TIME_OPTIONS'a uygun
     folderPath: 'arts_music/p2',      // Klasör yolu
     coverImage: require('../../assets/ebooks/arts_music/p2/1.png'), // Kapak resmi
-    pageCount: 3, // Manuel sayfa sayısı
     pages: [
       require('../../assets/ebooks/arts_music/p2/1.png'),
       require('../../assets/ebooks/arts_music/p2/2.png'),
@@ -50,6 +48,85 @@ export const EBOOKS = [
     ],
     fileUrl: null
   },
+
+    {
+    id: 3,
+    title: 'Visual-spatial perspective',
+    categoryId: 6,                    // Natural Sciences
+    ageRange: { min: 6, max: 7 },    // 6-10 years
+    duration: '25_mins',           // 25-45 minutes
+    coverImage: require('../../assets/ebooks/mathematics/p4/1.png'),
+    pages: [
+      require('../../assets/ebooks/mathematics/p4/1.png'),
+      require('../../assets/ebooks/mathematics/p4/2.png')
+    ],
+    fileUrl: null
+  },
+
+    {
+    id: 4,
+    title: 'Measurements',
+    categoryId: 6,                    // Natural Sciences
+    ageRange: { min: 8, max: 12 },    // 6-10 years
+    duration: '40_mins',           // 25-45 minutes
+    coverImage: require('../../assets/ebooks/mathematics/p2/1.png'),
+    pages: [
+      require('../../assets/ebooks/mathematics/p2/1.png'),
+      require('../../assets/ebooks/mathematics/p2/2.png')
+    ],
+    fileUrl: null
+  },
+
+    {
+    id: 5,
+    title: 'Working with data',
+    categoryId: 6,                    // Natural Sciences
+    ageRange: { min: 7, max: 12 },    // 6-10 years
+    duration: '30_40mins',           // 25-45 minutes
+    coverImage: require('../../assets/ebooks/mathematics/p5/1.png'),
+    pages: [
+      require('../../assets/ebooks/mathematics/p5/1.png'),
+      require('../../assets/ebooks/mathematics/p5/2.png'),
+      require('../../assets/ebooks/mathematics/p5/3.png'),
+      require('../../assets/ebooks/mathematics/p5/4.png'),
+
+    ],
+    fileUrl: null
+  },
+
+    {
+    id: 6,
+    title: 'Addition and subtraction of fractions',
+    categoryId: 6,                    // Natural Sciences
+    ageRange: { min: 7, max: 9 },    // 6-10 years
+    duration: '80_mins',           // 25-45 minutes
+    coverImage: require('../../assets/ebooks/mathematics/p1/1.png'),
+    pages: [
+      require('../../assets/ebooks/mathematics/p1/1.png'),
+      require('../../assets/ebooks/mathematics/p1/2.png'),
+      require('../../assets/ebooks/mathematics/p1/3.png'),
+      require('../../assets/ebooks/mathematics/p1/4.png')
+    ],
+    fileUrl: null
+  },
+
+  {
+    id: 7,
+    title: 'Problem Solving',
+    categoryId: 6,                    // Natural Sciences
+    ageRange: { min: 7, max: 10 },    // 6-10 years
+    duration: '90_mins',           // 25-45 minutes
+    coverImage: require('../../assets/ebooks/mathematics/p3/1.png'),
+    pages: [
+      require('../../assets/ebooks/mathematics/p3/1.png'),
+      require('../../assets/ebooks/mathematics/p3/2.png'),
+      require('../../assets/ebooks/mathematics/p3/3.png'),
+      require('../../assets/ebooks/mathematics/p3/4.png')
+    ],
+    fileUrl: null
+  },
+  
+
   
   // Daha fazla e-book ekleyebilirsiniz...
 ];
@@ -65,6 +142,9 @@ export const enhanceEbooks = (ebooks) => {
 
 // E-book filtreleme için yardımcı fonksiyonlar
 export const filterEbooks = (ebooks, filters) => {
+  console.log('FilterEbooks called with:', filters);
+  console.log('Total ebooks:', ebooks.length);
+  
   const enhancedEbooks = enhanceEbooks(ebooks);
   let filtered = [...enhancedEbooks];
   
@@ -83,18 +163,19 @@ export const filterEbooks = (ebooks, filters) => {
     });
   }
   
-  // Süre filtresi
-  if (filters.selectedTimes && filters.selectedTimes.length > 0) {
+  // Süre filtresi - "all" seçilirse filtreleme yapma
+  if (filters.selectedTimes && filters.selectedTimes.length > 0 && !filters.selectedTimes.includes('all')) {
     filtered = filtered.filter(ebook => 
       filters.selectedTimes.includes(ebook.duration)
     );
   }
   
+  console.log('Final filtered results:', filtered.length);
   return filtered;
 };
 
 // Otomatik sayfa sayma ve yükleme fonksiyonu
-// Bir ebook'un sayfalarını yükle (Viewer için) - Multi-page sistem
+// Basit sayfa yükleme - manuel pages array kullanır
 export const getEbookPages = (ebook) => {
   // Eğer ebook'ta pages array'i varsa onu kullan
   if (ebook.pages && ebook.pages.length > 0) {
@@ -105,7 +186,7 @@ export const getEbookPages = (ebook) => {
     }));
   }
   
-  // Fallback: tek sayfa
+  // Fallback: cover image
   return [{ 
     pageNumber: 1, 
     image: ebook.coverImage, 
@@ -115,12 +196,7 @@ export const getEbookPages = (ebook) => {
 
 // Ebook'un toplam sayfa sayısını hesapla
 export const getEbookPageCount = (ebook) => {
-  // Eğer manuel pageCount varsa onu kullan
-  if (ebook.pageCount) {
-    return ebook.pageCount;
-  }
-  
-  // Eğer pages array'i varsa onun uzunluğunu al
+  // Eğer ebook'ta pages array'i varsa onun uzunluğu
   if (ebook.pages && ebook.pages.length > 0) {
     return ebook.pages.length;
   }
