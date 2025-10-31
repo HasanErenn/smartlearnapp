@@ -175,7 +175,7 @@ export default function CategoryDetailScreen({ route, navigation }) {
   };
 
   return (
-    <View style={globalStyles.container}>
+    <View style={styles.container}>
       {/* Header */}
       <View style={styles.header}>
         <TouchableOpacity 
@@ -198,11 +198,15 @@ export default function CategoryDetailScreen({ route, navigation }) {
 }
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#FFFFFF',
+  },
   header: {
     paddingTop: 50,
     paddingHorizontal: Spacing.md,
     paddingBottom: Spacing.md,
-    backgroundColor: Colors.surface,
+    backgroundColor: '#FFFFFF',
     borderBottomWidth: 1,
     borderBottomColor: Colors.border,
   },
@@ -218,6 +222,7 @@ const styles = StyleSheet.create({
     fontWeight: Typography.weights.bold,
     fontFamily: Typography.families.title,
     color: Colors.text,
+    textAlign: 'center',
   },
   content: {
     flex: 1,
@@ -237,11 +242,11 @@ const styles = StyleSheet.create({
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
-      height: 2,
+      height: 6,
     },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 3,
+    shadowOpacity: 0.15,
+    shadowRadius: 12,
+    elevation: 8,
   },
   specialCard: {
     height: 200,
