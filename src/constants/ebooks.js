@@ -246,9 +246,6 @@ export const enhanceEbooks = (ebooks) => {
 
 // E-book filtreleme için yardımcı fonksiyonlar
 export const filterEbooks = (ebooks, filters) => {
-  console.log('FilterEbooks called with:', filters);
-  console.log('Total ebooks:', ebooks.length);
-  
   const enhancedEbooks = enhanceEbooks(ebooks);
   let filtered = [...enhancedEbooks];
   
@@ -274,7 +271,6 @@ export const filterEbooks = (ebooks, filters) => {
     );
   }
   
-  console.log('Final filtered results:', filtered.length);
   return filtered;
 };
 

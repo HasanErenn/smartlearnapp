@@ -97,11 +97,6 @@ export default function ExploreScreen({ navigation }) {
       selectedTopics
     };
     
-    console.log('Search Filters:', filters);
-    console.log('Age Range:', ageRange);
-    console.log('Selected Times:', selectedTimes);
-    console.log('Selected Topics:', selectedTopics);
-    
     navigation.navigate('SearchResults', { filters });
   };
 

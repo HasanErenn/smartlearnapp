@@ -21,62 +21,8 @@ export default function CategoryDetailScreen({ route, navigation }) {
   // Kategoriye göre e-book'ları getir (static)
   const categoryEbooks = getEbooksByCategory(category.id);
   
-  // Debug için ebook sayısını kontrol et
-  console.log(`Category: ${category.title} (ID: ${category.id})`);
-  console.log(`Found ebooks: ${categoryEbooks.length}`);
-  
-  // Mock data for other educational materials
-  const otherMaterials = [
-    {
-      id: 1,
-      title: `${category.title} 1`,
-      type: 'lesson',
-      duration: '25 mins',
-      difficulty: 'Beginner'
-    },
-    {
-      id: 2,
-      title: `${category.title}`,
-      type: 'exercise',
-      duration: '15 mins',
-      difficulty: 'Intermediate'
-    },
-    {
-      id: 5,
-      title: 'E-Book Title',
-      type: 'ebook',
-      duration: '60 mins',
-      difficulty: 'Intermediate'
-    },
-    {
-      id: 6,
-      title: 'E-Book Title',
-      type: 'ebook',
-      duration: '40 mins',
-      difficulty: 'Advanced'
-    },
-    {
-      id: 7,
-      title: `${category.title}`,
-      type: 'lesson',
-      duration: '35 mins',
-      difficulty: 'Intermediate'
-    },
-    {
-      id: 8,
-      title: 'E-Book Title',
-      type: 'ebook',
-      duration: '20 mins',
-      difficulty: 'Beginner'
-    },
-    {
-      id: 9,
-      title: 'E-Book Title',
-      type: 'ebook',
-      duration: '50 mins',
-      difficulty: 'İleri'
-    },
-  ];
+
+
 
   const MaterialCard = ({ material, index }) => {
     const isSpecialCard = index === 0; // First card has special design
@@ -98,74 +44,40 @@ export default function CategoryDetailScreen({ route, navigation }) {
         ]}
         onPress={handlePress}
       >
-        {isSpecialCard && categoryEbooks.length > 0 && (
-          <View style={styles.ebookSpecialContainer}>
-            {/* E-kitap görseli */}
-            <Image
-              source={categoryEbooks[0].coverImage || categoryEbooks[0].image}
-              style={styles.ebookSpecialImage}
-              resizeMode="cover"
-            />
-            {/* E-kitap başlığı */}
-            <View style={styles.ebookSpecialTitleContainer}>
-              <Text style={styles.ebookSpecialTitle} numberOfLines={2}>
-                {categoryEbooks[0].title}
-              </Text>
-            </View>
+        {/* Her kart için aynı layout kullan */}
+        <View style={styles.ebookSpecialContainer}>
+          {/* E-kitap görseli */}
+          <Image
+            source={material.coverImage || material.image}
+            style={styles.ebookSpecialImage}
+            resizeMode="cover"
+          />
+          {/* E-kitap başlığı ve yaş aralığı */}
+          <View style={styles.ebookSpecialTitleContainer}>
+            <Text style={styles.ebookSpecialTitle} numberOfLines={2}>
+              {material.title}
+            </Text>
+            {/* Age range */}
+            <Text style={styles.ageRangeText}>
+              {material.ageRange.min}-{material.ageRange.max} years old
+            </Text>
           </View>
-        )}
-        
-        {!isSpecialCard && (
-          <View style={styles.regularCardContent}>
-            {/* E-book için özel görsel/dosya göster */}
-            {material.coverImage || material.image ? (
-              // PNG görsel varsa direkt göster  
-              <Image
-                source={material.coverImage || material.image}
-                style={styles.ebookImage}
-                resizeMode="cover"
-              />
-            ) : material.fileUrl ? (
-              // PDF dosyası varsa PDF ikonu göster
-              <View style={styles.pdfIcon}>
-                <Text style={styles.pdfIconText}>📄</Text>
-                <Text style={styles.pdfLabel}>PDF</Text>
-              </View>
-            ) : (
-              // Hiçbiri yoksa varsayılan ikon
-              <View style={styles.materialIcon}>
-                <Text style={styles.materialIconText}>📚</Text>
-              </View>
-            )}
-            
-            {/* E-book meta bilgileri */}
-            {material.ageRange && (
-              <Text style={styles.ebookMeta}>
-                {material.ageRange.min}-{material.ageRange.max} yaş
-              </Text>
-            )}
-          </View>
-        )}
-        
-        <Text style={[styles.materialTitle, isSpecialCard && styles.specialMaterialTitle]}>
-          {material.title}
-        </Text>
+        </View>
+
       </TouchableOpacity>
     );
   };
 
   const renderMaterials = () => {
     const rows = [];
-    // E-book'ları ve diğer materyalleri birleştir ve benzersiz key'ler ekle
-    const allMaterials = [
-      ...categoryEbooks.map(item => ({...item, uniqueId: `ebook-${item.id}`})),
-      ...otherMaterials.map(item => ({...item, uniqueId: `material-${item.id}`}))
-    ];
+    // Sadece gerçek e-book'ları göster
+    const allMaterials = categoryEbooks.map(item => ({...item, uniqueId: `ebook-${item.id}`}));
     
-    for (let i = 0; i < allMaterials.length; i += 3) {
+    // 2 kolonlu grid layout
+    for (let i = 0; i < allMaterials.length; i += 2) {
       rows.push(
         <View key={`row-${i}`} style={styles.materialRow}>
-          {allMaterials.slice(i, i + 3).map((material, index) => (
+          {allMaterials.slice(i, i + 2).map((material, index) => (
             <MaterialCard 
               key={material.uniqueId} 
               material={material} 
@@ -234,26 +146,31 @@ const styles = StyleSheet.create({
   },
   materialRow: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginBottom: Spacing.md,
+    justifyContent: 'space-around', // Kutular arası eşit boşluk
+    marginBottom: Spacing.lg,
+    paddingHorizontal: Spacing.md,
   },
   materialCard: {
-    width: (width - Spacing.md * 4) / 3,
-    height: 160,
+    width: (width - Spacing.lg * 4) / 2, // Daha dar kutular, daha fazla boşluk
+    height: 200, // Sabit yükseklik
     backgroundColor: Colors.surface,
     borderRadius: 12,
     padding: Spacing.sm,
+    marginHorizontal: Spacing.xs, // Yan boşluk
+    marginVertical: Spacing.xs, // Dikey boşluk
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
       height: 6,
     },
-    shadowOpacity: 0.15,
-    shadowRadius: 12,
+    shadowOpacity: 0.2, // Daha belirgin gölge
+    shadowRadius: 10,
     elevation: 8,
+    alignItems: 'center',
+    justifyContent: 'space-between',
   },
   specialCard: {
-    height: 200,
+    // Artık materialCard'ın sabit height'ı kullanılıyor
   },
   specialCardBg: {
     flex: 1,
@@ -287,18 +204,20 @@ const styles = StyleSheet.create({
     marginBottom: 2,
   },
   ebookSpecialContainer: {
-    flex: 1,
+    width: '100%',
+    height: '100%',
     borderRadius: 12,
     overflow: 'hidden',
     backgroundColor: Colors.surface,
   },
   ebookSpecialImage: {
     width: '100%',
-    height: 140,
+    height: 120, // Sabit image yüksekliği
     backgroundColor: Colors.background,
+    resizeMode: 'cover', // Kapak resmini düzgün fit et
   },
   ebookSpecialTitleContainer: {
-    flex: 1,
+    height: 80, // Sabit title container yüksekliği
     justifyContent: 'center',
     paddingHorizontal: Spacing.sm,
     paddingVertical: Spacing.xs,
@@ -310,6 +229,13 @@ const styles = StyleSheet.create({
     color: Colors.text,
     textAlign: 'center',
     lineHeight: 16,
+    marginBottom: Spacing.xs,
+  },
+  ageRangeText: {
+    fontSize: Typography.sizes.tiny,
+    fontWeight: Typography.weights.medium,
+    color: Colors.primary,
+    textAlign: 'center',
   },
   regularCardContent: {
     flex: 1,
