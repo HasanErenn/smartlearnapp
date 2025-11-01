@@ -20,6 +20,7 @@ export const Colors = {
   physicalEducation: '#BA89FF', // Physical Education
   mathematics: '#E74C3C', // Mathematics (keeping existing)
   ethicsReligion: '#61A8D7', // Ethics & Religion
+  ebook: '#4A90E2', // E-Book
 };
 
 export const Spacing = {

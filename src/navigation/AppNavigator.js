@@ -12,6 +12,8 @@ import CategoryDetailScreen from '../screens/CategoryDetailScreen';
 import SearchResultsScreen from '../screens/SearchResultsScreen';
 import SettingsScreen from '../screens/SettingsScreen';
 import EbookViewerScreen from '../screens/EbookViewerScreen';
+import PDFViewerScreen from '../screens/PDFViewerScreen';
+// import PDFInAppViewer from '../screens/PDFViewerReactNativePdf';
 
 // Import constants
 import { SCREEN_NAMES } from '../constants/config';
@@ -128,6 +130,16 @@ export default function AppNavigator() {
           component={EbookViewerScreen}
           options={{ headerShown: true, title: 'E-Kitap' }}
         />
+        <Stack.Screen 
+          name="PDFViewer" 
+          component={PDFViewerScreen}
+          options={{ headerShown: false }}
+        />
+        {/* <Stack.Screen
+          name="PDFInAppViewer"
+          component={PDFInAppViewer}
+          options={{ headerShown: false }}
+        /> */}
       </Stack.Navigator>
     </NavigationContainer>
   );

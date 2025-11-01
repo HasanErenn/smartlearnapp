@@ -67,6 +67,13 @@ export const CATEGORIES = [
     key: 'ethics_religion',
     color: '#61A8D7',
   },
+  {
+    id: 8,
+    title: 'E-Book',
+    titleTR: 'E-Kitap',
+    key: 'ebook',
+    color: '#4A90E2',
+  },
 ];
 
 export const TIME_OPTIONS = [

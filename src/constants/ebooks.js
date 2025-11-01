@@ -12,7 +12,8 @@ const getCategoryKey = (categoryId) => {
     4: 'natural_sciences',
     5: 'physical_education',
     6: 'mathematics',
-    7: 'ethics_religion'
+    7: 'ethics_religion',
+    8: 'ebook'
   };
   return categoryKeys[categoryId] || 'unknown';
 };

@@ -11,7 +11,7 @@ import {
   Modal,
   FlatList
 } from 'react-native';
-import ImageZoom from 'react-native-image-pan-zoom';
+// import ImageZoom from 'react-native-image-pan-zoom';
 
 import { Colors, Spacing, Typography } from '../constants/theme';
 import { getEbookPages, formatDuration } from '../constants/ebooks';
@@ -150,23 +150,11 @@ export default function EbookViewerScreen({ route, navigation }) {
       >
         <View style={styles.fullScreenContainer}>
           {pages.length > 0 && pages[currentPage] && (
-            <ImageZoom 
-              cropWidth={width}
-              cropHeight={height}
-              imageWidth={width - 40}
-              imageHeight={height - 200}
-              minScale={0.5}
-              maxScale={3}
-              enableSwipeDown={true}
-              onSwipeDown={closeFullScreen}
-              style={styles.imageZoomContainer}
-            >
-              <Image 
-                source={pages[currentPage].image} 
-                style={styles.fullScreenImage}
-                resizeMode="contain"
-              />
-            </ImageZoom>
+            <Image 
+              source={pages[currentPage].image} 
+              style={styles.fullScreenImage}
+              resizeMode="contain"
+            />
           )}
           
           <TouchableOpacity style={styles.closeButton} onPress={closeFullScreen}>

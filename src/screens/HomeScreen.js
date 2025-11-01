@@ -10,16 +10,27 @@ const { width } = Dimensions.get('window');
 export default function HomeScreen({ navigation }) {
 
   
-  const CategoryCard = ({ category, index }) => (
-    <TouchableOpacity 
-      style={[styles.categoryCard, { backgroundColor: category.color }]}
-      onPress={() => navigation.navigate('CategoryDetail', { category })}
-    >
-      <Text style={styles.categoryTitle}>
-        {category.title}
-      </Text>
-    </TouchableOpacity>
-  );
+  const CategoryCard = ({ category, index }) => {
+    const handlePress = () => {
+      // E-Book kategorisi için özel davranış
+      if (category.id === 8) { // E-Book kategorisi
+        navigation.navigate('PDFViewer', { category });
+      } else {
+        navigation.navigate('CategoryDetail', { category });
+      }
+    };
+
+    return (
+      <TouchableOpacity 
+        style={[styles.categoryCard, { backgroundColor: category.color }]}
+        onPress={handlePress}
+      >
+        <Text style={styles.categoryTitle}>
+          {category.title}
+        </Text>
+      </TouchableOpacity>
+    );
+  };
 
   const renderCategories = () => {
     const rows = [];

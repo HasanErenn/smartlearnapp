@@ -41,6 +41,7 @@ export default function ExploreScreen({ navigation }) {
       5: Colors.physicalEducation, // Physical Education
       6: Colors.mathematics,     // Mathematics
       7: Colors.ethicsReligion,  // Ethics & Religion
+      8: Colors.ebook,          // E-Book
     };
     return colorMap[categoryId] || Colors.primary;
   };
