@@ -14,7 +14,7 @@ import {
 import ImageZoom from 'react-native-image-pan-zoom';
 
 import { Colors, Spacing, Typography } from '../constants/theme';
-import { getEbookPages } from '../constants/ebooks';
+import { getEbookPages, formatDuration } from '../constants/ebooks';
 
 const { width, height } = Dimensions.get('window');
 
@@ -39,10 +39,6 @@ export default function EbookViewerScreen({ route, navigation }) {
     setIsFullScreen(false);
   };
 
-  const goBack = () => {
-    navigation.goBack();
-  };
-
   const goToNextPage = () => {
     if (currentPage < pages.length - 1) {
       const nextPage = currentPage + 1;
@@ -61,17 +57,6 @@ export default function EbookViewerScreen({ route, navigation }) {
 
   return (
     <SafeAreaView style={styles.container}>
-      {/* Header */}
-      <View style={styles.header}>
-        <TouchableOpacity style={styles.backButton} onPress={goBack}>
-          <Text style={styles.backButtonText}>←</Text>
-        </TouchableOpacity>
-        <Text style={styles.headerTitle} numberOfLines={1}>
-          {ebook.title}
-        </Text>
-        <View style={styles.headerSpacer} />
-      </View>
-
       {/* Page Counter */}
       <View style={styles.pageCounter}>
         <Text style={styles.pageCounterText}>
@@ -151,7 +136,7 @@ export default function EbookViewerScreen({ route, navigation }) {
         <View style={styles.detailRow}>
           <Text style={styles.detailLabel}>Duration:</Text>
           <Text style={styles.detailValue}>
-            25-45 minutes
+            {formatDuration(ebook.duration)}
           </Text>
         </View>
       </View>
@@ -198,39 +183,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: Colors.background,
   },
-  header: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    paddingHorizontal: Spacing.md,
-    paddingVertical: Spacing.sm,
-    borderBottomWidth: 1,
-    borderBottomColor: Colors.border,
-    backgroundColor: Colors.surface,
-  },
-  backButton: {
-    width: 40,
-    height: 40,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 20,
-    backgroundColor: Colors.primary + '20',
-  },
-  backButtonText: {
-    fontSize: 24,
-    color: Colors.primary,
-    fontWeight: 'bold',
-  },
-  headerTitle: {
-    flex: 1,
-    fontSize: Typography.sizes.large,
-    fontWeight: Typography.weights.semibold,
-    color: Colors.text,
-    textAlign: 'center',
-    marginHorizontal: Spacing.sm,
-  },
-  headerSpacer: {
-    width: 40,
-  },
+
   content: {
     flex: 1,
   },

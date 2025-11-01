@@ -12,7 +12,7 @@ import {
 import { globalStyles } from '../styles/globalStyles';
 import { Colors, Spacing, Typography } from '../constants/theme';
 import { CATEGORIES } from '../constants/config';
-import { EBOOKS, filterEbooks } from '../constants/ebooks';
+import { EBOOKS, filterEbooks, formatDuration } from '../constants/ebooks';
 
 const { width } = Dimensions.get('window');
 
@@ -49,9 +49,9 @@ export default function SearchResultsScreen({ route, navigation }) {
       onPress={() => navigation.navigate('EbookViewer', { ebook })}
     >
       <View style={styles.cardContent}>
-        {ebook.image ? (
+        {ebook.coverImage ? (
           <Image
-            source={ebook.image}
+            source={ebook.coverImage}
             style={styles.ebookImage}
           />
         ) : (
@@ -68,7 +68,7 @@ export default function SearchResultsScreen({ route, navigation }) {
               {ebook.ageRange.min}-{ebook.ageRange.max} years old
             </Text>
             <Text style={styles.metaText}>
-              25-45 minutes
+              {formatDuration(ebook.duration)}
             </Text>
           </View>
         </View>

@@ -122,9 +122,34 @@ export default function AboutScreen({ navigation }) {
         {/* Contact Section */}
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>Contact Us</Text>
-          <Text style={styles.contactItem}>Phone Number</Text>
-          <Text style={styles.contactItem}>Email@gmail.com</Text>
-          <Text style={styles.contactItem}>Address</Text>
+          
+          {/* Email Contact */}
+          <TouchableOpacity 
+            style={styles.contactButton}
+            onPress={() => Linking.openURL('mailto:info@smartlearn.com.tr')}
+          >
+            <View style={styles.contactContent}>
+              <Text style={styles.contactIcon}>✉️</Text>
+              <View style={styles.contactTextContainer}>
+                <Text style={styles.contactLabel}>Email</Text>
+                <Text style={styles.contactValue}>info@smartlearn.com.tr</Text>
+              </View>
+            </View>
+          </TouchableOpacity>
+
+          {/* Website Contact */}
+          <TouchableOpacity 
+            style={styles.contactButton}
+            onPress={() => Linking.openURL('https://www.smartlearn.com.tr')}
+          >
+            <View style={styles.contactContent}>
+              <Text style={styles.contactIcon}>🌐</Text>
+              <View style={styles.contactTextContainer}>
+                <Text style={styles.contactLabel}>Website</Text>
+                <Text style={styles.contactValue}>www.smartlearn.com.tr</Text>
+              </View>
+            </View>
+          </TouchableOpacity>
         </View>
 
         {/* Social Media Section */}
@@ -231,12 +256,47 @@ const styles = StyleSheet.create({
     lineHeight: 24,
     textAlign: 'justify',
   },
-  contactItem: {
+  contactButton: {
+    backgroundColor: Colors.backgroundLight,
+    borderRadius: 12,
+    marginBottom: Spacing.md,
+    padding: Spacing.md,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 3,
+    borderWidth: 1,
+    borderColor: Colors.border,
+  },
+  contactContent: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  contactIcon: {
+    fontSize: 24,
+    marginRight: Spacing.md,
+    width: 30,
+    textAlign: 'center',
+  },
+  contactTextContainer: {
+    flex: 1,
+  },
+  contactLabel: {
+    fontSize: Typography.sizes.small,
+    fontFamily: Typography.families.body,
+    fontWeight: Typography.weights.medium,
+    color: Colors.textSecondary,
+    marginBottom: 2,
+  },
+  contactValue: {
     fontSize: Typography.sizes.medium,
     fontFamily: Typography.families.body,
-    color: Colors.text,
-    marginBottom: Spacing.sm,
-    paddingVertical: Spacing.xs,
+    fontWeight: Typography.weights.semibold,
+    color: Colors.primary,
   },
   projectTitle: {
     fontSize: Typography.sizes.medium,

@@ -17,6 +17,19 @@ const getCategoryKey = (categoryId) => {
   return categoryKeys[categoryId] || 'unknown';
 };
 
+// Duration kodunu human readable forma çevir
+export const formatDuration = (durationCode) => {
+  const durationMap = {
+    '15_25_mins': '15-25 minutes',
+    '25_45_mins': '25-45 minutes',
+    '1_2_hours': '1-2 hours',
+    '5_hours': '5 hours',
+    'one_month': 'One Month',
+    'all': 'All'
+  };
+  return durationMap[durationCode] || durationCode;
+};
+
 export const EBOOKS = [
   {
     id: 1,
@@ -144,7 +157,7 @@ export const EBOOKS = [
     id: 9,
     title:  'Ethical Discussions',
     categoryId: 7,                    // Natural Sciences
-    ageRange: { min: 7, max: 10 },    // 6-10 years
+    ageRange: { min: 9, max: 10 },    // 6-10 years
     duration: '90_mins',           // 25-45 minutes
     coverImage: require('../../assets/ebooks/ethics_religion/p2/1.png'),
     pages: [
@@ -159,8 +172,8 @@ export const EBOOKS = [
     id: 10,
     title: 'Values and Morals',
     categoryId: 7,                    // Natural Sciences
-    ageRange: { min: 7, max: 10 },    // 6-10 years
-    duration: '90_mins',           // 25-45 minutes
+    ageRange: { min: 6, max: 10 },    // 6-10 years
+    duration: '40_mins',           // 25-45 minutes
     coverImage: require('../../assets/ebooks/ethics_religion/p3/1.png'),
     pages: [
       require('../../assets/ebooks/ethics_religion/p3/1.png'),
@@ -171,7 +184,7 @@ export const EBOOKS = [
 
     {
     id: 11,
-    title: 'Introduction to basic vocabulary',
+    title: 'Introduction to basic vocabulary: Common Words',
     categoryId: 3,                    // Natural Sciences
     ageRange: { min: 6, max: 11 },    // 6-10 years
     duration: '60_mins',           // 25-45 minutes
@@ -239,15 +252,13 @@ export const EBOOKS = [
 export const enhanceEbooks = (ebooks) => {
   return ebooks.map(ebook => ({
     ...ebook,
-    pageCount: getEbookPageCount(ebook),
-    pages: getEbookPages(ebook)
+    pageCount: getEbookPageCount(ebook)
   }));
 };
 
 // E-book filtreleme için yardımcı fonksiyonlar
 export const filterEbooks = (ebooks, filters) => {
-  const enhancedEbooks = enhanceEbooks(ebooks);
-  let filtered = [...enhancedEbooks];
+  let filtered = [...ebooks]; // Orijinal ebook objelerini koru
   
   // Kategori filtresi
   if (filters.selectedTopics && filters.selectedTopics.length > 0) {

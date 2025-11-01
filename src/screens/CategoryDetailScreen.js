@@ -11,7 +11,7 @@ import {
 
 import { globalStyles } from '../styles/globalStyles';
 import { Colors, Spacing, Typography } from '../constants/theme';
-import { getEbooksByCategory } from '../constants/ebooks';
+import { getEbooksByCategory, formatDuration } from '../constants/ebooks';
 
 const { width } = Dimensions.get('window');
 
@@ -235,6 +235,13 @@ const styles = StyleSheet.create({
     fontSize: Typography.sizes.tiny,
     fontWeight: Typography.weights.medium,
     color: Colors.primary,
+    textAlign: 'center',
+    marginBottom: Spacing.xs,
+  },
+  durationText: {
+    fontSize: Typography.sizes.tiny,
+    fontWeight: Typography.weights.medium,
+    color: Colors.textSecondary,
     textAlign: 'center',
   },
   regularCardContent: {
