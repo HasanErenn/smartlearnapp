@@ -42,7 +42,7 @@ export default function SettingsScreen({ navigation }) {
               value={settings.autoUpdate}
               onValueChange={() => toggleSetting('autoUpdate')}
               trackColor={{ false: Colors.border, true: Colors.primary + '40' }}
-              thumbColor={settings.autoUpdate ? Colors.primary : Colors.textSecondary}
+              thumbColor="#FFFFFF"
             />
           </View>
         </View>
