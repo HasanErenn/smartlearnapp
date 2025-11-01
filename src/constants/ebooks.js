@@ -125,8 +125,112 @@ export const EBOOKS = [
     ],
     fileUrl: null
   },
-  
 
+  {
+    id: 8,
+    title: 'Cultural and spiritual diversity',
+    categoryId: 7,                    // Natural Sciences
+    ageRange: { min: 7, max: 10 },    // 6-10 years
+    duration: '90_mins',           // 25-45 minutes
+    coverImage: require('../../assets/ebooks/ethics_religion/p1/1.png'),
+    pages: [
+      require('../../assets/ebooks/ethics_religion/p1/1.png'),
+      require('../../assets/ebooks/ethics_religion/p1/2.png')
+    ],
+    fileUrl: null
+  },
+
+{
+    id: 9,
+    title:  'Ethical Discussions',
+    categoryId: 7,                    // Natural Sciences
+    ageRange: { min: 7, max: 10 },    // 6-10 years
+    duration: '90_mins',           // 25-45 minutes
+    coverImage: require('../../assets/ebooks/ethics_religion/p2/1.png'),
+    pages: [
+      require('../../assets/ebooks/ethics_religion/p2/1.png'),
+      require('../../assets/ebooks/ethics_religion/p2/2.png'),
+      require('../../assets/ebooks/ethics_religion/p2/3.png')
+    ],
+    fileUrl: null
+  },
+
+{
+    id: 10,
+    title: 'Values and Morals',
+    categoryId: 7,                    // Natural Sciences
+    ageRange: { min: 7, max: 10 },    // 6-10 years
+    duration: '90_mins',           // 25-45 minutes
+    coverImage: require('../../assets/ebooks/ethics_religion/p3/1.png'),
+    pages: [
+      require('../../assets/ebooks/ethics_religion/p3/1.png'),
+      require('../../assets/ebooks/ethics_religion/p3/2.png')
+    ],
+    fileUrl: null
+  },
+
+    {
+    id: 11,
+    title: 'Introduction to basic vocabulary',
+    categoryId: 3,                    // Natural Sciences
+    ageRange: { min: 6, max: 11 },    // 6-10 years
+    duration: '60_mins',           // 25-45 minutes
+    coverImage: require('../../assets/ebooks/foreign_languages/p2/1.png'),
+    pages: [
+      require('../../assets/ebooks/foreign_languages/p2/1.png'),
+      require('../../assets/ebooks/foreign_languages/p2/2.png'),
+      require('../../assets/ebooks/foreign_languages/p2/3.png'),
+      require('../../assets/ebooks/foreign_languages/p2/4.png'),
+      require('../../assets/ebooks/foreign_languages/p2/5.png'),
+    ],
+    fileUrl: null
+  },
+
+  {
+    id: 12,
+    title: 'Simple communication',
+    categoryId: 3,                    // Natural Sciences
+    ageRange: { min: 10, max: 12 },    // 6-10 years
+    duration: '45_mins',           // 25-45 minutes
+    coverImage: require('../../assets/ebooks/foreign_languages/p1/1.png'),
+    pages: [
+      require('../../assets/ebooks/foreign_languages/p1/1.png'),
+      require('../../assets/ebooks/foreign_languages/p1/2.png'),
+      require('../../assets/ebooks/foreign_languages/p1/3.png'),
+    ],
+    fileUrl: null
+  },
+
+  {
+    id: 13,
+    title: 'Developing comprehension through listening tasks',
+    categoryId: 3,                    // Natural Sciences
+    ageRange: { min: 7, max: 10 },    // 6-10 years
+    duration: '35_mins',           // 25-45 minutes
+    coverImage: require('../../assets/ebooks/foreign_languages/p4/1.png'),
+    pages: [
+      require('../../assets/ebooks/foreign_languages/p4/1.png'),
+      require('../../assets/ebooks/foreign_languages/p4/2.png'),
+      require('../../assets/ebooks/foreign_languages/p4/3.png'),
+      require('../../assets/ebooks/foreign_languages/p4/4.png'),
+    ],
+    fileUrl: null
+  },
+
+  {
+    id: 14,
+    title: 'Developing comprehension during reading tasks',
+    categoryId: 3,                    // Natural Sciences
+    ageRange: { min: 10, max: 11 },    // 6-10 years
+    duration: '35_40_mins',           // 25-45 minutes
+    coverImage: require('../../assets/ebooks/foreign_languages/p3/1.png'),
+    pages: [
+      require('../../assets/ebooks/foreign_languages/p3/1.png'),
+      require('../../assets/ebooks/foreign_languages/p3/2.png'),
+      require('../../assets/ebooks/foreign_languages/p3/3.png'),
+    ],
+    fileUrl: null
+  },
   
   // Daha fazla e-book ekleyebilirsiniz...
 ];
