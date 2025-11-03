@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Dimensions } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Dimensions, Image } from 'react-native';
 
 import { globalStyles } from '../styles/globalStyles';
 import { Colors, Spacing, Typography } from '../constants/theme';
@@ -25,7 +25,17 @@ export default function HomeScreen({ navigation }) {
         style={[styles.categoryCard, { backgroundColor: category.color }]}
         onPress={handlePress}
       >
-        <Text style={styles.categoryTitle}>
+        {category.id === 8 && (
+          <Image 
+            source={require('../../assets/icons/ebook-icon.png')} 
+            style={styles.categoryIcon}
+            resizeMode="contain"
+          />
+        )}
+        <Text style={[
+          styles.categoryTitle, 
+          category.id === 8 && styles.ebookTitle
+        ]}>
           {category.title}
         </Text>
       </TouchableOpacity>
@@ -163,15 +173,18 @@ export default function HomeScreen({ navigation }) {
     elevation: 8,
   },
   categoryIcon: {
-    fontSize: 32,
+    width: 40,
+    height: 40,
     marginBottom: Spacing.sm,
   },
   categoryTitle: {
     fontSize: Typography.sizes.medium,
     fontWeight: Typography.weights.semibold,
-    fontFamily: Typography.families.subtitle,
+    fontFamily: Typography.families.title,
     color: Colors.surface,
     textAlign: 'center',
-    lineHeight: 20,
+  },
+  ebookTitle: {
+    color: '#000000', // E-Book için siyah text
   },
 });

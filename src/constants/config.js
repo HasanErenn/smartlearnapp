@@ -72,7 +72,7 @@ export const CATEGORIES = [
     title: 'E-Book',
     titleTR: 'E-Kitap',
     key: 'ebook',
-    color: '#4A90E2',
+    color: '#FFFFFF',
   },
 ];
 
