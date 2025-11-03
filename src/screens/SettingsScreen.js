@@ -18,7 +18,7 @@ export default function SettingsScreen({ navigation }) {
   const showAbout = () => {
     Alert.alert(
       'Smart Learn',
-      'Version 1.0.0\nA modern platform designed for exploring and learning educational materials.',
+      'Version 1.0.0\nThis application is completely free. If you encounter any errors or shortcomings, please contact us.',
       [{ text: 'OK', style: 'default' }]
     );
   };

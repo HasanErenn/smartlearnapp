@@ -77,12 +77,13 @@ export const CATEGORIES = [
 ];
 
 export const TIME_OPTIONS = [
-  { key: '15_25_mins', value: '15 - 25 mins' },
-  { key: '25_45_mins', value: '25 - 45 mins' }, 
-  { key: '1_2_hours', value: '1 - 2 hours' },
-  { key: '5_hours', value: '5 hours' },
-  { key: 'one_month', value: 'One Month' },
-  { key: 'all', value: 'All' }
+  { key: '15_25_mins', value: '15-25 min' },
+  { key: '25_45_mins', value: '25-45 min' },
+  { key: '40_mins', value: '40 min' },
+  { key: '60_mins', value: '1 hour' },
+  { key: '1_2_hours', value: '1-2 hours' },
+  { key: 'one_month', value: '1 Month' },
+  { key: 'all', value: 'All Time' }
 ];
 
 export const AGE_RANGE = {

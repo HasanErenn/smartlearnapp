@@ -135,9 +135,16 @@ export default function EbookViewerScreen({ route, navigation }) {
         {/* Duration */}
         <View style={styles.detailRow}>
           <Text style={styles.detailLabel}>Duration:</Text>
-          <Text style={styles.detailValue}>
-            {formatDuration(ebook.duration)}
-          </Text>
+          <View style={styles.durationContainer}>
+            <Image 
+              source={require('../../assets/icons/time-icon.png')} 
+              style={styles.timeIcon}
+              resizeMode="contain"
+            />
+            <Text style={styles.detailValue}>
+              {formatDuration(ebook.duration)}
+            </Text>
+          </View>
         </View>
       </View>
 
@@ -273,6 +280,16 @@ const styles = StyleSheet.create({
   detailValue: {
     fontSize: Typography.sizes.medium,
     color: Colors.textSecondary,
+  },
+  durationContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  timeIcon: {
+    width: 16,
+    height: 16,
+    marginRight: 6,
+    tintColor: Colors.primary,
   },
   fullScreenContainer: {
     flex: 1,

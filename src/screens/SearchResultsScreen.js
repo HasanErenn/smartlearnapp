@@ -67,9 +67,16 @@ export default function SearchResultsScreen({ route, navigation }) {
             <Text style={styles.metaText}>
               {ebook.ageRange.min}-{ebook.ageRange.max} years old
             </Text>
-            <Text style={styles.metaText}>
-              {formatDuration(ebook.duration)}
-            </Text>
+            <View style={styles.durationContainer}>
+              <Image 
+                source={require('../../assets/icons/time-icon.png')} 
+                style={styles.timeIcon}
+                resizeMode="contain"
+              />
+              <Text style={styles.metaText}>
+                {formatDuration(ebook.duration)}
+              </Text>
+            </View>
           </View>
         </View>
       </View>
@@ -234,6 +241,17 @@ const styles = StyleSheet.create({
     fontSize: Typography.sizes.tiny,
     color: Colors.primary,
     marginBottom: 2,
+  },
+  durationContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: 2,
+  },
+  timeIcon: {
+    width: 12,
+    height: 12,
+    marginRight: 4,
+    tintColor: Colors.primary,
   },
   noResults: {
     flex: 1,

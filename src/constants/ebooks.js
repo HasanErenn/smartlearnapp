@@ -21,14 +21,35 @@ const getCategoryKey = (categoryId) => {
 // Duration kodunu human readable forma çevir
 export const formatDuration = (durationCode) => {
   const durationMap = {
-    '15_25_mins': '15-25 minutes',
-    '25_45_mins': '25-45 minutes',
+    // Temel formatlar
+    '15_25_mins': '15-25 min',
+    '25_45_mins': '25-45 min',
+    '30_40mins': '30-40 min',
     '1_2_hours': '1-2 hours',
     '5_hours': '5 hours',
-    'one_month': 'One Month',
-    'all': 'All'
+    'one_month': '1 Month',
+    'all': 'All Time',
+    
+    // Tek değerler
+    '20_mins': '20 min',
+    '25_mins': '25 min',
+    '30_mins': '30 min',
+    '35_mins': '35 min',
+    '40_mins': '40 min',
+    '45_mins': '45 min',
+    '60_mins': '1 hour',
+    '70_mins': '1h 10min',
+    '80_mins': '1h 20min',
+    '90_mins': '1h 30min',
+    
+    // Aralık değerleri
+    '20_45_mins': '20-45 min',
+    '30_45_mins': '30-45 min',
+    '35_40_mins': '35-40 min',
+    '40_45_mins': '40-45 min',
+    '40_80_mins': '40-80 min'
   };
-  return durationMap[durationCode] || durationCode;
+  return durationMap[durationCode] || durationCode.replace(/_/g, ' ');
 };
 
 export const EBOOKS = [

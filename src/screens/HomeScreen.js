@@ -67,7 +67,7 @@ export default function HomeScreen({ navigation }) {
         <View style={styles.header}>
           
           <Text style={styles.welcomeText}>Smart Learn</Text>
-          <Text style={styles.subtitle}>Discover amazing educational content</Text>
+          {/* <Text style={styles.subtitle}>Discover amazing educational content</Text> */}
         </View>
 
         {/* İlk 2 Kategori - Yarısı beyaz, yarısı pembe üzerinde */}
