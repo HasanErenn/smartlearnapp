@@ -103,6 +103,8 @@ export const EBOOKS = [
       require('../../assets/ebooks/mathematics/p5/2.png'),
       require('../../assets/ebooks/mathematics/p5/3.png'),
       require('../../assets/ebooks/mathematics/p5/4.png'),
+      require('../../assets/ebooks/mathematics/p5/5.png'),
+      require('../../assets/ebooks/mathematics/p5/6.png'),
 
     ],
     fileUrl: null
@@ -129,13 +131,29 @@ export const EBOOKS = [
     title: 'Problem Solving',
     categoryId: 6,                    // Natural Sciences
     ageRange: { min: 7, max: 10 },    // 6-10 years
-    duration: '90_mins',           // 25-45 minutes
+    duration: '80_mins',           // 25-45 minutes
     coverImage: require('../../assets/ebooks/mathematics/p3/1.png'),
     pages: [
       require('../../assets/ebooks/mathematics/p3/1.png'),
       require('../../assets/ebooks/mathematics/p3/2.png'),
       require('../../assets/ebooks/mathematics/p3/3.png'),
       require('../../assets/ebooks/mathematics/p3/4.png')
+    ],
+    fileUrl: null
+  },
+    {
+    id: 31,
+    title: 'Geometry: Basic Shapes',
+    categoryId: 6,                    // Natural Sciences
+    ageRange: { min: 8, max: 10 },    // 6-10 years
+    duration: '70_mins',           // 25-45 minutes
+    coverImage: require('../../assets/ebooks/mathematics/p6/1.png'),
+    pages: [
+      require('../../assets/ebooks/mathematics/p6/1.png'),
+      require('../../assets/ebooks/mathematics/p6/2.png'),
+      require('../../assets/ebooks/mathematics/p6/3.png'),
+      require('../../assets/ebooks/mathematics/p6/4.png'),
+      require('../../assets/ebooks/mathematics/p6/5.png'),
     ],
     fileUrl: null
   },
