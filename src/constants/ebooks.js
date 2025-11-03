@@ -245,6 +245,94 @@ export const EBOOKS = [
     ],
     fileUrl: null
   },
+    {
+    id: 15,
+    title: 'Magic Box',
+    categoryId: 2,                    // Natural Sciences
+    ageRange: { min: 6, max: 10 },    // 6-10 years
+    duration: '20_45_mins',           // 25-45 minutes
+    coverImage: require('../../assets/ebooks/mother_language/p1/1.png'),
+    pages: [
+      require('../../assets/ebooks/mother_language/p1/1.png'),
+      require('../../assets/ebooks/mother_language/p1/2.png')
+    ],
+    fileUrl: null
+  },
+    {
+    id: 16,
+    title: 'Time Traveler’s Diary',
+    categoryId: 2,                    // Natural Sciences
+    ageRange: { min: 10, max: 14 },    // 6-10 years
+    duration: '30_45_mins',           // 25-45 minutes
+    coverImage: require('../../assets/ebooks/mother_language/p2/1.png'),
+    pages: [
+      require('../../assets/ebooks/mother_language/p2/1.png'),
+      require('../../assets/ebooks/mother_language/p2/2.png'),
+      require('../../assets/ebooks/mother_language/p2/3.png'),
+    ],
+    fileUrl: null
+  },
+
+
+    {
+    id: 19,
+    title: 'Reading Comprehension',
+    categoryId: 2,                    // Natural Sciences
+    ageRange: { min: 6, max: 10 },    // 6-10 years
+    duration: '45_mins',           // 25-45 minutes
+    coverImage: require('../../assets/ebooks/mother_language/p3/1.png'),
+    pages: [
+      require('../../assets/ebooks/mother_language/p3/1.png'),
+      require('../../assets/ebooks/mother_language/p3/2.png'),
+     // require('../../assets/ebooks/mother_language/p3/3.png'),
+    ],
+    fileUrl: null
+  },
+
+  //     {
+  //   id: 18,
+  //   title: 'Spelling and sentence structure',
+  //   categoryId: 2,                    // Natural Sciences
+  //   ageRange: { min: 6, max: 12 },    // 6-10 years
+  //   duration: '30_mins',           // 25-45 minutes
+  //   coverImage: require('../../assets/ebooks/mother_language/p1/1.png'),
+  //   pages: [
+  //     require('../../assets/ebooks/mother_language/p3/1.png'),
+  //     require('../../assets/ebooks/mother_language/p3/2.png'),
+  //   ],
+  //   fileUrl: null
+  // },
+
+    {
+    id: 17,
+    title: 'Spelling and Sentence Structure',
+    categoryId: 2,                    // Natural Sciences
+    ageRange: { min: 6, max: 10 },    // 6-10 years
+    duration: '45_mins',           // 25-45 minutes
+    coverImage: require('../../assets/ebooks/mother_language/p4/1.png'),
+    pages: [
+      require('../../assets/ebooks/mother_language/p4/1.png'),
+      require('../../assets/ebooks/mother_language/p4/2.png'),
+      require('../../assets/ebooks/mother_language/p4/3.png'),
+    ],
+    fileUrl: null
+  },
+
+    {
+    id: 20,
+    title: 'Word Hunt',
+    categoryId: 2,                    // Natural Sciences
+    ageRange: { min: 8, max: 14 },    // 6-10 years
+    duration: '40_45_mins',           // 25-45 minutes
+    coverImage: require('../../assets/ebooks/mother_language/p5/1.png'),
+    pages: [
+      require('../../assets/ebooks/mother_language/p5/1.png'),
+      require('../../assets/ebooks/mother_language/p5/2.png'),
+      require('../../assets/ebooks/mother_language/p5/3.png'),
+    ],
+    fileUrl: null
+  },
+  
   
   // Daha fazla e-book ekleyebilirsiniz...
 ];

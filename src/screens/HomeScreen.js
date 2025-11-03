@@ -55,8 +55,8 @@ export default function HomeScreen({ navigation }) {
       {/* Header + İlk 2 Kategori - Beyaz Arkaplan */}
       <View style={styles.headerWithFirstCategories}>
         <View style={styles.header}>
-          <Text style={styles.greeting}>Hello!</Text>
-          <Text style={styles.welcomeText}>Welcome to Educational App</Text>
+          
+          <Text style={styles.welcomeText}>Smart Learn</Text>
           <Text style={styles.subtitle}>Discover amazing educational content</Text>
         </View>
 
