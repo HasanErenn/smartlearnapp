@@ -7,11 +7,19 @@ import {
   Image, 
   ScrollView,
   Dimensions,
-  SafeAreaView,
   Modal,
-  FlatList
+  FlatList,
+  Platform
 } from 'react-native';
-// import ImageZoom from 'react-native-image-pan-zoom';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { GestureHandlerRootView, GestureDetector, Gesture } from 'react-native-gesture-handler';
+import Animated, { 
+  useSharedValue, 
+  useAnimatedStyle, 
+  withSpring,
+  withTiming,
+  runOnJS
+} from 'react-native-reanimated';
 
 import { Colors, Spacing, Typography } from '../constants/theme';
 import { getEbookPages, formatDuration } from '../constants/ebooks';
@@ -24,12 +32,24 @@ export default function EbookViewerScreen({ route, navigation }) {
   const [currentPage, setCurrentPage] = useState(0);
   const [pages, setPages] = useState([]);
   const flatListRef = useRef(null);
+  
+  // Modern zoom için Reanimated shared values
+  const scale = useSharedValue(1);
+  const translateX = useSharedValue(0);
+  const translateY = useSharedValue(0);
+  const savedScale = useSharedValue(1);
+  const savedTranslateX = useSharedValue(0);
+  const savedTranslateY = useSharedValue(0);
+  
+
 
   useEffect(() => {
     // Ebook sayfalarını yükle
     const ebookPages = getEbookPages(ebook);
     setPages(ebookPages);
   }, [ebook]);
+  
+
 
   const openFullScreen = () => {
     setIsFullScreen(true);
@@ -37,7 +57,70 @@ export default function EbookViewerScreen({ route, navigation }) {
 
   const closeFullScreen = () => {
     setIsFullScreen(false);
+    // Reset zoom
+    scale.value = withSpring(1);
+    translateX.value = withSpring(0);
+    translateY.value = withSpring(0);
+    savedScale.value = 1;
+    savedTranslateX.value = 0;
+    savedTranslateY.value = 0;
   };
+  
+  // Pinch gesture - Yeni Gesture API (Reanimated v3 uyumlu)
+  const pinchGesture = Gesture.Pinch()
+    .onUpdate((event) => {
+      scale.value = savedScale.value * event.scale;
+    })
+    .onEnd(() => {
+      if (scale.value < 0.8) {
+        scale.value = withSpring(1);
+        translateX.value = withSpring(0);
+        translateY.value = withSpring(0);
+        savedScale.value = 1;
+        savedTranslateX.value = 0;
+        savedTranslateY.value = 0;
+      } else if (scale.value > 4) {
+        scale.value = withSpring(4);
+        savedScale.value = 4;
+      } else {
+        savedScale.value = scale.value;
+      }
+    });
+  
+  // Pan gesture - Yeni Gesture API (Reanimated v3 uyumlu)
+  const panGesture = Gesture.Pan()
+    .onUpdate((event) => {
+      if (scale.value > 1) {
+        const maxTranslate = (scale.value - 1) * 150;
+        const newX = savedTranslateX.value + event.translationX;
+        const newY = savedTranslateY.value + event.translationY;
+        
+        translateX.value = Math.max(-maxTranslate, Math.min(maxTranslate, newX));
+        translateY.value = Math.max(-maxTranslate, Math.min(maxTranslate, newY));
+      }
+    })
+    .onEnd(() => {
+      savedTranslateX.value = translateX.value;
+      savedTranslateY.value = translateY.value;
+    });
+  
+  // Combine gestures
+  const composedGesture = Gesture.Simultaneous(pinchGesture, panGesture);
+  
+  // Animated style
+  const animatedStyle = useAnimatedStyle(() => {
+    return {
+      transform: [
+        { translateX: translateX.value },
+        { translateY: translateY.value },
+        { scale: scale.value },
+      ],
+    };
+  });
+  
+
+  
+
 
   const goToNextPage = () => {
     if (currentPage < pages.length - 1) {
@@ -157,23 +240,43 @@ export default function EbookViewerScreen({ route, navigation }) {
       >
         <View style={styles.fullScreenContainer}>
           {pages.length > 0 && pages[currentPage] && (
-            <ScrollView
-              style={styles.scrollContainer}
-              contentContainerStyle={styles.scrollContent}
-              minimumZoomScale={1}
-              maximumZoomScale={3}
-              zoomEnabled={true}
-              scrollEnabled={true}
-              showsVerticalScrollIndicator={false}
-              showsHorizontalScrollIndicator={false}
-              centerContent={true}
-            >
-              <Image 
-                source={pages[currentPage].image} 
-                style={styles.fullScreenImage}
-                resizeMode="contain"
-              />
-            </ScrollView>
+            <>
+              {Platform.OS === 'ios' ? (
+                // iOS Native ScrollView zoom
+                <ScrollView
+                  style={styles.scrollContainer}
+                  contentContainerStyle={styles.scrollContent}
+                  minimumZoomScale={0.5}
+                  maximumZoomScale={4}
+                  zoomEnabled={true}
+                  scrollEnabled={true}
+                  showsVerticalScrollIndicator={false}
+                  showsHorizontalScrollIndicator={false}
+                  centerContent={true}
+                  bounces={true}
+                  bouncesZoom={true}
+                >
+                  <Image 
+                    source={pages[currentPage].image} 
+                    style={styles.fullScreenImage}
+                    resizeMode="contain"
+                  />
+                </ScrollView>
+              ) : (
+                // Android Modern Gesture Zoom - Basit ve Doğal!
+                <GestureHandlerRootView style={styles.androidScrollContainer}>
+                  <GestureDetector gesture={composedGesture}>
+                    <Animated.View style={[styles.androidImageContainer, animatedStyle]}>
+                      <Image 
+                        source={pages[currentPage].image} 
+                        style={styles.androidFullScreenImage}
+                        resizeMode="contain"
+                      />
+                    </Animated.View>
+                  </GestureDetector>
+                </GestureHandlerRootView>
+              )}
+            </>
           )}
           
           <TouchableOpacity style={styles.closeButton} onPress={closeFullScreen}>
@@ -295,25 +398,10 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: 'rgba(0,0,0,0.9)',
   },
-  scrollContainer: {
-    flex: 1,
-  },
-  scrollContent: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    minHeight: height,
-  },
-  imageZoomContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
+
   fullScreenImage: {
-    width: width,
+    width: width * 0.95,
     height: height * 0.8,
-    maxWidth: width * 2,
-    maxHeight: height * 2,
   },
   closeButton: {
     position: 'absolute',
@@ -331,12 +419,32 @@ const styles = StyleSheet.create({
     color: 'white',
     fontWeight: 'bold',
   },
-  pageCounter: {
+
+  scrollContainer: {
+    flex: 1,
+  },
+  scrollContent: {
+    flex: 1,
+    justifyContent: 'center',
     alignItems: 'center',
-    paddingVertical: Spacing.sm,
-    backgroundColor: Colors.surface,
-    borderBottomWidth: 1,
-    borderBottomColor: Colors.border,
+    minHeight: height,
+  },
+  androidScrollContainer: {
+    flex: 1,
+    backgroundColor: 'rgba(0,0,0,0.9)',
+  },
+  androidImageContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  androidAnimatedContainer: {
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  androidFullScreenImage: {
+    width: width * 0.9,
+    height: height * 0.7,
   },
   pageCounterText: {
     fontSize: Typography.sizes.medium,
