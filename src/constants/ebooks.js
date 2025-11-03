@@ -400,6 +400,69 @@ export const EBOOKS = [
     ],
     fileUrl: null
   },
+   
+  {
+    id: 27,
+    title: 'Learning About Nature',
+    categoryId: 4,                    // Natural Sciences
+    ageRange: { min: 8, max: 9 },    // 6-10 years
+    duration: '60_120_mins',           // 25-45 minutes
+    coverImage: require('../../assets/ebooks/natural_sciences/p1/1.png'), // Kapak resmi
+    pages: [
+      require('../../assets/ebooks/natural_sciences/p1/1.png'),
+      require('../../assets/ebooks/natural_sciences/p1/2.png'),
+      require('../../assets/ebooks/natural_sciences/p1/3.png'),
+      require('../../assets/ebooks/natural_sciences/p1/3.png'),
+      require('../../assets/ebooks/natural_sciences/p1/5.png'),
+      require('../../assets/ebooks/natural_sciences/p1/6.png')
+    ],
+    fileUrl: null
+  },
+  {
+    id: 28,
+    title: 'Geography',
+    categoryId: 4,                    // Natural Sciences
+    ageRange: { min: 10, max: 11 },    // 6-10 years
+    duration: '300_mins',           // 25-45 minutes
+    coverImage: require('../../assets/ebooks/natural_sciences/p2/1.png'), // Kapak resmi
+    pages: [
+      require('../../assets/ebooks/natural_sciences/p2/1.png'),
+      require('../../assets/ebooks/natural_sciences/p2/2.png'),
+      require('../../assets/ebooks/natural_sciences/p2/3.png'),
+      require('../../assets/ebooks/natural_sciences/p2/4.png'),
+      require('../../assets/ebooks/natural_sciences/p2/6.png'),
+      require('../../assets/ebooks/natural_sciences/p2/6.png')
+    ],
+    fileUrl: null
+  },
+  {
+    id: 29,
+    title: 'Living Organisms',
+    categoryId: 4,                    // Natural Sciences
+    ageRange: { min: 6, max: 9 },    // 6-10 years
+    duration: '45_mins',           // 25-45 minutes
+    coverImage: require('../../assets/ebooks/natural_sciences/p3/1.png'), // Kapak resmi
+    pages: [
+      require('../../assets/ebooks/natural_sciences/p3/1.png'),
+      require('../../assets/ebooks/natural_sciences/p3/2.png'),
+
+    ],
+    fileUrl: null
+  },
+ {
+    id: 30,
+    title: 'Human Body and Health',
+    categoryId: 4,                    // Natural Sciences
+    ageRange: { min: 6, max: 6 },    // 6-10 years
+    duration: '60_mins',           // 25-45 minutes
+    coverImage: require('../../assets/ebooks/natural_sciences/p4/1.png'), // Kapak resmi
+    pages: [
+      require('../../assets/ebooks/natural_sciences/p4/1.png'),
+      require('../../assets/ebooks/natural_sciences/p4/2.png'),
+
+    ],
+    fileUrl: null
+  },
 
   
   
