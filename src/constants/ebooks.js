@@ -273,37 +273,7 @@ export const EBOOKS = [
     fileUrl: null
   },
 
-
-    {
-    id: 19,
-    title: 'Reading Comprehension',
-    categoryId: 2,                    // Natural Sciences
-    ageRange: { min: 6, max: 10 },    // 6-10 years
-    duration: '45_mins',           // 25-45 minutes
-    coverImage: require('../../assets/ebooks/mother_language/p3/1.png'),
-    pages: [
-      require('../../assets/ebooks/mother_language/p3/1.png'),
-      require('../../assets/ebooks/mother_language/p3/2.png'),
-     // require('../../assets/ebooks/mother_language/p3/3.png'),
-    ],
-    fileUrl: null
-  },
-
-  //     {
-  //   id: 18,
-  //   title: 'Spelling and sentence structure',
-  //   categoryId: 2,                    // Natural Sciences
-  //   ageRange: { min: 6, max: 12 },    // 6-10 years
-  //   duration: '30_mins',           // 25-45 minutes
-  //   coverImage: require('../../assets/ebooks/mother_language/p1/1.png'),
-  //   pages: [
-  //     require('../../assets/ebooks/mother_language/p3/1.png'),
-  //     require('../../assets/ebooks/mother_language/p3/2.png'),
-  //   ],
-  //   fileUrl: null
-  // },
-
-    {
+      {
     id: 17,
     title: 'Spelling and Sentence Structure',
     categoryId: 2,                    // Natural Sciences
@@ -318,8 +288,24 @@ export const EBOOKS = [
     fileUrl: null
   },
 
+
     {
-    id: 20,
+    id: 18,
+    title: 'Reading Comprehension',
+    categoryId: 2,                    // Natural Sciences
+    ageRange: { min: 6, max: 10 },    // 6-10 years
+    duration: '45_mins',           // 25-45 minutes
+    coverImage: require('../../assets/ebooks/mother_language/p3/1.png'),
+    pages: [
+      require('../../assets/ebooks/mother_language/p3/1.png'),
+      require('../../assets/ebooks/mother_language/p3/2.png'),
+     // require('../../assets/ebooks/mother_language/p3/3.png'),
+    ],
+    fileUrl: null
+  },
+
+    {
+    id: 19,
     title: 'Word Hunt',
     categoryId: 2,                    // Natural Sciences
     ageRange: { min: 8, max: 14 },    // 6-10 years
@@ -332,6 +318,89 @@ export const EBOOKS = [
     ],
     fileUrl: null
   },
+
+    {
+    id: 20,
+    title: 'Team Play Day',
+    categoryId: 5,                    // Natural Sciences
+    ageRange: { min: 8, max: 12 },    // 6-10 years
+    duration: '60_mins',           // 25-45 minutes
+    coverImage: require('../../assets/ebooks/physical_education/p1/1.png'), // Kapak resmi
+    pages: [
+      require('../../assets/ebooks/physical_education/p1/1.png'),
+      require('../../assets/ebooks/physical_education/p1/2.png'),
+    ],
+    fileUrl: null
+  },
+  {
+    id: 21,
+    title: 'Values and morals',
+    categoryId: 5,                    // Natural Sciences
+    ageRange: { min: 6, max: 10 },    // 6-10 years
+    duration: '40_mins',           // 25-45 minutes
+    coverImage: require('../../assets/ebooks/physical_education/p2/1.png'), // Kapak resmi
+    pages: [
+      require('../../assets/ebooks/physical_education/p2/1.png'),
+      require('../../assets/ebooks/physical_education/p2/2.png'),
+      require('../../assets/ebooks/physical_education/p2/3.png')
+    ],
+    fileUrl: null
+  },
+  {
+    id: 23,
+    title: 'Motor skills',
+    categoryId: 5,                    // Natural Sciences
+    ageRange: { min: 6, max: 12 },    // 6-10 years
+    duration: '40_mins',           // 25-45 minutes
+    coverImage: require('../../assets/ebooks/physical_education/p3/1.png'), // Kapak resmi
+    pages: [
+      require('../../assets/ebooks/physical_education/p6/1.png'),
+      require('../../assets/ebooks/physical_education/p6/2.png'),
+      require('../../assets/ebooks/physical_education/p6/3.png'),
+      require('../../assets/ebooks/physical_education/p6/4.png')
+    ],
+    fileUrl: null
+  },
+  {
+    id: 24,
+    title: 'Basic Excercises: 1',
+    categoryId: 5,                    // Natural Sciences
+    ageRange: { min: 10, max: 10 },    // 6-10 years
+    duration: '15_mins',           // 25-45 minutes
+    coverImage: require('../../assets/ebooks/physical_education/p4/1.png'), // Kapak resmi
+    pages: [
+      require('../../assets/ebooks/physical_education/p3/1.png'),
+      require('../../assets/ebooks/physical_education/p3/2.png'),
+    ],
+    fileUrl: null
+  },
+  {
+    id: 25,
+    title: 'Basic Exercises: 2',
+    categoryId: 5,                    // Natural Sciences
+    ageRange: { min: 10, max: 11 },    // 6-10 years
+    duration: '15_mins',           // 25-45 minutes
+    coverImage: require('../../assets/ebooks/physical_education/p5/1.png'), // Kapak resmi
+    pages: [
+      require('../../assets/ebooks/physical_education/p4/1.png'),
+      require('../../assets/ebooks/physical_education/p4/2.png'),
+    ],
+    fileUrl: null
+  },
+  {
+    id: 26,
+    title: 'Animal Rally Challenge',
+    categoryId: 5,                    // Natural Sciences
+    ageRange: { min: 6, max: 14 },    // 6-10 years
+    duration: '15_mins',           // 25-45 minutes
+    coverImage: require('../../assets/ebooks/physical_education/p6/1.png'), // Kapak resmi
+    pages: [
+      require('../../assets/ebooks/physical_education/p5/1.png'),
+      require('../../assets/ebooks/physical_education/p5/2.png'),
+    ],
+    fileUrl: null
+  },
+
   
   
   // Daha fazla e-book ekleyebilirsiniz...
