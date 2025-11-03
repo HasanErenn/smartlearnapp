@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, StyleSheet, ActivityIndicator, Alert, Dimensions, TouchableOpacity, Text } from 'react-native';
+import { View, StyleSheet, ActivityIndicator, Alert, Dimensions, TouchableOpacity, Text, Linking } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { WebView } from 'react-native-webview';
 import { Asset } from 'expo-asset';
@@ -109,6 +109,18 @@ const PDFViewerScreen = ({ navigation }) => {
           bounces={true}
           showsVerticalScrollIndicator={true}
           showsHorizontalScrollIndicator={true}
+          onShouldStartLoadWithRequest={(request) => {
+            // PDF dosyası ile ilgili URL'ler WebView içinde açılsın
+            if (request.url.includes(pdfUri) || request.url.includes('blob:') || request.url.includes('data:')) {
+              return true;
+            }
+            // Diğer tüm linkler (http, https) telefon tarayıcısında açılsın
+            if (request.url.startsWith('http://') || request.url.startsWith('https://')) {
+              Linking.openURL(request.url);
+              return false;
+            }
+            return true;
+          }}
           renderLoading={() => (
             <View style={styles.loadingContainer}>
               <ActivityIndicator size="large" color={Colors.primary} />
