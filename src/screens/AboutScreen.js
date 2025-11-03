@@ -120,8 +120,8 @@ export default function AboutScreen({ navigation }) {
         </View>
 
         {/* Contact Section */}
-        <View style={styles.section}>
-          <Text style={styles.sectionTitle}>Contact Us</Text>
+        <View style={styles.contactSection}>
+          <Text style={styles.contactSectionTitle}>Contact Us</Text>
           
           {/* Email Contact */}
           <TouchableOpacity 
@@ -129,7 +129,11 @@ export default function AboutScreen({ navigation }) {
             onPress={() => Linking.openURL('mailto:info@smartlearn.com.tr')}
           >
             <View style={styles.contactContent}>
-              <Text style={styles.contactIcon}>✉️</Text>
+              <Image 
+                source={require('../../assets/icons/mail-icon.png')} 
+                style={styles.contactIconImage}
+                resizeMode="contain"
+              />
               <View style={styles.contactTextContainer}>
                 <Text style={styles.contactLabel}>Email</Text>
                 <Text style={styles.contactValue}>info@smartlearn.com.tr</Text>
@@ -143,7 +147,11 @@ export default function AboutScreen({ navigation }) {
             onPress={() => Linking.openURL('https://www.smartlearn.com.tr')}
           >
             <View style={styles.contactContent}>
-              <Text style={styles.contactIcon}>🌐</Text>
+              <Image 
+                source={require('../../assets/icons/www-icon.png')} 
+                style={styles.contactIconImage}
+                resizeMode="contain"
+              />
               <View style={styles.contactTextContainer}>
                 <Text style={styles.contactLabel}>Website</Text>
                 <Text style={styles.contactValue}>www.smartlearn.com.tr</Text>
@@ -249,6 +257,28 @@ const styles = StyleSheet.create({
     marginBottom: Spacing.md,
     textAlign: 'center',
   },
+  contactSection: {
+    backgroundColor: '#FFFFFF',
+    borderRadius: 15,
+    padding: Spacing.lg,
+    marginBottom: Spacing.lg,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 4,
+    },
+    shadowOpacity: 0.15,
+    shadowRadius: 8,
+    elevation: 8,
+  },
+  contactSectionTitle: {
+    fontSize: Typography.sizes.large,
+    fontWeight: Typography.weights.bold,
+    fontFamily: Typography.families.subtitle,
+    color: '#000000',
+    marginBottom: Spacing.md,
+    textAlign: 'center',
+  },
   sectionText: {
     fontSize: Typography.sizes.medium,
     fontFamily: Typography.families.body,
@@ -257,7 +287,7 @@ const styles = StyleSheet.create({
     textAlign: 'justify',
   },
   contactButton: {
-    backgroundColor: Colors.backgroundLight,
+    backgroundColor: '#F5F5F5',
     borderRadius: 12,
     marginBottom: Spacing.md,
     padding: Spacing.md,
@@ -270,7 +300,7 @@ const styles = StyleSheet.create({
     shadowRadius: 4,
     elevation: 3,
     borderWidth: 1,
-    borderColor: Colors.border,
+    borderColor: '#E0E0E0',
   },
   contactContent: {
     flexDirection: 'row',
@@ -282,6 +312,11 @@ const styles = StyleSheet.create({
     width: 30,
     textAlign: 'center',
   },
+  contactIconImage: {
+    width: 30,
+    height: 30,
+    marginRight: Spacing.md,
+  },
   contactTextContainer: {
     flex: 1,
   },
@@ -289,14 +324,14 @@ const styles = StyleSheet.create({
     fontSize: Typography.sizes.small,
     fontFamily: Typography.families.body,
     fontWeight: Typography.weights.medium,
-    color: Colors.textSecondary,
+    color: '#666666',
     marginBottom: 2,
   },
   contactValue: {
     fontSize: Typography.sizes.medium,
     fontFamily: Typography.families.body,
     fontWeight: Typography.weights.semibold,
-    color: Colors.primary,
+    color: '#000000',
   },
   projectTitle: {
     fontSize: Typography.sizes.medium,
