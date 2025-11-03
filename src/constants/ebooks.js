@@ -36,8 +36,8 @@ export const EBOOKS = [
     id: 1,
     title: 'Creative expression: drawing, art and designing',
     categoryId: 1,                    // Sanat & Müzik kategorisi
-    ageRange: { min: 9, max: 10 },
-    duration: '1_2_hours',           // TIME_OPTIONS'a uygun
+    ageRange: { min: 8, max: 9 },
+    duration: '80_mins',           // TIME_OPTIONS'a uygun
     folderPath: 'arts_music/p1',      // Klasör yolu
     coverImage: require('../../assets/ebooks/arts_music/p1/1.png'), // Kapak resmi
     pages: [
@@ -52,7 +52,7 @@ export const EBOOKS = [
     title: 'Create and play handmade instruments',
     categoryId: 1,                    // Sanat & Müzik kategorisi
     ageRange: { min: 6, max: 14 },
-    duration: '25_45_mins',           // TIME_OPTIONS'a uygun
+    duration: '25_mins',           // TIME_OPTIONS'a uygun
     folderPath: 'arts_music/p2',      // Klasör yolu
     coverImage: require('../../assets/ebooks/arts_music/p2/1.png'), // Kapak resmi
     pages: [
@@ -177,7 +177,7 @@ export const EBOOKS = [
     title:  'Ethical Discussions',
     categoryId: 7,                    // Natural Sciences
     ageRange: { min: 9, max: 10 },    // 6-10 years
-    duration: '90_mins',           // 25-45 minutes
+    duration: '40_80_mins',           // 25-45 minutes
     coverImage: require('../../assets/ebooks/ethics_religion/p2/1.png'),
     pages: [
       require('../../assets/ebooks/ethics_religion/p2/1.png'),
@@ -229,6 +229,7 @@ export const EBOOKS = [
       require('../../assets/ebooks/foreign_languages/p1/1.png'),
       require('../../assets/ebooks/foreign_languages/p1/2.png'),
       require('../../assets/ebooks/foreign_languages/p1/3.png'),
+      require('../../assets/ebooks/foreign_languages/p1/4.png'),
     ],
     fileUrl: null
   },
@@ -237,7 +238,7 @@ export const EBOOKS = [
     id: 13,
     title: 'Developing comprehension through listening tasks',
     categoryId: 3,                    // Natural Sciences
-    ageRange: { min: 7, max: 10 },    // 6-10 years
+    ageRange: { min: 10, max: 11 },    // 6-10 years
     duration: '35_mins',           // 25-45 minutes
     coverImage: require('../../assets/ebooks/foreign_languages/p4/1.png'),
     pages: [
