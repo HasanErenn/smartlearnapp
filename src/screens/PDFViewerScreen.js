@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { View, StyleSheet, ActivityIndicator, Alert, Dimensions } from 'react-native';
+import { View, StyleSheet, ActivityIndicator, Alert, Dimensions, TouchableOpacity, Text } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { WebView } from 'react-native-webview';
 import { Asset } from 'expo-asset';
+import { Ionicons } from '@expo/vector-icons';
 import { Colors } from '../constants/theme';
 
 const { width, height } = Dimensions.get('window');
@@ -42,8 +43,21 @@ const PDFViewerScreen = ({ navigation }) => {
     );
   }
 
+  const goBack = () => {
+    navigation.goBack();
+  };
+
   return (
     <SafeAreaView style={styles.container}>
+      {/* Header with back button */}
+      <View style={styles.header}>
+        <TouchableOpacity onPress={goBack} style={styles.backButton}>
+          <Ionicons name="arrow-back" size={24} color="#fff" />
+        </TouchableOpacity>
+        <Text style={styles.headerTitle}>Smart Learn E-Book</Text>
+        <View style={styles.headerRight} />
+      </View>
+
       {pdfUri ? (
         <WebView
           source={{
@@ -115,6 +129,33 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
   },
+  header: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingHorizontal: 16,
+    paddingVertical: 12,
+    backgroundColor: Colors.primary || '#007AFF',
+    elevation: 2,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.1,
+    shadowRadius: 2,
+  },
+  backButton: {
+    padding: 8,
+  },
+  headerTitle: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#fff',
+    flex: 1,
+    textAlign: 'center',
+    marginHorizontal: 16,
+  },
+  headerRight: {
+    width: 40, // Same width as back button for centering
+  },
   loadingContainer: {
     flex: 1,
     justifyContent: 'center',
@@ -124,7 +165,6 @@ const styles = StyleSheet.create({
   webview: {
     flex: 1,
     width: width,
-    height: height,
   },
 });
 
