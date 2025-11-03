@@ -150,11 +150,23 @@ export default function EbookViewerScreen({ route, navigation }) {
       >
         <View style={styles.fullScreenContainer}>
           {pages.length > 0 && pages[currentPage] && (
-            <Image 
-              source={pages[currentPage].image} 
-              style={styles.fullScreenImage}
-              resizeMode="contain"
-            />
+            <ScrollView
+              style={styles.scrollContainer}
+              contentContainerStyle={styles.scrollContent}
+              minimumZoomScale={1}
+              maximumZoomScale={3}
+              zoomEnabled={true}
+              scrollEnabled={true}
+              showsVerticalScrollIndicator={false}
+              showsHorizontalScrollIndicator={false}
+              centerContent={true}
+            >
+              <Image 
+                source={pages[currentPage].image} 
+                style={styles.fullScreenImage}
+                resizeMode="contain"
+              />
+            </ScrollView>
           )}
           
           <TouchableOpacity style={styles.closeButton} onPress={closeFullScreen}>
@@ -266,14 +278,25 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: 'rgba(0,0,0,0.9)',
   },
+  scrollContainer: {
+    flex: 1,
+  },
+  scrollContent: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    minHeight: height,
+  },
   imageZoomContainer: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
   },
   fullScreenImage: {
-    width: width - 40,
-    height: height - 200,
+    width: width,
+    height: height * 0.8,
+    maxWidth: width * 2,
+    maxHeight: height * 2,
   },
   closeButton: {
     position: 'absolute',
