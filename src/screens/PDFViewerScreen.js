@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { View, StyleSheet, ActivityIndicator, Alert, Dimensions, TouchableOpacity, Text, Linking } from 'react-native';
+import { View, StyleSheet, ActivityIndicator, Alert, Dimensions, TouchableOpacity, Text, Linking, Platform } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { WebView } from 'react-native-webview';
 import { Asset } from 'expo-asset';
+import * as FileSystem from 'expo-file-system/legacy';
 import { Ionicons } from '@expo/vector-icons';
 import { Colors } from '../constants/theme';
+import Pdf from 'react-native-pdf';
 
 const { width, height } = Dimensions.get('window');
 
@@ -24,11 +26,30 @@ const PDFViewerScreen = ({ navigation }) => {
       const asset = Asset.fromModule(require('../../assets/ebooks/pdfs/ebook.pdf'));
       await asset.downloadAsync();
 
-      setPdfUri(asset.uri || asset.localUri);
-      setIsLoading(false);
+      let pdfUriToSet = asset.uri || asset.localUri;
+
+      if (Platform.OS === 'android') {
+        // Android için PDF dosyasını yerel depolama alanına kopyala
+        const pdfDir = FileSystem.documentDirectory + 'pdfs/';
+        const pdfFile = pdfDir + 'ebook.pdf';
+        
+        // Dizini oluştur
+        await FileSystem.makeDirectoryAsync(pdfDir, { intermediates: true });
+        
+        // Dosyayı kopyala
+        await FileSystem.copyAsync({
+          from: asset.localUri,
+          to: pdfFile,
+        });
+        
+        pdfUriToSet = pdfFile;
+      }
+
+      setPdfUri(pdfUriToSet);
     } catch (error) {
       console.error('PDF preparation error:', error);
       Alert.alert('Hata', 'PDF yüklenemedi');
+    } finally {
       setIsLoading(false);
     }
   };
@@ -47,18 +68,34 @@ const PDFViewerScreen = ({ navigation }) => {
     navigation.goBack();
   };
 
-  return (
-    <SafeAreaView style={styles.container}>
-      {/* Header with back button */}
-      <View style={styles.header}>
-        <TouchableOpacity onPress={goBack} style={styles.backButton}>
-          <Ionicons name="arrow-back" size={24} color="#fff" />
-        </TouchableOpacity>
-        <Text style={styles.headerTitle}>Smart Learn E-Book</Text>
-        <View style={styles.headerRight} />
-      </View>
-
-      {pdfUri ? (
+  const renderPDFViewer = () => {
+    if (Platform.OS === 'android') {
+      // Android için react-native-pdf kullan
+      return (
+        <Pdf
+          source={{ 
+            uri: pdfUri.startsWith('file://') ? pdfUri : `file://${pdfUri}`,
+            cache: true 
+          }}
+          onLoadComplete={(numberOfPages, filePath) => {
+            console.log(`PDF loaded: ${numberOfPages} pages`);
+          }}
+          onPageChanged={(page, numberOfPages) => {
+            console.log(`Current page: ${page}`);
+          }}
+          onError={(error) => {
+            console.log('PDF Error:', error);
+            Alert.alert('Hata', 'PDF yüklenemedi');
+          }}
+          style={styles.pdf}
+          enablePaging={true}
+          horizontal={false}
+          trustAllCerts={false}
+        />
+      );
+    } else {
+      // iOS için mevcut WebView çözümü
+      return (
         <WebView
           source={{
             html: `
@@ -127,7 +164,22 @@ const PDFViewerScreen = ({ navigation }) => {
             </View>
           )}
         />
-      ) : (
+      );
+    }
+  };
+
+  return (
+    <SafeAreaView style={styles.container}>
+      {/* Header with back button */}
+      <View style={styles.header}>
+        <TouchableOpacity onPress={goBack} style={styles.backButton}>
+          <Ionicons name="arrow-back" size={24} color="#fff" />
+        </TouchableOpacity>
+        <Text style={styles.headerTitle}>Smart Learn E-Book</Text>
+        <View style={styles.headerRight} />
+      </View>
+
+      {pdfUri ? renderPDFViewer() : (
         <View style={styles.loadingContainer}>
           <ActivityIndicator size="large" color={Colors.primary} />
         </View>
@@ -175,6 +227,10 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
   },
   webview: {
+    flex: 1,
+    width: width,
+  },
+  pdf: {
     flex: 1,
     width: width,
   },
