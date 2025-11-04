@@ -1,16 +1,19 @@
 {
   "expo": {
     "name": "Smart Learn",
-    "slug": "smartlearn",
+    "slug": "smart-learn",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "newArchEnabled": true,
+    "description": "An educational mobile application for learning with interactive e-books and multimedia content",
+    "keywords": ["education", "learning", "ebooks", "smart", "mobile", "study"],
+    "privacy": "public",
     "splash": {
       "image": "./assets/splash-icon.png",
       "resizeMode": "contain",
-      "backgroundColor": "#FFE1CC"
+      "backgroundColor": "#ffffff"
     },
     "assetBundlePatterns": [
       "**/*"
@@ -20,8 +23,8 @@
       "bundleIdentifier": "com.smartlearn.mobileapp",
       "buildNumber": "1.0.0",
       "infoPlist": {
-        "NSCameraUsageDescription": "Bu uygulama fotoğraf çekmek için kameraya erişim gerektirir.",
-        "NSPhotoLibraryUsageDescription": "Bu uygulama fotoğraf seçmek için foto galerisine erişim gerektirir."
+        "NSCameraUsageDescription": "This app needs camera access to take photos.",
+        "NSPhotoLibraryUsageDescription": "This app needs photo library access to select images."
       }
     },
     "android": {
@@ -33,10 +36,10 @@
       "package": "com.smartlearn.mobileapp",
       "versionCode": 1,
       "permissions": [
-        "CAMERA",
-        "READ_EXTERNAL_STORAGE",
-        "WRITE_EXTERNAL_STORAGE"
-      ]
+        "INTERNET",
+        "READ_EXTERNAL_STORAGE"
+      ],
+      "playStoreUrl": "https://play.google.com/store/apps/details?id=com.smartlearn.mobileapp"
     },
     "web": {
       "favicon": "./assets/favicon.png",

@@ -31,21 +31,16 @@ export default function App() {
   }, [fontsLoaded]);
 
   const handleSplashFinish = () => {
-    console.log('Splash finished, showing main app');
     setShowSplash(false);
   };
 
   if (!fontsLoaded) {
-    console.log('Fonts loading...');
     return null; // Show expo splash screen while loading fonts
   }
 
   if (showSplash) {
-    console.log('Showing custom splash screen');
     return <SplashScreen onFinish={handleSplashFinish} />;
   }
-
-  console.log('Showing main app navigator');
   return (
     <>
       <AppNavigator />

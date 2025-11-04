@@ -590,16 +590,11 @@ export const filterEbooks = (ebooks, filters) => {
   
   // Süre filtresi - "all" seçilirse filtreleme yapma
   if (filters.selectedTimes && filters.selectedTimes.length > 0 && !filters.selectedTimes.includes('all')) {
-    console.log('Filtering by duration:', filters.selectedTimes);
     filtered = filtered.filter(ebook => {
-      const matches = filters.selectedTimes.some(selectedTime => {
-        const isMatch = isDurationInRange(ebook.duration, selectedTime);
-        console.log(`Ebook "${ebook.title}" duration "${ebook.duration}" matches "${selectedTime}":`, isMatch);
-        return isMatch;
+      return filters.selectedTimes.some(selectedTime => {
+        return isDurationInRange(ebook.duration, selectedTime);
       });
-      return matches;
     });
-    console.log('After duration filter:', filtered.length, 'books remain');
   }
   
   return filtered;

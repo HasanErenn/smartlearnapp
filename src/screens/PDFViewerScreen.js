@@ -47,8 +47,7 @@ const PDFViewerScreen = ({ navigation }) => {
 
       setPdfUri(pdfUriToSet);
     } catch (error) {
-      console.error('PDF preparation error:', error);
-      Alert.alert('Hata', 'PDF yüklenemedi');
+      Alert.alert('Error', 'Failed to load PDF');
     } finally {
       setIsLoading(false);
     }
@@ -78,22 +77,19 @@ const PDFViewerScreen = ({ navigation }) => {
             cache: true 
           }}
           onLoadComplete={(numberOfPages, filePath) => {
-            console.log(`PDF loaded: ${numberOfPages} pages`);
+            // PDF loaded successfully
           }}
           onPageChanged={(page, numberOfPages) => {
-            console.log(`Current page: ${page}`);
+            // Page changed
           }}
           onError={(error) => {
-            console.log('PDF Error:', error);
-            Alert.alert('Hata', 'PDF yüklenemedi');
+            Alert.alert('Error', 'Failed to load PDF');
           }}
           onLinkPressed={(uri) => {
-            console.log('PDF link pressed:', uri);
             // HTTP/HTTPS linkleri tarayıcıda aç
             if (uri.startsWith('http://') || uri.startsWith('https://')) {
               Linking.openURL(uri).catch((err) => {
-                console.error('Link açılamadı:', err);
-                Alert.alert('Hata', 'Link açılamadı');
+                Alert.alert('Error', 'Failed to open link');
               });
             }
           }}
@@ -157,17 +153,14 @@ const PDFViewerScreen = ({ navigation }) => {
           showsVerticalScrollIndicator={true}
           showsHorizontalScrollIndicator={true}
           onShouldStartLoadWithRequest={(request) => {
-            console.log('WebView link request:', request.url);
             // PDF dosyası ile ilgili URL'ler WebView içinde açılsın
             if (request.url.includes(pdfUri) || request.url.includes('blob:') || request.url.includes('data:')) {
               return true;
             }
             // Diğer tüm linkler (http, https) telefon tarayıcısında açılsın
             if (request.url.startsWith('http://') || request.url.startsWith('https://')) {
-              console.log('Opening external link in browser:', request.url);
               Linking.openURL(request.url).catch((err) => {
-                console.error('Link açılamadı:', err);
-                Alert.alert('Hata', 'Link açılamadı');
+                Alert.alert('Error', 'Failed to open link');
               });
               return false;
             }

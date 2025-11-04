@@ -128,7 +128,7 @@ export default function AppNavigator() {
         <Stack.Screen 
           name="EbookViewer" 
           component={EbookViewerScreen}
-          options={{ headerShown: true, title: 'E-Kitap' }}
+          options={{ headerShown: true, title: 'E-Booklet' }}
         />
         <Stack.Screen 
           name="PDFViewer" 

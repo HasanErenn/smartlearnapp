@@ -98,7 +98,6 @@ export default function ExploreScreen({ navigation }) {
       selectedTopics
     };
     
-    console.log('ExploreScreen - Sending filters:', filters);
     navigation.navigate('SearchResults', { filters });
   };
 
