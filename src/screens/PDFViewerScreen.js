@@ -87,6 +87,16 @@ const PDFViewerScreen = ({ navigation }) => {
             console.log('PDF Error:', error);
             Alert.alert('Hata', 'PDF yüklenemedi');
           }}
+          onLinkPressed={(uri) => {
+            console.log('PDF link pressed:', uri);
+            // HTTP/HTTPS linkleri tarayıcıda aç
+            if (uri.startsWith('http://') || uri.startsWith('https://')) {
+              Linking.openURL(uri).catch((err) => {
+                console.error('Link açılamadı:', err);
+                Alert.alert('Hata', 'Link açılamadı');
+              });
+            }
+          }}
           style={styles.pdf}
           enablePaging={true}
           horizontal={false}
@@ -147,13 +157,18 @@ const PDFViewerScreen = ({ navigation }) => {
           showsVerticalScrollIndicator={true}
           showsHorizontalScrollIndicator={true}
           onShouldStartLoadWithRequest={(request) => {
+            console.log('WebView link request:', request.url);
             // PDF dosyası ile ilgili URL'ler WebView içinde açılsın
             if (request.url.includes(pdfUri) || request.url.includes('blob:') || request.url.includes('data:')) {
               return true;
             }
             // Diğer tüm linkler (http, https) telefon tarayıcısında açılsın
             if (request.url.startsWith('http://') || request.url.startsWith('https://')) {
-              Linking.openURL(request.url);
+              console.log('Opening external link in browser:', request.url);
+              Linking.openURL(request.url).catch((err) => {
+                console.error('Link açılamadı:', err);
+                Alert.alert('Hata', 'Link açılamadı');
+              });
               return false;
             }
             return true;

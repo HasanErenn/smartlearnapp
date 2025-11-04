@@ -21,8 +21,13 @@ export default function SearchResultsScreen({ route, navigation }) {
   const [filteredEbooks, setFilteredEbooks] = useState([]);
   
   useEffect(() => {
+    console.log('SearchResultsScreen - Filters:', filters);
+    console.log('SearchResultsScreen - Total ebooks:', EBOOKS.length);
+    
     // Filtreleri uygula
     const results = filterEbooks(EBOOKS, filters);
+    console.log('SearchResultsScreen - Filtered results:', results.length, results);
+    
     setFilteredEbooks(results);
   }, [filters]);
   

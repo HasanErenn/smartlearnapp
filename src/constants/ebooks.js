@@ -517,6 +517,58 @@ export const enhanceEbooks = (ebooks) => {
   }));
 };
 
+// Duration'ları dakika cinsine çevir
+const parseDurationToMinutes = (durationCode) => {
+  if (!durationCode) return 0;
+  
+  // Aralık değerleri (örn: "20_45_mins", "15_25_mins")
+  if (durationCode.includes('_mins') && durationCode.split('_').length === 3) {
+    const parts = durationCode.split('_');
+    const start = parseInt(parts[0]);
+    const end = parseInt(parts[1]);
+    return (start + end) / 2; // Ortalama değer
+  }
+  
+  // Tek değer (örn: "40_mins", "60_mins")
+  if (durationCode.includes('_mins')) {
+    const minutes = parseInt(durationCode.replace('_mins', ''));
+    return minutes;
+  }
+  
+  // Saat değerleri
+  if (durationCode.includes('_hours')) {
+    const hours = parseFloat(durationCode.replace('_hours', '').replace('_', '.'));
+    return hours * 60;
+  }
+  
+  // Özel durumlar
+  if (durationCode === 'one_month') return 43200; // 30 gün * 24 saat * 60 dakika
+  if (durationCode === 'all') return 999999;
+  
+  return 0;
+};
+
+// Duration'ın seçilen aralığa uygun olup olmadığını kontrol et
+const isDurationInRange = (ebookDuration, selectedTimeRange) => {
+  const ebookMinutes = parseDurationToMinutes(ebookDuration);
+  
+  // Seçilen aralık değerleri
+  const rangeMap = {
+    '15_25_mins': [15, 25],
+    '25_45_mins': [25, 45],
+    '40_mins': [35, 45],      // 40 dakika için ±5 dakika tolerans
+    '60_mins': [55, 65],      // 60 dakika için ±5 dakika tolerans
+    '1_2_hours': [60, 120],
+    'one_month': [1000, 999999],
+    'all': [0, 999999]
+  };
+  
+  const range = rangeMap[selectedTimeRange];
+  if (!range) return false;
+  
+  return ebookMinutes >= range[0] && ebookMinutes <= range[1];
+};
+
 // E-book filtreleme için yardımcı fonksiyonlar
 export const filterEbooks = (ebooks, filters) => {
   let filtered = [...ebooks]; // Orijinal ebook objelerini koru
@@ -538,9 +590,16 @@ export const filterEbooks = (ebooks, filters) => {
   
   // Süre filtresi - "all" seçilirse filtreleme yapma
   if (filters.selectedTimes && filters.selectedTimes.length > 0 && !filters.selectedTimes.includes('all')) {
-    filtered = filtered.filter(ebook => 
-      filters.selectedTimes.includes(ebook.duration)
-    );
+    console.log('Filtering by duration:', filters.selectedTimes);
+    filtered = filtered.filter(ebook => {
+      const matches = filters.selectedTimes.some(selectedTime => {
+        const isMatch = isDurationInRange(ebook.duration, selectedTime);
+        console.log(`Ebook "${ebook.title}" duration "${ebook.duration}" matches "${selectedTime}":`, isMatch);
+        return isMatch;
+      });
+      return matches;
+    });
+    console.log('After duration filter:', filtered.length, 'books remain');
   }
   
   return filtered;
