@@ -1,18 +1,23 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Switch, Alert } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Switch, Alert, Linking } from 'react-native';
 import { globalStyles } from '../styles/globalStyles';
 import { Colors, Spacing, Typography } from '../constants/theme';
 
 export default function SettingsScreen({ navigation }) {
-  const [settings, setSettings] = useState({
-    autoUpdate: true,
-  });
-
-  const toggleSetting = (key) => {
-    setSettings(prev => ({
-      ...prev,
-      [key]: !prev[key]
-    }));
+  const contactSupport = () => {
+    const email = 'smartlearnmobile@gmail.com';
+    const subject = 'Support Request - Smart Learn App';
+    const body = 'Hello IT Team,\n\nI need assistance with:\n\n';
+    
+    const mailtoUrl = `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    
+    Linking.openURL(mailtoUrl).catch(() => {
+      Alert.alert(
+        'Contact IT Team',
+        `Please send an email to: ${email}`,
+        [{ text: 'OK', style: 'default' }]
+      );
+    });
   };
 
   const showAbout = () => {
@@ -31,20 +36,15 @@ export default function SettingsScreen({ navigation }) {
 
       <ScrollView style={styles.content}>
         <View style={styles.section}>
-          <Text style={styles.sectionTitle}>App Settings</Text>
+          <Text style={styles.sectionTitle}>Support</Text>
           
-          <View style={styles.settingItem}>
+          <TouchableOpacity style={styles.settingItem} onPress={contactSupport}>
             <View style={styles.settingInfo}>
-              <Text style={styles.settingName}>Auto Update</Text>
-              <Text style={styles.settingDescription}>Update app automatically</Text>
+              <Text style={styles.settingName}>Contact with IT Team</Text>
+              <Text style={styles.settingDescription}>smartlearnmobile@gmail.com</Text>
             </View>
-            <Switch
-              value={settings.autoUpdate}
-              onValueChange={() => toggleSetting('autoUpdate')}
-              trackColor={{ false: Colors.border, true: Colors.primary + '40' }}
-              thumbColor="#FFFFFF"
-            />
-          </View>
+            <Text style={styles.arrow}>›</Text>
+          </TouchableOpacity>
         </View>
 
         <View style={styles.section}>
