@@ -20,12 +20,8 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.smartlearn.mobileapp",
-      "buildNumber": "1.0.0",
-      "infoPlist": {
-        "NSCameraUsageDescription": "This app needs camera access to take photos.",
-        "NSPhotoLibraryUsageDescription": "This app needs photo library access to select images."
-      }
+      "bundleIdentifier": "com.smartlearnapp.smartlearn",
+      "buildNumber": "1.0.0"
     },
     "android": {
       "adaptiveIcon": {
@@ -33,13 +29,8 @@
         "backgroundColor": "#FFE1CC"
       },
       "edgeToEdgeEnabled": true,
-      "package": "com.smartlearn.mobileapp",
-      "versionCode": 1,
-      "permissions": [
-        "INTERNET",
-        "READ_EXTERNAL_STORAGE"
-      ],
-      "playStoreUrl": "https://play.google.com/store/apps/details?id=com.smartlearn.mobileapp"
+      "package": "com.smartlearnapp.smartlearn",
+      "versionCode": 1
     },
     "web": {
       "favicon": "./assets/favicon.png",
