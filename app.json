@@ -8,8 +8,6 @@
     "userInterfaceStyle": "light",
     "newArchEnabled": true,
     "description": "An educational mobile application for learning with interactive e-books and multimedia content",
-    "keywords": ["education", "learning", "ebooks", "smart", "mobile", "study"],
-    "privacy": "public",
     "splash": {
       "image": "./assets/splash-icon.png",
       "resizeMode": "contain",

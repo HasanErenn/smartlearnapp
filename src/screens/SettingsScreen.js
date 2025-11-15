@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Switch, Alert, Linking } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Switch, Alert, Linking, Image } from 'react-native';
 import { globalStyles } from '../styles/globalStyles';
 import { Colors, Spacing, Typography } from '../constants/theme';
 
@@ -15,6 +15,18 @@ export default function SettingsScreen({ navigation }) {
       Alert.alert(
         'Contact IT Team',
         `Please send an email to: ${email}`,
+        [{ text: 'OK', style: 'default' }]
+      );
+    });
+  };
+
+  const showPrivacyPolicy = () => {
+    const privacyPolicyUrl = 'https://www.smartlearn.com.tr/_files/ugd/73f208_e79bb8944e7649098ce46a4414e67302.pdf';
+    
+    Linking.openURL(privacyPolicyUrl).catch(() => {
+      Alert.alert(
+        'Error',
+        'Unable to open Privacy Policy. Please check your internet connection.',
         [{ text: 'OK', style: 'default' }]
       );
     });
@@ -39,6 +51,10 @@ export default function SettingsScreen({ navigation }) {
           <Text style={styles.sectionTitle}>Support</Text>
           
           <TouchableOpacity style={styles.settingItem} onPress={contactSupport}>
+            <Image 
+              source={require('../../assets/icons/mail-icon.png')} 
+              style={styles.settingIcon}
+            />
             <View style={styles.settingInfo}>
               <Text style={styles.settingName}>Contact with IT Team</Text>
               <Text style={styles.settingDescription}>smartlearnmobile@gmail.com</Text>
@@ -50,7 +66,23 @@ export default function SettingsScreen({ navigation }) {
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>Information</Text>
           
+          <TouchableOpacity style={styles.settingItem} onPress={showPrivacyPolicy}>
+            <Image 
+              source={require('../../assets/icons/privacy-policy-icon.png')} 
+              style={styles.settingIcon}
+            />
+            <View style={styles.settingInfo}>
+              <Text style={styles.settingName}>Privacy Policy</Text>
+              <Text style={styles.settingDescription}>How we protect your privacy</Text>
+            </View>
+            <Text style={styles.arrow}>›</Text>
+          </TouchableOpacity>
+
           <TouchableOpacity style={styles.settingItem} onPress={showAbout}>
+            <Image 
+              source={require('../../assets/icons/About.png')} 
+              style={styles.settingIcon}
+            />
             <View style={styles.settingInfo}>
               <Text style={styles.settingName}>About</Text>
               <Text style={styles.settingDescription}>App version and information</Text>
@@ -106,8 +138,15 @@ const styles = StyleSheet.create({
     shadowRadius: 3,
     elevation: 2,
   },
+  settingIcon: {
+    width: 24,
+    height: 24,
+    marginRight: Spacing.md,
+    tintColor: Colors.primary,
+  },
   settingInfo: {
     flex: 1,
+    marginLeft: Spacing.sm,
     marginRight: Spacing.md,
   },
   settingName: {
