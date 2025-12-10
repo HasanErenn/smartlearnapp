@@ -2,7 +2,7 @@
   "expo": {
     "name": "Smart Learn",
     "slug": "smartlearn",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
@@ -19,7 +19,7 @@
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.smartlearnapp.smartlearn",
-      "buildNumber": "1.0.0"
+      "buildNumber": "1.0.1"
     },
     "android": {
       "adaptiveIcon": {
@@ -28,7 +28,7 @@
       },
       "edgeToEdgeEnabled": true,
       "package": "com.smartlearnapp.smartlearn",
-      "versionCode": 1
+      "versionCode": 3
     },
     "web": {
       "favicon": "./assets/favicon.png",

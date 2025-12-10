@@ -21,7 +21,7 @@ export default function SettingsScreen({ navigation }) {
   };
 
   const showPrivacyPolicy = () => {
-    const privacyPolicyUrl = 'https://www.smartlearn.com.tr/_files/ugd/73f208_e79bb8944e7649098ce46a4414e67302.pdf';
+    const privacyPolicyUrl = 'https://www.smartlearn.com.tr/privacy-policy-for-smart-learn-mobile-ap';
     
     Linking.openURL(privacyPolicyUrl).catch(() => {
       Alert.alert(
