@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Switch, Alert, Linking, Image } from 'react-native';
+import Constants from 'expo-constants';
 import { globalStyles } from '../styles/globalStyles';
 import { Colors, Spacing, Typography } from '../constants/theme';
 
@@ -35,7 +36,7 @@ export default function SettingsScreen({ navigation }) {
   const showAbout = () => {
     Alert.alert(
       'Smart Learn',
-      'Version 1.0.0\nThis application is completely free. If you encounter any errors or shortcomings, please contact us.',
+      `Version ${Constants.expoConfig?.version ?? 'unknown'}\nThis application is completely free. If you encounter any errors or shortcomings, please contact us.`,
       [{ text: 'OK', style: 'default' }]
     );
   };
